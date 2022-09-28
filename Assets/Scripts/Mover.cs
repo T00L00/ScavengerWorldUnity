@@ -26,6 +26,7 @@ namespace ScavengerWorld
 
         public Interactable Target { get; set; }
 
+        public float Speed => navigator.velocity.magnitude;
         public float StopDistance => navigator.stoppingDistance;
 
         private void Awake()
