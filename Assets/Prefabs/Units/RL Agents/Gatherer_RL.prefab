@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 2888883386126920074}
   - component: {fileID: 2897765493906085161}
   m_Layer: 6
-  m_Name: Gatherer
+  m_Name: Gatherer_RL
   m_TagString: agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,6 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0563fbec3f88cc942aa4d32300bd31fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  availableActions:
+  - actionLogic: {fileID: 11400000, guid: bea8d7f0eaa1e8247a3cc025837c50b3, type: 2}
 --- !u!114 &1321734716633193770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c592009e1648f7c428c42cfc4083765e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sensor:
+    radius: 0
   inventory:
     maxCapacity: 15
     isStorageDepot: 0
@@ -140,15 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayTesting: 0
-  unit: {fileID: 1321734716633193770}
-  mover: {fileID: 396005088559902576}
-  actorAgent: {fileID: 3512852978811062502}
-  actionsAvailable:
-  - actionLogic: {fileID: 11400000, guid: bea8d7f0eaa1e8247a3cc025837c50b3, type: 2}
-  - actionLogic: {fileID: 11400000, guid: e35afa87cb601af4b8b4c95d304e9cf7, type: 2}
-  - actionLogic: {fileID: 11400000, guid: bc7bf01fb0d32a34caa151d740db9fa6, type: 2}
-  - actionLogic: {fileID: 11400000, guid: 2955f3d01cb42ee4d8d48324e31d8939, type: 2}
-  - actionLogic: {fileID: 11400000, guid: 7911c22978671a349a74a3d34df80fec, type: 2}
 --- !u!114 &7951467764302214664
 MonoBehaviour:
   m_ObjectHideFlags: 0

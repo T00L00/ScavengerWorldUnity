@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4223548434042297096}
   - component: {fileID: 4223548434042297099}
   m_Layer: 0
-  m_Name: FullGameArena
+  m_Name: FullGameArena_RL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

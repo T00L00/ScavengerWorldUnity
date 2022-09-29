@@ -61,6 +61,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0563fbec3f88cc942aa4d32300bd31fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  availableActions:
+  - actionLogic: {fileID: 11400000, guid: e35afa87cb601af4b8b4c95d304e9cf7, type: 2}
 --- !u!114 &4455862213655604859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c592009e1648f7c428c42cfc4083765e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sensor:
+    radius: 0
   inventory:
     maxCapacity: 1000
     isStorageDepot: 1

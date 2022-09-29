@@ -12,7 +12,7 @@ namespace ScavengerWorld
     {
         [SerializeField] protected ActionLogic actionLogic;
 
-        public ActionType ActionType => actionLogic.actionType;
+        //public ActionType ActionType => actionLogic.actionType;
 
         public string Name => actionLogic.name;
 

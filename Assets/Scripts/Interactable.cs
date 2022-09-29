@@ -6,6 +6,8 @@ namespace ScavengerWorld
 {
     public class Interactable : MonoBehaviour
     {
+        public List<Action> availableActions;
+
         private Unit unit;
         private Damageable damageable;
         private Gatherable gatherable;
