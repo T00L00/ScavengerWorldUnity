@@ -29,33 +29,33 @@ namespace ScavengerWorld
 
         public void OnAttackEnemyButton()
         {
-            actionRunner.SetCurrentAction(ActionType.attackenemy);
+            //actionRunner.SetCurrentAction(ActionType.attackenemy);
         }
 
         public void OnAttackStorageButton()
         {
-            actionRunner.SetCurrentAction(ActionType.attackstorage);
+            //actionRunner.SetCurrentAction(ActionType.attackstorage);
         }
 
         public void OnGatherButton()
         {
-            actionRunner.SetCurrentAction(ActionType.gather);
+            //actionRunner.SetCurrentAction(ActionType.gather);
         }
 
         public void OnDropoffButton()
         {
-            actionRunner.SetCurrentAction(ActionType.dropoff);
+            //actionRunner.SetCurrentAction(ActionType.dropoff);
         }
 
         public void OnMoveButton()
         {
-            actionRunner.SetCurrentAction(ActionType.move, 
-                new Vector3(Random.Range(-20f, 20f), 0f, Random.Range(-20f, 20f)));
+            //actionRunner.SetCurrentAction(ActionType.move, 
+                //new Vector3(Random.Range(-20f, 20f), 0f, Random.Range(-20f, 20f)));
         }
 
         public void OnIdleButton()
         {
-            actionRunner.SetCurrentAction(ActionType.none);
+            //actionRunner.SetCurrentAction(ActionType.none);
         }
 
         public void OnResetArena()

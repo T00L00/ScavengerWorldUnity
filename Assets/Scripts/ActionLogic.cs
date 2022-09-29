@@ -6,7 +6,7 @@ namespace ScavengerWorld
 {
     public abstract class ActionLogic : ScriptableObject
     {
-        public ActionType actionType;
+        //public ActionType actionType;
 
         [TextArea(1,5)]
         public string description;

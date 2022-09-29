@@ -18,6 +18,7 @@ namespace ScavengerWorld
     [RequireComponent(typeof(Interactable))]
     public class Unit : MonoBehaviour
     {
+        [SerializeField] private Sensor sensor;
         [SerializeField] private Inventory inventory;
         [SerializeField] private Stats stats;
 
@@ -64,6 +65,11 @@ namespace ScavengerWorld
         {
             if (behaviorParameters != null) 
                 behaviorParameters.TeamId = TeamId;
+        }
+
+        public List<Interactable> Pulse()
+        {
+            return sensor.Pulse(transform.position);
         }
 
         public void Attack(Damageable enemy)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6381572944613408054}
   - component: {fileID: 7609469407334280115}
   m_Layer: 0
-  m_Name: OneWarriorTeam
+  m_Name: OneWarriorTeam_RL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
