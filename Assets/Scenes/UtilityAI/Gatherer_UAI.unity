@@ -720,6 +720,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4223548434042297099, guid: 1ef2a16bebd683d4b9903cc4e6cda8fd,
+        type: 3}
+      propertyPath: NumFood
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599241941872147828, guid: 1ef2a16bebd683d4b9903cc4e6cda8fd,
+        type: 3}
+      propertyPath: availableUtilityActions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599241941872147828, guid: 1ef2a16bebd683d4b9903cc4e6cda8fd,
+        type: 3}
+      propertyPath: availableUtilityActions.Array.data[0].considerations.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9165964953081708982, guid: 1ef2a16bebd683d4b9903cc4e6cda8fd,
+        type: 3}
+      propertyPath: availableUtilityActions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9165964953081708982, guid: 1ef2a16bebd683d4b9903cc4e6cda8fd,
+        type: 3}
+      propertyPath: availableUtilityActions.Array.data[0].saveData
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9165964953081708982, guid: 1ef2a16bebd683d4b9903cc4e6cda8fd,
+        type: 3}
+      propertyPath: availableUtilityActions.Array.data[0].considerations.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ef2a16bebd683d4b9903cc4e6cda8fd, type: 3}
 --- !u!1 &371643260
