@@ -11,6 +11,11 @@ namespace ScavengerWorld
         [TextArea(1,5)]
         public string description;
 
+        public static ActionLogic Load(string name)
+        {
+            return Resources.Load<ActionLogic>($"ActionLogics/{name}");
+        }
+
         public abstract bool RequiresInRange(Unit unit, Interactable target);
 
         public abstract bool IsAchievable(Unit unit, Interactable target);

@@ -77,7 +77,7 @@ namespace ScavengerWorld.AI.UtilityAI
             }
             else if (useableActions[nextBestActionIndex].Name != SelectedAction.Name)
             {
-                if (selectedAction.Weight <= useableActions[nextBestActionIndex].Score / selectedAction.Score)
+                if (selectedAction.weight <= useableActions[nextBestActionIndex].Score / selectedAction.Score)
                 {
                     selectedAction = useableActions[nextBestActionIndex];
                 }

@@ -22,6 +22,14 @@ namespace ScavengerWorld.AI.UtilityAI
             }
         }
 
+        public Consideration(string name, float weight, AnimationCurve responseCurve, ConsiderationScorer scorer)
+        {
+            Name = name;
+            Weight = weight;
+            this.responseCurve = responseCurve;
+            this.scorer = scorer;
+        }
+
         public void ScoreConsideration(Unit unit, Interactable target, int considerationCount)
         {
             float rawScore = scorer.ScoreConsideration(unit, target, responseCurve);
@@ -35,6 +43,11 @@ namespace ScavengerWorld.AI.UtilityAI
             float makeupValue = (1 - originalScore) * modificationFactor;
             score = originalScore + (makeupValue * originalScore);
             return score;
+        }
+
+        public SerializedConsideration Serialize()
+        {
+            return new SerializedConsideration(this);
         }
     }
 }
