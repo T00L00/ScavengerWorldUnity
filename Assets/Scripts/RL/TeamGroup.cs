@@ -8,7 +8,7 @@ namespace ScavengerWorld.AI
     public class TeamGroup : MonoBehaviour
     {
         [SerializeField] private Unit storage;
-        [SerializeField] private List<ActorAgent> actorAgents;
+        [SerializeField] private List<Unit> units;
 
         public int FoodStored => storage.InventoryItemCount;
         public int TeamId { get; set; }
@@ -18,10 +18,14 @@ namespace ScavengerWorld.AI
 
         void Awake()
         {
-            foreach (var agent in actorAgents)
+            foreach (Unit u in units)
             {
-                group.RegisterAgent(agent);
-                agent.Unit.StorageDepot = storage;
+                if (u.ActorAgent != null)
+                {
+                    group.RegisterAgent(u.ActorAgent);
+                }
+                
+                u.StorageDepot = storage;
             }
         }
 
@@ -35,14 +39,14 @@ namespace ScavengerWorld.AI
         {
             // TODO: Randomly place units around the center transform
 
-            foreach (var agent in actorAgents)
+            foreach (Unit u in units)
             {
-                agent.Unit.TeamId = teamId;
-                agent.Unit.Damageable.ResetHealth();
-                agent.Unit.ActionRunner.CancelCurrentAction();
-                agent.Unit.Mover.ResetNavigator();
-                agent.transform.position = storage.transform.position;                              
-                agent.gameObject.SetActive(true);
+                u.TeamId = teamId;
+                u.Damageable.ResetHealth();
+                u.ActionRunner.CancelCurrentAction();
+                u.Mover.ResetNavigator();
+                u.transform.position = storage.transform.position;                              
+                u.gameObject.SetActive(true);
             }
             storage.TeamId = teamId;
             storage.RemoveAllItems();
@@ -54,15 +58,15 @@ namespace ScavengerWorld.AI
         {
             teamColor = c;
             storage.SetColor(teamColor);
-            foreach (var agent in actorAgents)
+            foreach (Unit u in units)
             {
-                agent.Unit.SetColor(teamColor);
+                u.SetColor(teamColor);
             }
         }
 
         public bool IsAlive()
         {
-            return actorAgents.Any(a => a.gameObject.activeInHierarchy);
+            return units.Any(u => u.gameObject.activeInHierarchy);
         }
     }
 

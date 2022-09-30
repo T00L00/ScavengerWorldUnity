@@ -12,6 +12,11 @@ namespace ScavengerWorld
             return true;
         }
 
+        public override bool IsAchievable(Unit unit, Interactable target)
+        {
+            return unit.HowFullIsInventory < 1f;
+        }
+
         public override void StartAction(Unit unit, Interactable target)
         {
             unit.AddItem(target.Gatherable);

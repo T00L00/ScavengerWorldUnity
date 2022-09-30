@@ -7,8 +7,6 @@ namespace ScavengerWorld.AI
 {
     public interface IAIBrain
     {
-        public event UnityAction<Action> OnDecideAction;
-
         public Action SelectedAction { get; }
     }
 }

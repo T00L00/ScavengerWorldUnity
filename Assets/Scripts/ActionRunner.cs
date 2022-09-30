@@ -115,6 +115,7 @@ namespace ScavengerWorld
         /// </summary>
         public void ClearCurrentAction()
         {
+            aiBrain.ClearCurrentAction();
             CurrentAction.IsRunning = false;
             CurrentAction = null;
         }

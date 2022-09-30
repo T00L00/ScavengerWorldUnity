@@ -9,10 +9,20 @@ using UnityEngine;
 
 namespace ScavengerWorld
 {
+    public enum AISystem
+    {
+        RL,
+        FSM,
+        UtilityAI,
+        Goap
+    }
+
     // Arena reset = all food collected, one team remaining
 
     public class ArenaManager : MonoBehaviour
     {
+        [SerializeField] private AISystem aiSystem; 
+
         [Range(50, 10000)]
         [SerializeField]  private int maxStep = 1000;
         [SerializeField] private Interactable moveHereIfNoActionMarker;
@@ -38,20 +48,37 @@ namespace ScavengerWorld
 
         private void OnEnable()
         {
-            Academy.Instance.OnEnvironmentReset += ResetArena;
-            Academy.Instance.AgentPreStep += AgentStep;
+            if (aiSystem == AISystem.RL)
+            {
+                Academy.Instance.OnEnvironmentReset += ResetArena;
+                Academy.Instance.AgentPreStep += AgentStep;
+            }            
         }
 
         private void OnDisable()
         {
-            Academy.Instance.OnEnvironmentReset -= ResetArena;
-            Academy.Instance.AgentPreStep -= AgentStep;
+            if (aiSystem == AISystem.RL)
+            {
+                Academy.Instance.OnEnvironmentReset -= ResetArena;
+                Academy.Instance.AgentPreStep -= AgentStep;
+            }            
         }
 
         private void OnApplicationQuit()
         {
             foodSpawner.DestroyGameObjects();
             moveMarkerPool.Clear();
+        }
+
+        private void Update()
+        {
+            if (aiSystem != AISystem.RL)
+            {
+                if (foodSpawner.AllFoodGathered())
+                {
+                    ResetArena();
+                }
+            }
         }
 
         void AgentStep(int step)

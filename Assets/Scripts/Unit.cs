@@ -27,6 +27,7 @@ namespace ScavengerWorld
         private Damageable damageable;
         private Mover mover;
         private ActionRunner actionRunner;
+        private ActorAgent actorAgent;
         private BehaviorParameters behaviorParameters;
         
         public Stats Stats => stats;
@@ -35,12 +36,14 @@ namespace ScavengerWorld
         public Damageable Damageable => damageable;
         public Mover Mover => mover;
         public ActionRunner ActionRunner => actionRunner;
+        public ActorAgent ActorAgent => actorAgent;
         public ArenaManager ArenaManager { get; private set; }
 
         public int TeamId { get; set; }
         public float HowFullIsInventory => inventory.HowFull();
         public int InventoryItemCount => inventory.ItemCount;
         public bool IsStorageDepot => inventory.IsStorageDepot;
+        public float SensorRange => sensor.Radius;
 
         public event UnityAction<float> OnRewardEarned;
 
@@ -50,6 +53,7 @@ namespace ScavengerWorld
             interactable = GetComponent<Interactable>();
             mover = GetComponent<Mover>();
             actionRunner = GetComponent<ActionRunner>();
+            actorAgent = GetComponent<ActorAgent>();
             behaviorParameters = GetComponentInChildren<BehaviorParameters>();
             ArenaManager = GetComponentInParent<TeamGroup>().GetComponentInParent<ArenaManager>();
 

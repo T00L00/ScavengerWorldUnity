@@ -11,7 +11,9 @@ namespace ScavengerWorld
         [TextArea(1,5)]
         public string description;
 
-        public abstract bool RequiresInRange(Unit agent, Interactable target);
+        public abstract bool RequiresInRange(Unit unit, Interactable target);
+
+        public abstract bool IsAchievable(Unit unit, Interactable target);
 
         /// <summary>
         /// Logic to run before time-dependent logic runs. Good for checking things
@@ -19,14 +21,14 @@ namespace ScavengerWorld
         /// </summary>
         /// <param name="agent"></param>
         /// <param name="target"></param>
-        public abstract void StartAction(Unit agent, Interactable target);
+        public abstract void StartAction(Unit unit, Interactable target);
 
         /// <summary>
         /// Time-dependent action logic goes here. Ex: gathering over time
         /// </summary>
         /// <param name="agent"></param>
         /// <param name="target"></param>
-        public abstract void UpdateAction(Unit agent, Interactable target);
+        public abstract void UpdateAction(Unit unit, Interactable target);
 
         /// <summary>
         /// Logic to run after time-dependent logic has run. Good for any cleanup
@@ -34,6 +36,6 @@ namespace ScavengerWorld
         /// </summary>
         /// <param name="agent"></param>
         /// <param name="target"></param>
-        public abstract void StopAction(Unit agent, Interactable target);
+        public abstract void StopAction(Unit unit, Interactable target);
     }
 }

@@ -33,6 +33,7 @@ namespace ScavengerWorld
         {
             navigator = GetComponent<NavMeshAgent>();
             unit = GetComponent<Unit>();
+            navigator.autoRepath = true;
         }
 
         public void Move(Vector3 pos)
@@ -40,7 +41,7 @@ namespace ScavengerWorld
             navigator.SetDestination(pos);
         }
 
-        public bool HasReachedTarget(Interactable target) => Vector3.Distance(transform.position, target.transform.position) <= navigator.stoppingDistance;
+        public bool HasReachedTarget(Interactable target) => Vector3.Distance(transform.position, target.transform.position) <= target.useRange;
 
         public void MoveToTarget(Interactable target)
         {
