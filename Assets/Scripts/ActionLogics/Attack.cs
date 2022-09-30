@@ -12,6 +12,11 @@ namespace ScavengerWorld
             return true;
         }
 
+        public override bool IsAchievable(Unit unit, Interactable target)
+        {
+            return unit.Interactable != target;
+        }
+
         public override void StartAction(Unit unit, Interactable target)
         {
             unit.Attack(target.Damageable);

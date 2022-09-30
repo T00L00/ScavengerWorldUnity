@@ -26,6 +26,8 @@ namespace ScavengerWorld
 
         public bool RequiresInRange(Unit unit) => actionLogic.RequiresInRange(unit, Target);
 
+        public bool IsAchievable(Unit unit) => actionLogic.IsAchievable(unit, Target);
+
         public void StartAction(Unit unit)
         {
             IsRunning = true;

@@ -10,23 +10,10 @@ namespace ScavengerWorld.AI
     /// </summary>
     public class AIBrain : MonoBehaviour, IAIBrain
     {
-        public Action SelectedAction { get; private set; }
+        public virtual Action SelectedAction { get; private set; }
 
-        public event UnityAction<Action> OnDecideAction;
+        public UnityAction<Action> OnDecideAction;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
-
-
-
+        public virtual void ClearCurrentAction() { }
     }
 }

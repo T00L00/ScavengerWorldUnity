@@ -61,8 +61,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0563fbec3f88cc942aa4d32300bd31fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availableActions:
-  - actionLogic: {fileID: 11400000, guid: e35afa87cb601af4b8b4c95d304e9cf7, type: 2}
+  availableActions: []
+  availableUtilityActions:
+  - actionLogic: {fileID: 11400000, guid: bc7bf01fb0d32a34caa151d740db9fa6, type: 2}
+    Weight: 1
+    considerations:
+    - Name: Inventory Capacity
+      Weight: 1
+      responseCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 2
+          outSlope: 2
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 0
+      scorer: {fileID: 11400000, guid: 61a182e9c160e704789bf872cc9b2ff4, type: 2}
 --- !u!114 &4455862213655604859
 MonoBehaviour:
   m_ObjectHideFlags: 0

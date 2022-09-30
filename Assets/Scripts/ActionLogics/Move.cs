@@ -12,6 +12,11 @@ namespace ScavengerWorld
             return false;
         }
 
+        public override bool IsAchievable(Unit unit, Interactable target)
+        {
+            return true;
+        }
+
         public override void StartAction(Unit unit, Interactable target)
         {
             unit.Mover.MoveToTarget(target);                      // Use this for regular game
