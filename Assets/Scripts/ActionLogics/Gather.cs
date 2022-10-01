@@ -19,18 +19,31 @@ namespace ScavengerWorld
 
         public override void StartAction(Unit unit, Interactable target)
         {
-            unit.AddItem(target.Gatherable);
-            StopAction(unit, target);
+            //unit.AddItem(target.Gatherable);
+            //StopAction(unit, target);
+            unit.AnimController.AnimateAction(animation);
         }
 
         public override void StopAction(Unit unit, Interactable target)
         {
+            unit.AnimController.StopActionAnimation();
             unit.ActionRunner.ClearCurrentAction();
         }
 
         public override void UpdateAction(Unit unit, Interactable target)
         {
-            // Gather logic here if it happens over time
+            unit.ActionRunner.AddActionProgress(TheGame.Instance.GameHourPerRealSecond * unit.Stats.gatherRate * Time.deltaTime);
+            if (unit.ActionRunner.ActionProgress >= 1f)
+            {
+                unit.ActionRunner.SetActionProgress(0f);
+                unit.AddItem(target.Gatherable, 1);
+                Debug.Log($"Unit inventory: {unit.HowFullIsInventory}");
+            }
+
+            if (target.Gatherable.AmountAvailable == 0)
+            {
+                StopAction(unit, target);
+            }
         }
     }
 }

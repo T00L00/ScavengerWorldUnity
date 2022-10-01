@@ -19,10 +19,13 @@ namespace ScavengerWorld
         [Range(20f, 50f)]
         [Tooltip("Max range from (0,0,0) to alternatively explore if AI told agent to go off the map")]
         [SerializeField] private float explorationRange = 40f;
+        [Range(10f, 30f)]
+        [SerializeField] private float rotateSpeed = 20f;
         [SerializeField] private LayerMask interactableLayer;
         [SerializeField] private NavMeshAgent navigator;
                 
         private Unit unit;
+        private Vector3 facing;
 
         public Interactable Target { get; set; }
 
@@ -34,6 +37,27 @@ namespace ScavengerWorld
             navigator = GetComponent<NavMeshAgent>();
             unit = GetComponent<Unit>();
             navigator.autoRepath = true;
+            navigator.updateRotation = false;
+        }
+
+        private void Update()
+        {
+            HandleRotation();
+        }
+
+        public void HandleRotation()
+        {
+            if (navigator.hasPath)
+            {
+                facing = navigator.steeringTarget - transform.position;
+                facing.y = 0f;
+                facing.Normalize();
+
+                //Apply Rotation
+                Quaternion targ_rot = Quaternion.LookRotation(facing, Vector3.up);
+                Quaternion nrot = Quaternion.Slerp(transform.rotation, targ_rot, rotateSpeed * Time.deltaTime);
+                transform.rotation = nrot;
+            }
         }
 
         public void Move(Vector3 pos)
@@ -52,11 +76,6 @@ namespace ScavengerWorld
         {
             navigator.velocity = Vector3.zero;
             navigator.ResetPath();
-        }
-
-        public void HandleRotation()
-        {
-            // To be implemented if needed
         }
 
         public bool FoodIsNearby(out Gatherable gatherable)

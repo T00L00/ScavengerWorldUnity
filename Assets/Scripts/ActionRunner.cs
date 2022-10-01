@@ -48,8 +48,10 @@ namespace ScavengerWorld
         private Unit unit;
         private Mover mover;
         private AIBrain aiBrain;
+        private float actionProgress;
 
         public Action CurrentAction { get; private set; }
+        public float ActionProgress => actionProgress;
 
         private void Awake()
         {
@@ -93,6 +95,16 @@ namespace ScavengerWorld
             }
 
             CurrentAction.UpdateAction(unit);
+        }
+
+        public void AddActionProgress(float amount)
+        {
+            actionProgress += amount;
+        }
+
+        public void SetActionProgress(float value)
+        {
+            actionProgress = value;
         }
 
         public void SetCurrentAction(Action action)
