@@ -9,7 +9,7 @@ namespace ScavengerWorld
     {
         public int attackDamage;
 
-        [Tooltip("Amount gathered every time gather action executes")]
+        [Tooltip("Amount harvested per game-hour")]
         public int gatherRate;
     }
 }

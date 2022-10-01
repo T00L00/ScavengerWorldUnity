@@ -83,7 +83,7 @@ namespace ScavengerWorld.AI.UtilityAI
                 }
             }
 
-            Debug.Log($"Best action: {selectedAction.Name}");
+            //Debug.Log($"Best action: {selectedAction.Name}");
 
             OnDecideAction?.Invoke(SelectedAction);
         }

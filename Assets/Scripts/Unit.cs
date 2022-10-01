@@ -27,6 +27,7 @@ namespace ScavengerWorld
         private Damageable damageable;
         private Mover mover;
         private ActionRunner actionRunner;
+        private AnimationController animController;
         private ActorAgent actorAgent;
         private BehaviorParameters behaviorParameters;
         
@@ -36,6 +37,7 @@ namespace ScavengerWorld
         public Damageable Damageable => damageable;
         public Mover Mover => mover;
         public ActionRunner ActionRunner => actionRunner;
+        public AnimationController AnimController => animController;
         public ActorAgent ActorAgent => actorAgent;
         public ArenaManager ArenaManager { get; private set; }
 
@@ -53,6 +55,7 @@ namespace ScavengerWorld
             interactable = GetComponent<Interactable>();
             mover = GetComponent<Mover>();
             actionRunner = GetComponent<ActionRunner>();
+            animController = GetComponent<AnimationController>();
             actorAgent = GetComponent<ActorAgent>();
             behaviorParameters = GetComponentInChildren<BehaviorParameters>();
             ArenaManager = GetComponentInParent<TeamGroup>().GetComponentInParent<ArenaManager>();
@@ -81,16 +84,16 @@ namespace ScavengerWorld
             // play little animation
             enemy.TakeDamage(stats.attackDamage);
         }
-        
-        public void AddItem(Gatherable gatherable)
+
+        public void AddItem(Gatherable gatherable, int amount)
         {
             if (inventory.HowFull() == 1f) return;
 
-            if (inventory.WillBeOverfilled(stats.gatherRate)) return;
+            if (inventory.WillBeOverfilled(amount)) return;
 
-            if (gatherable.AmountAvailable > stats.gatherRate)
+            if (gatherable.AmountAvailable > amount)
             {
-                inventory.Add(gatherable.Take(stats.gatherRate));
+                inventory.Add(gatherable.Take(amount));
                 return;
             }
 

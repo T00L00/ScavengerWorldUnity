@@ -10,6 +10,7 @@ namespace ScavengerWorld
 
         [TextArea(1,5)]
         public string description;
+        public AnimationClip animation;
 
         public static ActionLogic Load(string name)
         {
