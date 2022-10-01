@@ -37,7 +37,6 @@ namespace ScavengerWorld
             {
                 unit.ActionRunner.SetActionProgress(0f);
                 unit.AddItem(target.Gatherable, 1);
-                Debug.Log($"Unit inventory: {unit.HowFullIsInventory}");
             }
 
             if (target.Gatherable.AmountAvailable == 0)

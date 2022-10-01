@@ -57,9 +57,9 @@ namespace ScavengerWorld
 
         public void StopActionAnimation()
         {
-            actionState.Enable = false;
-            locomotionState.Enable = true;
+            actionState.Enable = false;            
             UpdateLocomotionState();
+            locomotionState.Enable = true;
             stateMachine.TrySetState(locomotionState);
             actionState.Reset();
         }
