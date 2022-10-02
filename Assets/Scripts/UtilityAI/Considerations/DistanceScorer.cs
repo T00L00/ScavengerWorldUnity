@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ScavengerWorld.AI.UtilityAI
+namespace ScavengerWorld.AI.UAI
 {
     [CreateAssetMenu(menuName = "Scavenger World/AI/Utility AI/Consideration Scorers/Distance Scorer")]
     public class DistanceScorer : ConsiderationScorer

@@ -35,7 +35,7 @@ namespace ScavengerWorld
             unit.ActionRunner.AddActionProgress(TheGame.Instance.GameHourPerRealSecond * unit.Stats.gatherRate * Time.deltaTime);
             if (unit.ActionRunner.ActionProgress >= 1f)
             {
-                unit.ActionRunner.SetActionProgress(0f);
+                unit.ActionRunner.ResetActionProgress();
                 unit.AddItem(target.Gatherable, 1);
             }
 

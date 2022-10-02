@@ -47,7 +47,7 @@ namespace ScavengerWorld
 
         private Unit unit;
         private Mover mover;
-        private AIBrain aiBrain;
+        private AIController aiController;
         private float actionProgress;
 
         public Action CurrentAction { get; private set; }
@@ -57,19 +57,19 @@ namespace ScavengerWorld
         {
             unit = GetComponent<Unit>();
             mover = GetComponent<Mover>();
-            aiBrain = GetComponent<AIBrain>();
+            aiController = GetComponent<AIController>();
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            aiBrain.OnDecideAction += SetCurrentAction;
+            aiController.OnDecideAction += SetCurrentAction;
             //actorAgent.OnReceivedActions += OnReceivedActions;
         }
 
         private void OnDestroy()
         {
-            aiBrain.OnDecideAction -= SetCurrentAction;
+            aiController.OnDecideAction -= SetCurrentAction;
             //actorAgent.OnReceivedActions -= OnReceivedActions;
         }
 
@@ -102,9 +102,9 @@ namespace ScavengerWorld
             actionProgress += amount;
         }
 
-        public void SetActionProgress(float value)
+        public void ResetActionProgress()
         {
-            actionProgress = value;
+            actionProgress = 0f;
         }
 
         public void SetCurrentAction(Action action)
@@ -127,7 +127,7 @@ namespace ScavengerWorld
         /// </summary>
         public void ClearCurrentAction()
         {
-            aiBrain.ClearCurrentAction();
+            aiController.ClearSelectedAction();
             CurrentAction.IsRunning = false;
             CurrentAction = null;
         }

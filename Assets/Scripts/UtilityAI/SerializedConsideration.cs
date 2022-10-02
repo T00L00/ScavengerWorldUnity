@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ScavengerWorld.AI.UtilityAI
+namespace ScavengerWorld.AI.UAI
 {
     [Serializable]
     public struct SerializedConsideration

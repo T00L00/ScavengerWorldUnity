@@ -1,4 +1,4 @@
-using ScavengerWorld.AI.UtilityAI;
+using ScavengerWorld.AI.UAI;
 using System;
 using System.Collections;
 using System.Collections.Generic;

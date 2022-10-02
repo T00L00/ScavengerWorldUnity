@@ -26,6 +26,7 @@ namespace ScavengerWorld
         private Interactable interactable;
         private Damageable damageable;
         private Mover mover;
+        private AIController aiController;
         private ActionRunner actionRunner;
         private AnimationController animController;
         private ActorAgent actorAgent;
@@ -36,6 +37,7 @@ namespace ScavengerWorld
         public Interactable Interactable => interactable;
         public Damageable Damageable => damageable;
         public Mover Mover => mover;
+        public AIController AIController => aiController;
         public ActionRunner ActionRunner => actionRunner;
         public AnimationController AnimController => animController;
         public ActorAgent ActorAgent => actorAgent;
@@ -55,6 +57,7 @@ namespace ScavengerWorld
             interactable = GetComponent<Interactable>();
             mover = GetComponent<Mover>();
             actionRunner = GetComponent<ActionRunner>();
+            aiController = GetComponent<AIController>();
             animController = GetComponent<AnimationController>();
             actorAgent = GetComponent<ActorAgent>();
             behaviorParameters = GetComponentInChildren<BehaviorParameters>();

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ScavengerWorld.AI.UtilityAI
+namespace ScavengerWorld.AI.UAI
 {
     public abstract class ConsiderationScorer : ScriptableObject
     {
