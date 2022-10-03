@@ -7,7 +7,8 @@ namespace ScavengerWorld
 {
     public class Weapon : MonoBehaviour
     {
-        public float damageModifier;
-        public List<UtilityAction> availableActions;
+        [Range(1f, 3f)]
+        [SerializeField] private float damageModifier = 1f;
+        public List<UtilityAction> attackActions;
     }
 }

@@ -18,6 +18,7 @@ namespace ScavengerWorld
     [RequireComponent(typeof(Interactable))]
     public class Unit : MonoBehaviour
     {
+        [SerializeField] private Weapon weapon;
         [SerializeField] private Sensor sensor;
         [SerializeField] private Inventory inventory;
         [SerializeField] private Stats stats;
@@ -31,7 +32,8 @@ namespace ScavengerWorld
         private AnimationController animController;
         private ActorAgent actorAgent;
         private BehaviorParameters behaviorParameters;
-        
+
+        public Weapon Weapon => weapon;
         public Stats Stats => stats;
         public Unit StorageDepot { get; set; }
         public Interactable Interactable => interactable;

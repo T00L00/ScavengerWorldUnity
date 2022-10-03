@@ -50,7 +50,7 @@ namespace ScavengerWorld.AI
             }
         }
 
-        public void SetState(AIState state)
+        public void SetState(AIState state, Interactable target=null)
         {
             switch (state)
             {
@@ -58,6 +58,7 @@ namespace ScavengerWorld.AI
                     currentAI = defaultAI;
                     break;
                 case AIState.Combat:
+                    combatAI.Target = target;
                     currentAI = combatAI;
                     break;
                 default:
