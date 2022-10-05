@@ -8,9 +8,15 @@ namespace ScavengerWorld.AI.UAI
     {
         public Interactable Target { get; set; }
 
+        public CombatUtilityAI()
+        {
+            
+        }
+
         public override void GetUseableActions(Unit unit)
         {
-            useableActions = unit.Weapon.attackActions;
+            useableActions.Clear();
+            useableActions.AddRange(unit.Weapon.attackActions);
             foreach (Action a in useableActions)
             {
                 a.Target = this.Target;

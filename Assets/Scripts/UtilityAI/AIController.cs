@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ScavengerWorld.AI.UAI;
 using UnityEngine.Events;
+using Google.Protobuf.WellKnownTypes;
 
 namespace ScavengerWorld.AI
 {
@@ -18,12 +19,13 @@ namespace ScavengerWorld.AI
         private CombatUtilityAI combatAI;
         private UtilityAI defaultAI;
         private UtilityAI currentAI;
+        private AIState aiState;
+        private UtilityAction selectedAction;
 
         public UnityAction<Action> OnDecideAction;
 
-        public Action SelectedAction { get; private set; }
-
-        public bool InCombat { get; private set; }
+        public AIState AIState => aiState;
+        public Action SelectedAction => selectedAction;
 
         // Start is called before the first frame update
         void Start()
@@ -37,13 +39,13 @@ namespace ScavengerWorld.AI
         // Update is called once per frame
         void Update()
         {
-            if (SelectedAction is null)
+            if (selectedAction is null)
             {
                 currentAI.GetUseableActions(unit);
                 if (currentAI.useableActions.Count == 0) return;
 
-                SelectedAction = currentAI.DecideBestAction(unit);
-                if (SelectedAction != null)
+                selectedAction = currentAI.DecideBestAction(unit);
+                if (selectedAction != null)
                 {
                     OnDecideAction?.Invoke(SelectedAction);
                 }
@@ -55,9 +57,11 @@ namespace ScavengerWorld.AI
             switch (state)
             {
                 case AIState.Default:
+                    aiState = state;
                     currentAI = defaultAI;
                     break;
                 case AIState.Combat:
+                    aiState = state;
                     combatAI.Target = target;
                     currentAI = combatAI;
                     break;
@@ -68,7 +72,7 @@ namespace ScavengerWorld.AI
 
         public void ClearSelectedAction()
         {
-            SelectedAction = null;
+            selectedAction = null;
         }
     }
 }

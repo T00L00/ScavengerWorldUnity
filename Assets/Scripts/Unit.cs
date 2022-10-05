@@ -9,6 +9,12 @@ using UnityEngine.Events;
 
 namespace ScavengerWorld
 {
+    public enum UnitClass
+    {
+        Gatherer,
+        Warrior
+    }
+
     /// <summary>
     /// Responsible for holding gameplay data about unit and 
     /// handling unit-specific changes.
@@ -18,6 +24,7 @@ namespace ScavengerWorld
     [RequireComponent(typeof(Interactable))]
     public class Unit : MonoBehaviour
     {
+        [SerializeField] private UnitClass unitClass;
         [SerializeField] private Weapon weapon;
         [SerializeField] private Sensor sensor;
         [SerializeField] private Inventory inventory;
@@ -33,6 +40,7 @@ namespace ScavengerWorld
         private ActorAgent actorAgent;
         private BehaviorParameters behaviorParameters;
 
+        public UnitClass UnitClass => unitClass;
         public Weapon Weapon => weapon;
         public Stats Stats => stats;
         public Unit StorageDepot { get; set; }
@@ -57,10 +65,10 @@ namespace ScavengerWorld
         {
             damageable = GetComponent<Damageable>();
             interactable = GetComponent<Interactable>();
-            mover = GetComponent<Mover>();
+            mover = GetComponentInChildren<Mover>();
             actionRunner = GetComponent<ActionRunner>();
             aiController = GetComponent<AIController>();
-            animController = GetComponent<AnimationController>();
+            animController = GetComponentInChildren<AnimationController>();
             actorAgent = GetComponent<ActorAgent>();
             behaviorParameters = GetComponentInChildren<BehaviorParameters>();
             ArenaManager = GetComponentInParent<TeamGroup>().GetComponentInParent<ArenaManager>();

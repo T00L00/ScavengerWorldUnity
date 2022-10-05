@@ -46,7 +46,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageModifier: 0
-  attackActions: []
+  attackActions:
+  - actionLogic: {fileID: 11400000, guid: bea8d7f0eaa1e8247a3cc025837c50b3, type: 2}
+    weight: 1
+    considerations:
+    - Name: Enemy health
+      Weight: 1
+      responseCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 0
+      scorer: {fileID: 11400000, guid: a0cb589dba98d664f81248b7c4e64fbd, type: 2}
 --- !u!1001 &3063123950835667026
 PrefabInstance:
   m_ObjectHideFlags: 0

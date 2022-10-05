@@ -4,12 +4,18 @@ using Unity.MLAgents;
 using UnityEngine;
 using UnityEngine.Events;
 using ScavengerWorld.AI;
+using UnityEngine.UIElements;
 
 namespace ScavengerWorld.AI.UAI
 {
     public class UtilityAI
     {
-        public List<UtilityAction> useableActions = new();
+        public readonly List<UtilityAction> useableActions = new();
+
+        public UtilityAI()
+        {
+            
+        }
 
         public virtual void GetUseableActions(Unit unit)
         {
@@ -46,10 +52,11 @@ namespace ScavengerWorld.AI.UAI
             {
                 return null;
             }
-                
-            selectedAction = useableActions[nextBestActionIndex];
-            Debug.Log($"Best action: {selectedAction.Name}");
 
+            selectedAction = useableActions[nextBestActionIndex];
+            //Debug.Log($"Best action: {selectedAction.Name}");
+            Debug.Log($"Best action: {selectedAction.Name}");
+            //return selectedAction;
             return selectedAction;
         }
 

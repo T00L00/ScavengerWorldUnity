@@ -22,7 +22,7 @@ namespace ScavengerWorld
 
         private void Awake()
         {
-            unit = GetComponent<Unit>();
+            unit = GetComponentInParent<Unit>();
             mover = GetComponent<Mover>();
             freeLocomotionState = new(animancer, freeLocomotionAnimation);
             loadedLocomotionState = new(animancer, loadedLocomotionAnimation);

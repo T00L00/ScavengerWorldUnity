@@ -176,7 +176,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 55071881}
-  - component: {fileID: 55071880}
   m_Layer: 0
   m_Name: AcademyFixedUpdateStepper
   m_TagString: Untagged
@@ -184,18 +183,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &55071880
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55071879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 921106601}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &55071881
 Transform:
   m_ObjectHideFlags: 1
@@ -2074,8 +2061,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170821361}
-  m_LocalRotation: {x: 0.15895543, y: 0.7963964, z: -0.23747976, w: 0.5330004}
-  m_LocalPosition: {x: -24.195427, y: 14.7043, z: 9.885487}
+  m_LocalRotation: {x: 0.10440925, y: 0.76242447, z: -0.12718998, w: 0.6258038}
+  m_LocalPosition: {x: -11.190213, y: 4.003538, z: 4.607581}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2374,6 +2361,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998679508458606720, guid: a5cc0a73a3d04194b9e844b8b4a7775d,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5cc0a73a3d04194b9e844b8b4a7775d, type: 3}

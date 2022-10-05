@@ -1,15 +1,16 @@
+using ScavengerWorld.AI;
+using ScavengerWorld;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ScavengerWorld.AI;
 
-namespace ScavengerWorld
+namespace ScavengerWorld.AI
 {
     /// <summary>
-    /// Action that tells AI to switch to combat state
+    /// Performs attack move specified by animation clip
     /// </summary>
-    [CreateAssetMenu(menuName = "Scavenger World/Action Logics/Attack")]
-    public class Attack : ActionLogic
+    [CreateAssetMenu(menuName = "Scavenger World/Action Logics/Attack Move")]
+    public class AttackMove : ActionLogic
     {
         public override bool RequiresInRange(Unit unit, Interactable target)
         {
@@ -18,7 +19,7 @@ namespace ScavengerWorld
 
         public override bool IsAchievable(Unit unit, Interactable target)
         {
-            return unit.UnitClass == UnitClass.Warrior && unit.Interactable != target;
+            return unit.AIController.AIState == AIState.Combat;
         }
 
         public override void StartAction(Unit unit, Interactable target)
@@ -31,18 +32,18 @@ namespace ScavengerWorld
             //}
             //StopAction(unit, target);
 
-            unit.AIController.SetState(AIState.Combat, target);
-            StopAction(unit, target);
+            Debug.Log($"{unit.gameObject.name} does attack move!");
+            unit.AnimController.AnimateAction(animation);
         }
 
         public override void StopAction(Unit unit, Interactable target)
         {
-            unit.ActionRunner.ClearCurrentAction();
+            //unit.ActionRunner.ClearCurrentAction();
         }
 
         public override void UpdateAction(Unit unit, Interactable target)
         {
-            
+
         }
     }
 }

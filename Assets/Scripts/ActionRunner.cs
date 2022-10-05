@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.Dynamic;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
+using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.Timeline;
+using UnityEngine.UI;
 
 namespace ScavengerWorld
 {
@@ -37,7 +39,6 @@ namespace ScavengerWorld
     /// (e.g. gather, attack, drop off)
     /// </summary>
     [RequireComponent(typeof(Unit))]
-    [RequireComponent(typeof(Mover))]
     public class ActionRunner : MonoBehaviour
     {
         [SerializeField] private bool gameplayTesting;
@@ -56,7 +57,7 @@ namespace ScavengerWorld
         private void Awake()
         {
             unit = GetComponent<Unit>();
-            mover = GetComponent<Mover>();
+            mover = GetComponentInChildren<Mover>();
             aiController = GetComponent<AIController>();
         }
 
