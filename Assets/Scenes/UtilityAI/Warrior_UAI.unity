@@ -2204,8 +2204,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170821361}
-  m_LocalRotation: {x: -0.101603314, y: 0.8924946, z: -0.2516224, w: -0.3603003}
-  m_LocalPosition: {x: 7.789836, y: 6.5659113, z: 5.8501434}
+  m_LocalRotation: {x: -0.24868546, y: -0.31074157, z: 0.08462168, w: -0.91347384}
+  m_LocalPosition: {x: -7.0490055, y: 7.2175426, z: -17.561039}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2277,7 +2277,7 @@ PrefabInstance:
     - target: {fileID: 4696175720596570484, guid: fd384e2b2bd95dd4d9919695c68d94f1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.15
+      value: 1.37
       objectReference: {fileID: 0}
     - target: {fileID: 4696175720596570484, guid: fd384e2b2bd95dd4d9919695c68d94f1,
         type: 3}
@@ -2287,12 +2287,12 @@ PrefabInstance:
     - target: {fileID: 4696175720596570484, guid: fd384e2b2bd95dd4d9919695c68d94f1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.58
+      value: -12.95
       objectReference: {fileID: 0}
     - target: {fileID: 4696175720596570484, guid: fd384e2b2bd95dd4d9919695c68d94f1,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7310601
+      value: 0.9130601
       objectReference: {fileID: 0}
     - target: {fileID: 4696175720596570484, guid: fd384e2b2bd95dd4d9919695c68d94f1,
         type: 3}
@@ -2302,7 +2302,7 @@ PrefabInstance:
     - target: {fileID: 4696175720596570484, guid: fd384e2b2bd95dd4d9919695c68d94f1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.68231314
+      value: -0.40782514
       objectReference: {fileID: 0}
     - target: {fileID: 4696175720596570484, guid: fd384e2b2bd95dd4d9919695c68d94f1,
         type: 3}
@@ -2317,7 +2317,7 @@ PrefabInstance:
     - target: {fileID: 4696175720596570484, guid: fd384e2b2bd95dd4d9919695c68d94f1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -86.049
+      value: -48.137
       objectReference: {fileID: 0}
     - target: {fileID: 4696175720596570484, guid: fd384e2b2bd95dd4d9919695c68d94f1,
         type: 3}
@@ -2332,7 +2332,7 @@ PrefabInstance:
     - target: {fileID: 4696175720596937876, guid: fd384e2b2bd95dd4d9919695c68d94f1,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd384e2b2bd95dd4d9919695c68d94f1, type: 3}
@@ -2612,7 +2612,7 @@ PrefabInstance:
     - target: {fileID: 4732169508890922411, guid: 96209d22049e76d478b20951e2e4e3b2,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96209d22049e76d478b20951e2e4e3b2, type: 3}

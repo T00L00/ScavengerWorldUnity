@@ -51,6 +51,15 @@ namespace ScavengerWorld
         private AIController aiController;
         private float actionProgress;
 
+        public bool ActionIsRunning 
+        { 
+            get
+            {
+                if (CurrentAction is null) return false;
+                return CurrentAction.IsRunning;
+            }
+        }
+
         public Action CurrentAction { get; private set; }
         public float ActionProgress => actionProgress;
 
@@ -64,12 +73,14 @@ namespace ScavengerWorld
         // Start is called before the first frame update
         void Start()
         {
+            mover.OnReachedInteractableTarget += StartCurrentAction;
             aiController.OnDecideAction += SetCurrentAction;
             //actorAgent.OnReceivedActions += OnReceivedActions;
         }
 
         private void OnDestroy()
         {
+            mover.OnReachedInteractableTarget -= StartCurrentAction;
             aiController.OnDecideAction -= SetCurrentAction;
             //actorAgent.OnReceivedActions -= OnReceivedActions;
         }
@@ -77,25 +88,30 @@ namespace ScavengerWorld
         // Update is called once per frame
         void Update()
         {
-            if (CurrentAction is null || CurrentAction.IsEmpty) return;
+            //if (CurrentAction is null || CurrentAction.IsEmpty) return;
 
-            if (CurrentAction.RequiresInRange(unit))
+            //if (CurrentAction.RequiresInRange(unit))
+            //{
+            //    if (!mover.HasReachedTarget(CurrentAction.Target))
+            //    {
+            //        mover.MoveToTarget(CurrentAction.Target);
+            //        return;
+            //    }
+            //    mover.StopMoving();
+            //}
+
+            //if (!CurrentAction.IsRunning)
+            //{
+            //    CurrentAction.StartAction(unit);
+            //    return;
+            //}
+
+            //CurrentAction.UpdateAction(unit);
+
+            if (ActionIsRunning)
             {
-                if (!mover.HasReachedTarget(CurrentAction.Target))
-                {
-                    mover.MoveToTarget(CurrentAction.Target);
-                    return;
-                }
-                mover.StopMoving();
+                CurrentAction.UpdateAction(unit);
             }
-
-            if (!CurrentAction.IsRunning)
-            {
-                CurrentAction.StartAction(unit);
-                return;
-            }
-
-            CurrentAction.UpdateAction(unit);
         }
 
         public void AddActionProgress(float amount)
@@ -112,7 +128,17 @@ namespace ScavengerWorld
         {
             CancelCurrentAction();
             CurrentAction = action;
-            CurrentAction.IsRunning = false;
+            mover.MoveToInteractable(CurrentAction.Target);
+        }
+
+        public void StartCurrentAction()
+        {
+            if (CurrentAction is null) return;
+
+            if (mover.TargetInteractable == CurrentAction.Target)
+            {
+                CurrentAction.StartAction(unit);
+            }
         }
 
         /// <summary>
@@ -121,6 +147,8 @@ namespace ScavengerWorld
         public void CancelCurrentAction()
         {
             CurrentAction?.StopAction(unit);
+            mover.TargetInteractable = null;
+            CurrentAction = null;
         }
 
         /// <summary>

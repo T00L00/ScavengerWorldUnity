@@ -20,8 +20,11 @@ namespace ScavengerWorld
         //    Unit enemyUnit = other.GetComponent<Mover>()?.Unit;
         //    if (enemyUnit != unit && enemyUnit != null)
         //    {
-        //        enemyUnit.Damageable.TakeDamage(unit.Stats.attackDamage * damageModifier);
-        //    }           
+        //        float totalDamage = unit.Weapon.DamageModifier * unit.Stats.baseDamage;
+        //        enemyUnit.Damageable.TakeDamage(totalDamage);
+        //        enemyUnit.Attributes.Poise.Reduce(totalDamage * 0.5f);
+        //        enemyUnit.Attributes.Energy.Reduce(totalDamage * 0.2f);
+        //    }
 
         //    //Debug.Log($"Sword hit dealing {totalDamage}!");
         //}
