@@ -16,7 +16,7 @@ namespace ScavengerWorld
 
         public string Name => actionLogic.name;
 
-        public virtual bool IsEmpty => actionLogic is null;        
+        public virtual bool IsEmpty => actionLogic is null;
 
         public Interactable Target { get; set; }
 

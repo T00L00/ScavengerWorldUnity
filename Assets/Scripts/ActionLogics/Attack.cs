@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ScavengerWorld.AI;
 
 namespace ScavengerWorld
 {
+    /// <summary>
+    /// Action that tells AI to switch to combat state
+    /// </summary>
     [CreateAssetMenu(menuName = "Scavenger World/Action Logics/Attack")]
     public class Attack : ActionLogic
     {
@@ -14,17 +18,20 @@ namespace ScavengerWorld
 
         public override bool IsAchievable(Unit unit, Interactable target)
         {
-            return unit.Interactable != target;
+            return unit.UnitClass == UnitClass.Warrior && unit.Interactable != target;
         }
 
         public override void StartAction(Unit unit, Interactable target)
         {
-            unit.Attack(target.Damageable);
-            if (target.Damageable.CurrentHealth == 0f)
-            {
-                unit.SetReward(0.05f);
-                target.Unit?.SetReward(-0.05f);
-            }
+            //unit.Attack(target.Damageable);
+            //if (target.Damageable.CurrentHealth == 0f)
+            //{
+            //    unit.SetReward(0.05f);
+            //    target.Unit?.SetReward(-0.05f);
+            //}
+            //StopAction(unit, target);
+
+            unit.AIController.SetState(AIState.Combat, target);
             StopAction(unit, target);
         }
 

@@ -9,6 +9,12 @@ using UnityEngine.Events;
 
 namespace ScavengerWorld
 {
+    public enum UnitClass
+    {
+        Gatherer,
+        Warrior
+    }
+
     /// <summary>
     /// Responsible for holding gameplay data about unit and 
     /// handling unit-specific changes.
@@ -18,24 +24,32 @@ namespace ScavengerWorld
     [RequireComponent(typeof(Interactable))]
     public class Unit : MonoBehaviour
     {
+        [SerializeField] private UnitClass unitClass;
+        [SerializeField] private Weapon weapon;
         [SerializeField] private Sensor sensor;
         [SerializeField] private Inventory inventory;
         [SerializeField] private Stats stats;
 
+        private Collider hitBox;
         private MeshRenderer meshRenderer;
         private Interactable interactable;
         private Damageable damageable;
         private Mover mover;
+        private AIController aiController;
         private ActionRunner actionRunner;
         private AnimationController animController;
         private ActorAgent actorAgent;
         private BehaviorParameters behaviorParameters;
-        
+
+        public UnitClass UnitClass => unitClass;
+        public Weapon Weapon => weapon;
         public Stats Stats => stats;
+        public Collider HitBox => hitBox;
         public Unit StorageDepot { get; set; }
         public Interactable Interactable => interactable;
         public Damageable Damageable => damageable;
         public Mover Mover => mover;
+        public AIController AIController => aiController;
         public ActionRunner ActionRunner => actionRunner;
         public AnimationController AnimController => animController;
         public ActorAgent ActorAgent => actorAgent;
@@ -51,14 +65,16 @@ namespace ScavengerWorld
 
         void Awake()
         {
+            hitBox = GetComponent<Collider>();
             damageable = GetComponent<Damageable>();
             interactable = GetComponent<Interactable>();
             mover = GetComponent<Mover>();
             actionRunner = GetComponent<ActionRunner>();
+            aiController = GetComponent<AIController>();
             animController = GetComponent<AnimationController>();
             actorAgent = GetComponent<ActorAgent>();
             behaviorParameters = GetComponentInChildren<BehaviorParameters>();
-            ArenaManager = GetComponentInParent<TeamGroup>().GetComponentInParent<ArenaManager>();
+            ArenaManager = GetComponentInParent<TeamGroup>()?.GetComponentInParent<ArenaManager>();
 
             meshRenderer = GetComponentInChildren<MeshRenderer>();
             if (meshRenderer is null)

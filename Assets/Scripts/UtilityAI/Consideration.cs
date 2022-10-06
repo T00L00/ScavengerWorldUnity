@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ScavengerWorld.AI.UtilityAI
+namespace ScavengerWorld.AI.UAI
 {
     [System.Serializable]
     public class Consideration

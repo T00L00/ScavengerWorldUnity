@@ -33,7 +33,7 @@ namespace ScavengerWorld
 
         public override void UpdateAction(Unit unit, Interactable target)
         {
-            if (unit.AnimController.IsPlaying)
+            if (unit.AnimController.ActionIsPlaying)
             {
                 return;
             }

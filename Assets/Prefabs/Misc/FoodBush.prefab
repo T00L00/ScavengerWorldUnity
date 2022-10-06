@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4732169508890922410}
   - component: {fileID: 6749220509964194853}
   - component: {fileID: 4785840062285578286}
-  - component: {fileID: 3870282029895900152}
   m_Layer: 6
   m_Name: FoodBush
   m_TagString: Untagged
@@ -120,19 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingAmount: 3
---- !u!65 &3870282029895900152
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4732169508890922411}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 1, z: 2}
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &4732169509131954500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -216,3 +202,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4732169509131954500}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4732169509131988964 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 7688a6962527bde4d83b00e2a45ec107,
+    type: 3}
+  m_PrefabInstance: {fileID: 4732169509131954500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &4414493491422861666
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4732169509131988964}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.4645586, y: 1.0825802, z: 2.9020486}
+  m_Center: {x: 0.10593122, y: 0.5359078, z: 0.23976833}

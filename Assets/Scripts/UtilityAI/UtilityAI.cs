@@ -3,36 +3,21 @@ using System.Collections.Generic;
 using Unity.MLAgents;
 using UnityEngine;
 using UnityEngine.Events;
+using ScavengerWorld.AI;
+using UnityEngine.UIElements;
 
-namespace ScavengerWorld.AI.UtilityAI
+namespace ScavengerWorld.AI.UAI
 {
-    public class UtilityAI : AIBrain
+    public class UtilityAI
     {
-        private Unit unit;
+        public readonly List<UtilityAction> useableActions = new();
 
-        private UtilityAction selectedAction;
-        private List<UtilityAction> useableActions = new();
-
-        public override Action SelectedAction => selectedAction;
-
-        void Awake()
+        public UtilityAI()
         {
-            unit = GetComponent<Unit>();
+            
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (selectedAction is null)
-            {
-                GetUseableActions();
-                if (useableActions.Count == 0) return;
-
-                DecideBestAction(useableActions, unit);                
-            }
-        }
-
-        private void GetUseableActions()
+        public virtual void GetUseableActions(Unit unit)
         {
             useableActions.Clear();
             List<Interactable> interactables = unit.Pulse();
@@ -45,15 +30,12 @@ namespace ScavengerWorld.AI.UtilityAI
             }
         }
 
-        public override void ClearCurrentAction()
-        {
-            selectedAction = null;
-        }
-
         #region Decide best action
 
-        private void DecideBestAction(List<UtilityAction> useableActions, Unit unit)
+        public UtilityAction DecideBestAction(Unit unit)
         {
+            UtilityAction selectedAction = null;
+
             float highestScore = 0f;
             int nextBestActionIndex = 0;
             for (int i = 0; i < useableActions.Count; i++)
@@ -68,24 +50,14 @@ namespace ScavengerWorld.AI.UtilityAI
 
             if (highestScore == 0)
             {
-                return;
+                return null;
             }
 
-            if (selectedAction is null)
-            {
-                selectedAction = useableActions[nextBestActionIndex];
-            }
-            else if (useableActions[nextBestActionIndex].Name != SelectedAction.Name)
-            {
-                if (selectedAction.weight <= useableActions[nextBestActionIndex].Score / selectedAction.Score)
-                {
-                    selectedAction = useableActions[nextBestActionIndex];
-                }
-            }
-
+            selectedAction = useableActions[nextBestActionIndex];
             //Debug.Log($"Best action: {selectedAction.Name}");
-
-            OnDecideAction?.Invoke(SelectedAction);
+            //Debug.Log($"Best action: {selectedAction.Name}");
+            //return selectedAction;
+            return selectedAction;
         }
 
         private void ScoreAction(UtilityAction action, Unit unit)

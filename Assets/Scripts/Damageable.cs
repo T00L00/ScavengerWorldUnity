@@ -9,15 +9,20 @@ namespace ScavengerWorld
     {
         [SerializeField] private Attribute health;
 
+        private Unit unit;
         private Interactable interactable;
 
+        public Unit Unit => unit;
         public Interactable Interactable => interactable;
         public float CurrentHealth => health.CurrentValue;
         public float HealthPercentage => health.Percentage;
-        public bool IsAlive { get; private set; }
+
+        public bool IsAlive => health.CurrentValue > 0f;
 
         private void Awake()
         {
+            unit = GetComponent<Unit>();
+            interactable = GetComponent<Interactable>();
             health.Reset();
         }
 
@@ -26,22 +31,34 @@ namespace ScavengerWorld
         {
             if (!IsAlive)
             {
-                gameObject.SetActive(false);
-            }
-            else if (health.CurrentValue == 0f)
-            {
-                IsAlive = false;
+                Die();
+                //gameObject.SetActive(false);
             }
         }
 
         public void TakeDamage(float amount)
         {
+            // Check if should stagger
+            if (unit != null)
+            {
+                if (unit.Stats.poise <= 0)
+                {
+                    unit.AnimController.AnimateStagger();
+                }
+            }
+            // Perform damage reduction calculation based on armor
+
             health.Reduce(amount);
+        }
+
+        public void Die()
+        {
+            unit.AnimController.AnimateDeath();
+            unit.HitBox.enabled = false;
         }
 
         public void ResetHealth()
         {
-            IsAlive = true;
             gameObject.SetActive(true);
             health.Reset();
         }

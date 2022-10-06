@@ -8,28 +8,37 @@ namespace ScavengerWorld
 {
     public class LocomotionState : State
     {
-        private AnimancerComponent animancer;
-        private LinearMixerTransition animation;
+        private AnimancerLayer baseLayer;
+        private AnimancerLayer staggerLayer;
+        private LinearMixerTransition locomotion;
+        private ClipTransition stagger;
 
         public bool Enable { get; set; }
 
         public override bool CanEnterState => Enable;
         public override bool CanExitState => !Enable;
 
-        public LocomotionState(AnimancerComponent animancer, LinearMixerTransition animation)
+        public LocomotionState(AnimancerLayer baseLayer, AnimancerLayer staggerLayer, LinearMixerTransition locomotion, ClipTransition stagger)
         {
-            this.animancer = animancer;
-            this.animation = animation;
+            this.baseLayer = baseLayer;
+            this.staggerLayer = staggerLayer;
+            this.locomotion = locomotion;
+            this.stagger = stagger;
         }
 
         public override void OnEnterState()
         {
-            animancer.Play(animation);
+            baseLayer.Play(locomotion);
+        }
+
+        public void AnimateStagger()
+        {
+            staggerLayer.Play(stagger);
         }
 
         public void SetSpeed(float speed)
         {
-            animation.State.Parameter = speed;
+            locomotion.State.Parameter = speed;
         }
     }
 }

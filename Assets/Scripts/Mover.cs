@@ -11,7 +11,6 @@ namespace ScavengerWorld
     /// <summary>
     /// Responsible for handling all movement related logic
     /// </summary>
-    [RequireComponent(typeof(NavMeshAgent))]
     public class Mover : MonoBehaviour
     {        
         [Range(5f, 100f)]
@@ -29,13 +28,15 @@ namespace ScavengerWorld
 
         public Interactable Target { get; set; }
 
+        public Unit Unit => unit;
         public float Speed => navigator.velocity.magnitude;
         public float StopDistance => navigator.stoppingDistance;
 
         private void Awake()
         {
-            navigator = GetComponent<NavMeshAgent>();
             unit = GetComponent<Unit>();
+
+            navigator = GetComponent<NavMeshAgent>();
             navigator.autoRepath = true;
             navigator.updateRotation = false;
         }
@@ -65,7 +66,11 @@ namespace ScavengerWorld
             navigator.SetDestination(pos);
         }
 
-        public bool HasReachedTarget(Interactable target) => Vector3.Distance(transform.position, target.transform.position) <= target.useRange;
+        public bool HasReachedTarget(Interactable target) 
+        {
+            //Debug.Log($"{gameObject.name} Position: {transform.position}");
+            return Vector3.Distance(transform.position, target.transform.position) <= target.useRange;
+        } 
 
         public void MoveToTarget(Interactable target)
         {

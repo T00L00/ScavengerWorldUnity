@@ -22,7 +22,7 @@ namespace ScavengerWorld
             Collider[] hitColliders = Physics.OverlapSphere(center, radius);
             foreach (Collider c in hitColliders)
             {
-                Interactable interactable = c.GetComponent<Interactable>();
+                Interactable interactable = c.GetComponentInParent<Interactable>();
                 if (interactable != null)
                 {
                     interactables.Add(interactable);

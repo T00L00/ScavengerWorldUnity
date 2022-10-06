@@ -14,7 +14,7 @@ namespace ScavengerWorld
 
         public override bool IsAchievable(Unit unit, Interactable target)
         {
-            return unit.HowFullIsInventory < 1f;
+            return unit.UnitClass == UnitClass.Gatherer && unit.HowFullIsInventory < 1f;
         }
 
         public override void StartAction(Unit unit, Interactable target)
@@ -35,7 +35,7 @@ namespace ScavengerWorld
             unit.ActionRunner.AddActionProgress(TheGame.Instance.GameHourPerRealSecond * unit.Stats.gatherRate * Time.deltaTime);
             if (unit.ActionRunner.ActionProgress >= 1f)
             {
-                unit.ActionRunner.SetActionProgress(0f);
+                unit.ActionRunner.ResetActionProgress();
                 unit.AddItem(target.Gatherable, 1);
             }
 
