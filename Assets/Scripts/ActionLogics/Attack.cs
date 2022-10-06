@@ -18,7 +18,9 @@ namespace ScavengerWorld
 
         public override bool IsAchievable(Unit unit, Interactable target)
         {
-            return unit.UnitClass == UnitClass.Warrior && unit.Interactable != target;
+            return unit.UnitClass == UnitClass.Warrior 
+                && unit.Interactable != target
+                && target.Damageable.IsAlive;
         }
 
         public override void StartAction(Unit unit, Interactable target)

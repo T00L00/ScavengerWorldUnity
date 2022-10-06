@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 7053714464449843559}
   - component: {fileID: 5151029280902210881}
   - component: {fileID: 1029977469498856005}
+  - component: {fileID: 9064060516784210176}
   - component: {fileID: 6904360440821930162}
   - component: {fileID: 7341816213874298672}
   - component: {fileID: 6900173975309043656}
@@ -545,9 +546,29 @@ MonoBehaviour:
     maxCapacity: 6
     isStorageDepot: 0
   stats:
-    attackDamage: 10
-    poise: 0
+    baseDamage: 5
+    attackSpeed: 0.5
+    energyReplenishRate: 10
+    poiseReplenishRate: 1
     gatherRate: 20
+--- !u!114 &9064060516784210176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4696175720596937876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7854711b1dd687c478818be5569237c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    maxValue: 100
+  energy:
+    maxValue: 80
+  poise:
+    maxValue: 10
 --- !u!114 &6904360440821930162
 MonoBehaviour:
   m_ObjectHideFlags: 0

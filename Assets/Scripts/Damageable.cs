@@ -32,20 +32,11 @@ namespace ScavengerWorld
             if (!IsAlive)
             {
                 Die();
-                //gameObject.SetActive(false);
             }
         }
 
         public void TakeDamage(float amount)
         {
-            // Check if should stagger
-            if (unit != null)
-            {
-                if (unit.Stats.poise <= 0)
-                {
-                    unit.AnimController.AnimateStagger();
-                }
-            }
             // Perform damage reduction calculation based on armor
 
             health.Reduce(amount);
@@ -54,7 +45,6 @@ namespace ScavengerWorld
         public void Die()
         {
             unit.AnimController.AnimateDeath();
-            unit.HitBox.enabled = false;
         }
 
         public void ResetHealth()

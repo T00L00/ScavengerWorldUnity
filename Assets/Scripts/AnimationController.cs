@@ -98,6 +98,15 @@ namespace ScavengerWorld
             stateMachine.TrySetState(deathState);
         }
 
+        public void AnimateAttackAction(AnimationClip clip)
+        {
+            locomotionState.Enable = false;
+            deathState.Enable = false;
+            actionState.Enable = true;
+            actionState.SetActionAnimation(clip, unit.Stats.attackSpeed);
+            stateMachine.TrySetState(actionState);
+        }
+
         public void AnimateAction(AnimationClip clip)
         {
             locomotionState.Enable = false;
@@ -144,7 +153,10 @@ namespace ScavengerWorld
                     Vector3 vectorToEnemy = (enemyUnit.transform.position - transform.position).normalized;
                     if (Vector3.Dot(vectorToEnemy, transform.forward) > 0.5) // hit occured within 90 degree arc in front
                     {
-                        enemyUnit.Damageable.TakeDamage(unit.Weapon.DamageModifier * unit.Stats.attackDamage);
+                        float totalDamage = unit.Weapon.DamageModifier * unit.Stats.baseDamage;
+                        enemyUnit.Damageable.TakeDamage(totalDamage);
+                        enemyUnit.Attributes.Poise.Reduce(totalDamage * 0.5f);
+                        enemyUnit.Attributes.Energy.Reduce(totalDamage * 0.2f);
                         //Debug.Log("hit!");
                     }
                 }
