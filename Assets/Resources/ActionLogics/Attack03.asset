@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   animation: {fileID: 7400000, guid: 323abf90ade8f674a96f3b3efbe695dc, type: 3}
+  energyCost: 50

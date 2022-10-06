@@ -12,8 +12,6 @@ namespace ScavengerWorld
     {
         [SerializeField] protected ActionLogic actionLogic;
 
-        //public ActionType ActionType => actionLogic.actionType;
-
         public string Name => actionLogic.name;
 
         public virtual bool IsEmpty => actionLogic is null;

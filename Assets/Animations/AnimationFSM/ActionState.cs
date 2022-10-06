@@ -51,15 +51,17 @@ namespace ScavengerWorld
             staggerLayer.Play(stagger);
         }
 
-        public void SetActionAnimation(AnimationClip clip)
+        public void SetActionAnimation(AnimationClip clip, float speed=1)
         {
             action.Clip = clip;
+            action.Speed = speed;
         }
 
         public void Reset()
         {            
             IsPlaying = false;
             action.Clip = null;
+            action.Speed = 1;
         }
 
         private void OnEnd()

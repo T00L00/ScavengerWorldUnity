@@ -30,7 +30,6 @@ namespace ScavengerWorld
         [SerializeField] private Inventory inventory;
         [SerializeField] private Stats stats;
 
-        private Collider hitBox;
         private MeshRenderer meshRenderer;
         private Interactable interactable;
         private Damageable damageable;
@@ -38,13 +37,14 @@ namespace ScavengerWorld
         private AIController aiController;
         private ActionRunner actionRunner;
         private AnimationController animController;
+        private CharacterAttributes attributes;
+
         private ActorAgent actorAgent;
         private BehaviorParameters behaviorParameters;
 
         public UnitClass UnitClass => unitClass;
         public Weapon Weapon => weapon;
         public Stats Stats => stats;
-        public Collider HitBox => hitBox;
         public Unit StorageDepot { get; set; }
         public Interactable Interactable => interactable;
         public Damageable Damageable => damageable;
@@ -52,6 +52,8 @@ namespace ScavengerWorld
         public AIController AIController => aiController;
         public ActionRunner ActionRunner => actionRunner;
         public AnimationController AnimController => animController;
+        public CharacterAttributes Attributes => attributes;
+        
         public ActorAgent ActorAgent => actorAgent;
         public ArenaManager ArenaManager { get; private set; }
 
@@ -65,13 +67,13 @@ namespace ScavengerWorld
 
         void Awake()
         {
-            hitBox = GetComponent<Collider>();
             damageable = GetComponent<Damageable>();
             interactable = GetComponent<Interactable>();
             mover = GetComponent<Mover>();
             actionRunner = GetComponent<ActionRunner>();
             aiController = GetComponent<AIController>();
             animController = GetComponent<AnimationController>();
+            attributes = GetComponent<CharacterAttributes>();
             actorAgent = GetComponent<ActorAgent>();
             behaviorParameters = GetComponentInChildren<BehaviorParameters>();
             ArenaManager = GetComponentInParent<TeamGroup>()?.GetComponentInParent<ArenaManager>();
@@ -98,7 +100,7 @@ namespace ScavengerWorld
         public void Attack(Damageable enemy)
         {
             // play little animation
-            enemy.TakeDamage(stats.attackDamage);
+            enemy.TakeDamage(stats.baseDamage);
         }
 
         public void AddItem(Gatherable gatherable, int amount)

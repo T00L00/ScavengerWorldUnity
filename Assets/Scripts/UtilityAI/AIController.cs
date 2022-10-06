@@ -31,6 +31,8 @@ namespace ScavengerWorld.AI
         void Start()
         {
             unit = GetComponent<Unit>();
+
+            aiState = AIState.Default;
             combatAI = new CombatUtilityAI();
             defaultAI = new UtilityAI();
             currentAI = defaultAI;

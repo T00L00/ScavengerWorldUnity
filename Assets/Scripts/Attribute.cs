@@ -32,7 +32,7 @@ namespace ScavengerWorld
 
         public void Add(float amount)
         {
-            currentValue = Mathf.Clamp(currentValue - amount, 0, maxValue);
+            currentValue = Mathf.Clamp(currentValue + amount, 0, maxValue);
         }
 
         public void Reset()

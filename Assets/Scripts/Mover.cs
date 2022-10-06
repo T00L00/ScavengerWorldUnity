@@ -83,6 +83,18 @@ namespace ScavengerWorld
             navigator.ResetPath();
         }
 
+        public void FaceTowards(Interactable i)
+        {
+            facing = i.transform.position - transform.position;
+            facing.y = 0f;
+            facing.Normalize();
+
+            //Apply Rotation
+            Quaternion targ_rot = Quaternion.LookRotation(facing, Vector3.up);
+            Quaternion nrot = Quaternion.RotateTowards(transform.rotation, targ_rot, 360f);
+            transform.rotation = nrot;
+        }
+
         public bool FoodIsNearby(out Gatherable gatherable)
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, focusRange, interactableLayer);
