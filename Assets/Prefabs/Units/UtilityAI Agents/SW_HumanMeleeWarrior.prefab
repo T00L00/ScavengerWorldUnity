@@ -2250,7 +2250,7 @@ MonoBehaviour:
     maxCapacity: 5
     isStorageDepot: 0
   stats:
-    attackDamage: 30
+    attackDamage: 20
     poise: 0
     gatherRate: 1
 --- !u!114 &5290516058283322340
