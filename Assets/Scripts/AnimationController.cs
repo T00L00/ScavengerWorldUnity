@@ -10,8 +10,7 @@ namespace ScavengerWorld
     public class AnimationController : MonoBehaviour
     {
         [SerializeField] private AnimancerComponent animancer;
-        [SerializeField] private LinearMixerTransition freeLocomotion;
-        [SerializeField] private LinearMixerTransition loadedLocomotion;
+        [SerializeField] private LinearMixerTransition locomotion;
         [SerializeField] private ClipTransition death;
 
         [SerializeField] private ClipTransition stagger;
@@ -23,8 +22,6 @@ namespace ScavengerWorld
         private Unit unit;
         private Mover mover;
         private LocomotionState locomotionState;
-        private LocomotionState freeLocomotionState;
-        private LocomotionState loadedLocomotionState;
         private ActionState actionState;
         private DeathState deathState;
         private StateMachine<State>.WithDefault stateMachine;
@@ -40,12 +37,11 @@ namespace ScavengerWorld
             staggerLayer.SetDebugName("Stagger Layer");
             stagger.Events.OnEnd = OnStaggerEnd;
 
-            freeLocomotionState = new(baseLayer, staggerLayer, freeLocomotion, stagger);
-            loadedLocomotionState = new(baseLayer, staggerLayer, loadedLocomotion, stagger);
+            locomotionState = new(baseLayer, staggerLayer, locomotion, stagger);
             actionState = new(baseLayer, staggerLayer, stagger);
             deathState = new(animancer, death);
 
-            stateMachine = new StateMachine<State>.WithDefault(freeLocomotionState);            
+            stateMachine = new StateMachine<State>.WithDefault(locomotionState);            
         }
 
         
@@ -54,7 +50,6 @@ namespace ScavengerWorld
         void Start()
         {
             actionState.OnAnimationEnd += OnAnimationEnd;
-            locomotionState = unit.HowFullIsInventory <= 0.5f ? freeLocomotionState : loadedLocomotionState;
         }
 
         private void OnDestroy()
@@ -65,7 +60,6 @@ namespace ScavengerWorld
         // Update is called once per frame
         void Update()
         {
-            UpdateLocomotionState();
             if (stateMachine.CurrentState == locomotionState)
             {
                 locomotionState.SetSpeed(mover.Speed);
@@ -119,16 +113,10 @@ namespace ScavengerWorld
         public void StopActionAnimation()
         {
             deathState.Enable = false;
-            actionState.Enable = false;            
-            UpdateLocomotionState();
+            actionState.Enable = false;
             locomotionState.Enable = true;
-            stateMachine.TrySetState(locomotionState);
+            stateMachine.TrySetDefaultState();
             actionState.Reset();
-        }
-
-        public void UpdateLocomotionState()
-        {
-            locomotionState = unit.HowFullIsInventory <= 0.5f ? freeLocomotionState : loadedLocomotionState;            
         }
 
         public bool ActionIsPlaying => actionState.IsPlaying;
@@ -137,7 +125,6 @@ namespace ScavengerWorld
         {
             deathState.Enable = false;
             actionState.Enable = false;
-            UpdateLocomotionState();
             locomotionState.Enable = true;
             stateMachine.TrySetDefaultState();
         }

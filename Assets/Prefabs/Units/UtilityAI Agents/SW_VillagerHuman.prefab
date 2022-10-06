@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animancer: {fileID: 8159575728431626845}
-  freeLocomotion:
+  locomotion:
     _FadeDuration: 0.25
     _Events:
       _NormalizedTimes: []
@@ -411,23 +411,6 @@ MonoBehaviour:
     _Animations:
     - {fileID: 7400002, guid: 3dd2352cf3c90264d8a9f0030eba1f5d, type: 3}
     - {fileID: 7400048, guid: 7d7a8478c91087c42bb5424c91ae2fc1, type: 3}
-    _Speeds: []
-    _SynchronizeChildren: 
-    _Thresholds:
-    - 0
-    - 3
-    _DefaultParameter: 0
-    _ExtrapolateSpeed: 1
-  loadedLocomotion:
-    _FadeDuration: 0.25
-    _Events:
-      _NormalizedTimes: []
-      _Callbacks: []
-      _Names: []
-    _Speed: 1
-    _Animations:
-    - {fileID: 7400000, guid: f165930ee2582434d9493d2c70b0260e, type: 3}
-    - {fileID: 7400000, guid: e73ed352ebdc22348b65d39a064440e4, type: 3}
     _Speeds: []
     _SynchronizeChildren: 
     _Thresholds:
