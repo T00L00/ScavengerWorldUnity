@@ -7,7 +7,8 @@ namespace ScavengerWorld
     [System.Serializable]
     public class Stats
     {
-        public int attackDamage;
+        public float attackDamage;
+        public float poise;
 
         [Tooltip("Amount harvested per game-hour")]
         public int gatherRate;

@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Animancer;
 using Animancer.FSM;
+using UnityEngine.Events;
 
 namespace ScavengerWorld
 {
     public class ActionState : State
     {
-        private AnimancerComponent animancer;
-        private ClipTransition animation;
+        private AnimancerLayer baseLayer;
+        private AnimancerLayer staggerLayer;
+        private ClipTransition action;
+        private ClipTransition stagger;
+
+        public UnityAction OnAnimationEnd;
 
         public bool IsPlaying { get; private set; }
         public bool Enable { get; set; }
@@ -18,42 +23,50 @@ namespace ScavengerWorld
 
         public override bool CanExitState => !Enable;
 
-        public ActionState(AnimancerComponent animancer)
+        public ActionState(AnimancerLayer baseLayer, AnimancerLayer staggerLayer, ClipTransition stagger)
         {
-            this.animancer = animancer;
-            this.animation = new();
+            this.baseLayer = baseLayer;
+            this.staggerLayer = staggerLayer;
+            this.stagger = stagger;
+            action = new();
             IsPlaying = false;
         }
 
         public override void OnEnterState()
         {
-            if (animation.IsLooping)
+            if (action.IsLooping)
             {
                 IsPlaying = true;
-                animancer.Play(animation);
+                baseLayer.Play(action);
                 return;
             }
 
             IsPlaying = true;
-            var state = animancer.Play(animation);
-            state.Events.OnEnd = OnAnimationEnd;
+            var state = baseLayer.Play(action);
+            state.Events.OnEnd = OnEnd;
+        }
+
+        public void AnimateStagger()
+        {
+            staggerLayer.Play(stagger);
         }
 
         public void SetActionAnimation(AnimationClip clip)
         {
-            animation.Clip = clip;
+            action.Clip = clip;
         }
 
         public void Reset()
         {            
             IsPlaying = false;
-            animation.Clip = null;
+            action.Clip = null;
         }
 
-        private void OnAnimationEnd()
+        private void OnEnd()
         {
-            animancer.Stop();
-            IsPlaying = false;            
+            baseLayer.Stop();
+            IsPlaying = false;
+            OnAnimationEnd?.Invoke();
         }
     }
 }

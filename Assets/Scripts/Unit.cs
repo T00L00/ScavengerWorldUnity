@@ -30,6 +30,7 @@ namespace ScavengerWorld
         [SerializeField] private Inventory inventory;
         [SerializeField] private Stats stats;
 
+        private Collider hitBox;
         private MeshRenderer meshRenderer;
         private Interactable interactable;
         private Damageable damageable;
@@ -43,6 +44,7 @@ namespace ScavengerWorld
         public UnitClass UnitClass => unitClass;
         public Weapon Weapon => weapon;
         public Stats Stats => stats;
+        public Collider HitBox => hitBox;
         public Unit StorageDepot { get; set; }
         public Interactable Interactable => interactable;
         public Damageable Damageable => damageable;
@@ -63,15 +65,16 @@ namespace ScavengerWorld
 
         void Awake()
         {
+            hitBox = GetComponent<Collider>();
             damageable = GetComponent<Damageable>();
             interactable = GetComponent<Interactable>();
-            mover = GetComponentInChildren<Mover>();
+            mover = GetComponent<Mover>();
             actionRunner = GetComponent<ActionRunner>();
             aiController = GetComponent<AIController>();
-            animController = GetComponentInChildren<AnimationController>();
+            animController = GetComponent<AnimationController>();
             actorAgent = GetComponent<ActorAgent>();
             behaviorParameters = GetComponentInChildren<BehaviorParameters>();
-            ArenaManager = GetComponentInParent<TeamGroup>().GetComponentInParent<ArenaManager>();
+            ArenaManager = GetComponentInParent<TeamGroup>()?.GetComponentInParent<ArenaManager>();
 
             meshRenderer = GetComponentInChildren<MeshRenderer>();
             if (meshRenderer is null)

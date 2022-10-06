@@ -57,6 +57,8 @@ namespace ScavengerWorld.AI
             switch (state)
             {
                 case AIState.Default:
+                    selectedAction = null;
+                    combatAI.Target = null;
                     aiState = state;
                     currentAI = defaultAI;
                     break;

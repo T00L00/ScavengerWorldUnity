@@ -32,18 +32,29 @@ namespace ScavengerWorld.AI
             //}
             //StopAction(unit, target);
 
-            Debug.Log($"{unit.gameObject.name} does attack move!");
+            //Debug.Log($"{unit.gameObject.name} does attack move!");
             unit.AnimController.AnimateAction(animation);
         }
 
         public override void StopAction(Unit unit, Interactable target)
         {
-            //unit.ActionRunner.ClearCurrentAction();
+            if (target.Unit.Damageable.IsAlive)
+            {
+                unit.ActionRunner.ClearCurrentAction();
+                return;
+            }
+
+            unit.AIController.SetState(AIState.Default);
         }
 
         public override void UpdateAction(Unit unit, Interactable target)
         {
+            if (unit.AnimController.ActionIsPlaying)
+            {
+                return;
+            }
 
+            StopAction(unit, target);
         }
     }
 }

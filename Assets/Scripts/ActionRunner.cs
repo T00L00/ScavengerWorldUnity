@@ -57,7 +57,7 @@ namespace ScavengerWorld
         private void Awake()
         {
             unit = GetComponent<Unit>();
-            mover = GetComponentInChildren<Mover>();
+            mover = GetComponent<Mover>();
             aiController = GetComponent<AIController>();
         }
 

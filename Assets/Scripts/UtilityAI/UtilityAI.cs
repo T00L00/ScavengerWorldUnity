@@ -55,7 +55,7 @@ namespace ScavengerWorld.AI.UAI
 
             selectedAction = useableActions[nextBestActionIndex];
             //Debug.Log($"Best action: {selectedAction.Name}");
-            Debug.Log($"Best action: {selectedAction.Name}");
+            //Debug.Log($"Best action: {selectedAction.Name}");
             //return selectedAction;
             return selectedAction;
         }
