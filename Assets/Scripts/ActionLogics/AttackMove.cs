@@ -44,14 +44,9 @@ namespace ScavengerWorld.AI
 
         public override void StopAction(Unit unit, Interactable target)
         {
-            if (target.Unit.Damageable.IsAlive)
-            {
-                unit.ActionRunner.ClearCurrentAction();
-                return;
-            }
-
-            unit.Mover.TargetInteractable = null;
             unit.AIController.SetState(AIState.Default);
+            unit.ActionRunner.OnFinishedAction();
+
         }
 
         public override void UpdateAction(Unit unit, Interactable target)

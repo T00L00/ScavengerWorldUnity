@@ -13,6 +13,12 @@ namespace ScavengerWorld.AI.UAI
             
         }
 
+        public override void Reset()
+        {
+            useableActions.Clear();
+            Target = null;
+        }
+
         public override void GetUseableActions(Unit unit)
         {
             useableActions.Clear();

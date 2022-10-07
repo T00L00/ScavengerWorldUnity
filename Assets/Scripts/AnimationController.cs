@@ -68,14 +68,14 @@ namespace ScavengerWorld
 
         public void AnimateStagger()
         {
-            unit.Mover.DisableMovement();
-            if (stateMachine.CurrentState is LocomotionState)
+            unit.Mover.DisableMovement();            
+            if (stateMachine.CurrentState == locomotionState)
             {
                 locomotionState.AnimateStagger();
             }
 
-            if (stateMachine.CurrentState is ActionState)
-            {
+            if (stateMachine.CurrentState == actionState)
+            {                
                 actionState.AnimateStagger();
             }
         }
@@ -83,6 +83,7 @@ namespace ScavengerWorld
         private void OnStaggerEnd()
         {
             staggerLayer.StartFade(0, AnimancerPlayable.DefaultFadeDuration);
+            unit.ActionRunner.CancelCurrentAction();
             unit.Mover.EnableMovement();
         }
 

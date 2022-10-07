@@ -17,9 +17,13 @@ namespace ScavengerWorld.AI.UAI
             
         }
 
-        public virtual void GetUseableActions(Unit unit)
+        public virtual void Reset()
         {
             useableActions.Clear();
+        }
+
+        public virtual void GetUseableActions(Unit unit)
+        {
             List<Interactable> interactables = unit.Pulse();
             if (interactables.Count > 0)
             {
