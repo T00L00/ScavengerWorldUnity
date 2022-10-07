@@ -39,7 +39,7 @@ namespace ScavengerWorld
 
         public override void StopAction(Unit unit, Interactable target)
         {
-            unit.ActionRunner.ClearCurrentAction();
+            unit.ActionRunner.OnFinishedAction();
         }
 
         public override void UpdateAction(Unit unit, Interactable target)

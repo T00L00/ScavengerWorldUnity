@@ -146,19 +146,20 @@ namespace ScavengerWorld
         /// </summary>
         public void CancelCurrentAction()
         {
-            CurrentAction?.StopAction(unit);
-            mover.TargetInteractable = null;
+            if (CurrentAction is null) return;
+
+            CurrentAction.StopAction(unit);
             CurrentAction = null;
+            aiController.ClearSelectedAction();            
+            mover.TargetInteractable = null;
         }
 
-        /// <summary>
-        /// Cancel currently running action from inside the ActionLogic
-        /// </summary>
-        public void ClearCurrentAction()
+        public void OnFinishedAction()
         {
-            aiController.ClearSelectedAction();
             CurrentAction.IsRunning = false;
             CurrentAction = null;
+            aiController.ClearSelectedAction();
+            mover.TargetInteractable = null;
         }
 
         //public void SetCurrentAction(ActionType actionType, Vector3 moveHereIfNoAction = default)

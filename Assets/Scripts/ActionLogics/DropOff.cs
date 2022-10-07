@@ -28,7 +28,7 @@ namespace ScavengerWorld
             target.Unit.AddItem(food);
             unit.SetReward(food * 0.01f);
             unit.AnimController.StopActionAnimation();
-            unit.ActionRunner.ClearCurrentAction();
+            unit.ActionRunner.OnFinishedAction();
         }
 
         public override void UpdateAction(Unit unit, Interactable target)

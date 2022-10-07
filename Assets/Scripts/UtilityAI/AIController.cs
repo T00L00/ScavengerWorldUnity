@@ -60,11 +60,12 @@ namespace ScavengerWorld.AI
             {
                 case AIState.Default:
                     selectedAction = null;
-                    combatAI.Target = null;
+                    combatAI.Reset();
                     aiState = state;
                     currentAI = defaultAI;
                     break;
                 case AIState.Combat:
+                    defaultAI.Reset();
                     aiState = state;
                     combatAI.Target = target;
                     currentAI = combatAI;

@@ -21,13 +21,15 @@ namespace ScavengerWorld
         {
             //unit.AddItem(target.Gatherable);
             //StopAction(unit, target);
+            Debug.Log("Start gathering");
             unit.AnimController.AnimateAction(animation);
         }
 
         public override void StopAction(Unit unit, Interactable target)
         {
             unit.AnimController.StopActionAnimation();
-            unit.ActionRunner.ClearCurrentAction();
+            unit.ActionRunner.ResetActionProgress();
+            unit.ActionRunner.OnFinishedAction();
         }
 
         public override void UpdateAction(Unit unit, Interactable target)
