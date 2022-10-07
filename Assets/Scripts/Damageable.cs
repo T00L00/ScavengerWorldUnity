@@ -44,6 +44,7 @@ namespace ScavengerWorld
 
         public void Die()
         {
+            unit.Mover.StopMoving();
             unit.AnimController.AnimateDeath();
         }
 

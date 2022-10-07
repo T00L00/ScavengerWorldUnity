@@ -50,6 +50,7 @@ namespace ScavengerWorld.AI
                 return;
             }
 
+            unit.Mover.TargetInteractable = null;
             unit.AIController.SetState(AIState.Default);
         }
 

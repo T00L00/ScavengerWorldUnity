@@ -67,7 +67,7 @@ namespace ScavengerWorld
         private void OnEnd()
         {
             baseLayer.Stop();
-            IsPlaying = false;
+            Reset();
             OnAnimationEnd?.Invoke();
         }
     }

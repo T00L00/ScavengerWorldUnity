@@ -28,8 +28,8 @@ namespace ScavengerWorld
 
         private void Awake()
         {
-            unit = GetComponentInParent<Unit>();
-            mover = GetComponentInParent<Mover>();
+            unit = GetComponent<Unit>();
+            mover = GetComponent<Mover>();
 
             baseLayer = animancer.Layers[0];
             staggerLayer = animancer.Layers[1];
@@ -62,12 +62,13 @@ namespace ScavengerWorld
         {
             if (stateMachine.CurrentState == locomotionState)
             {
-                locomotionState.SetSpeed(mover.Speed);
+                locomotionState.SetSpeed(mover.NavigatorSpeed);
             }
         }
 
         public void AnimateStagger()
         {
+            unit.Mover.DisableMovement();
             if (stateMachine.CurrentState is LocomotionState)
             {
                 locomotionState.AnimateStagger();
@@ -82,6 +83,7 @@ namespace ScavengerWorld
         private void OnStaggerEnd()
         {
             staggerLayer.StartFade(0, AnimancerPlayable.DefaultFadeDuration);
+            unit.Mover.EnableMovement();
         }
 
         public void AnimateDeath()
@@ -99,6 +101,7 @@ namespace ScavengerWorld
             actionState.Enable = true;
             actionState.SetActionAnimation(clip, unit.Stats.attackSpeed);
             stateMachine.TrySetState(actionState);
+            unit.Mover.DisableMovement();
         }
 
         public void AnimateAction(AnimationClip clip)
@@ -116,7 +119,7 @@ namespace ScavengerWorld
             actionState.Enable = false;
             locomotionState.Enable = true;
             stateMachine.TrySetDefaultState();
-            actionState.Reset();
+            actionState.Reset();            
         }
 
         public bool ActionIsPlaying => actionState.IsPlaying;
@@ -127,11 +130,12 @@ namespace ScavengerWorld
             actionState.Enable = false;
             locomotionState.Enable = true;
             stateMachine.TrySetDefaultState();
+            unit.Mover.EnableMovement();
         }
 
         public void HitEvent()
         {
-            RaycastHit[] hits = Physics.SphereCastAll(new Ray(transform.position, transform.forward), 2f);
+            RaycastHit[] hits = Physics.SphereCastAll(new Ray(transform.position, transform.forward), 1f, 0.5f);
             foreach (RaycastHit h in hits)
             {
                 Unit enemyUnit = h.collider.GetComponent<Unit>();
@@ -147,7 +151,7 @@ namespace ScavengerWorld
                         //Debug.Log("hit!");
                     }
                 }
-            }            
+            }
         }
     }
 }
