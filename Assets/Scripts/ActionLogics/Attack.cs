@@ -20,7 +20,8 @@ namespace ScavengerWorld
         {
             return unit.UnitClass == UnitClass.Warrior 
                 && unit.Interactable != target
-                && target.Damageable.IsAlive;
+                && target.Damageable.IsAlive
+                && unit.TeamId != target.Unit.TeamId;
         }
 
         public override void StartAction(Unit unit, Interactable target)

@@ -14,7 +14,8 @@ namespace ScavengerWorld
 
         public override bool IsAchievable(Unit unit, Interactable target)
         {
-            return unit.HowFullIsInventory > 0f;
+            return unit.HowFullIsInventory > 0f
+                && unit.TeamId == target.Unit.TeamId;
         }
 
         public override void StartAction(Unit unit, Interactable target)
