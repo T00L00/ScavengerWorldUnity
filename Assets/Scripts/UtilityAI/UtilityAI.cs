@@ -36,19 +36,17 @@ namespace ScavengerWorld.AI.UAI
 
         #region Decide best action
 
-        public UtilityAction DecideBestAction(Unit unit)
+        public Action DecideBestAction(Unit unit)
         {
-            UtilityAction selectedAction = null;
-
             float highestScore = 0f;
             int nextBestActionIndex = 0;
             for (int i = 0; i < useableActions.Count; i++)
             {
-                ScoreAction(useableActions[i], unit);
-                if (useableActions[i].Score > highestScore)
+                float actionScore = ScoreAction(useableActions[i], unit);
+                if (actionScore > highestScore)
                 {
                     nextBestActionIndex = i;
-                    highestScore = useableActions[i].Score;
+                    highestScore = actionScore;
                 }
             }
 
@@ -57,22 +55,21 @@ namespace ScavengerWorld.AI.UAI
                 return null;
             }
 
-            selectedAction = useableActions[nextBestActionIndex];
-            return selectedAction;
+            return useableActions[nextBestActionIndex].Copy();
         }
 
-        private void ScoreAction(UtilityAction action, Unit unit)
+        private float ScoreAction(UtilityAction action, Unit unit)
         {
             if (!action.IsAchievable(unit))
             {
-                action.Score = 0f;
-                return;
+                //action.Score = 0f;
+                return 0f;
             }
 
             if (action.considerations.Length == 0)
             {
-                action.Score = 0;
-                return;
+                //action.Score = 0;
+                return 0f;
             }
             else
             {
@@ -80,17 +77,18 @@ namespace ScavengerWorld.AI.UAI
                 int considerationCount = action.considerations.Length;
                 for (int i = 0; i < considerationCount; i++)
                 {
-                    action.considerations[i].ScoreConsideration(unit, action.Target, considerationCount);
-                    score *= action.considerations[i].Score;
+                    float considerationScore = action.considerations[i].ScoreConsideration(unit, action.Target, considerationCount);
+                    score *= considerationScore;
 
                     if (score == 0)
                     {
-                        action.Score = 0;
-                        return;
+                        //action.Score = 0;
+                        return 0f;
                     }
                 }
-                
-                action.Score = score;
+
+                //action.Score = score;
+                return score;
             }
         }
 
