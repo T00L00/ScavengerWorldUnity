@@ -13,7 +13,8 @@ namespace ScavengerWorld
         [Tooltip("Use this list if using RL AI")]
         public List<Action> availableActions;
         [Tooltip("Use this list if using UtilityAI")]
-        public List<UtilityAction> availableUtilityActions;
+        public List<SerializedUtilityAction> availableUtilityActions;
+
 
         private Unit unit;
         private Damageable damageable;
@@ -35,9 +36,9 @@ namespace ScavengerWorld
         {
             if (availableUtilityActions.Count > 0)
             {
-                foreach (UtilityAction a in availableUtilityActions)
+                foreach (SerializedUtilityAction a in availableUtilityActions)
                 {
-                    a.Target = this;
+                    a.SetTarget(this);
                 }
             }
         }

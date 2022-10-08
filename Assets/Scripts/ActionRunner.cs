@@ -129,6 +129,7 @@ namespace ScavengerWorld
             CancelCurrentAction();
             CurrentAction = action;
             mover.MoveToInteractable(CurrentAction.Target);
+            Debug.Log($"{unit.gameObject.name} | inventory: {unit.InventoryItemCount}");
         }
 
         public void StartCurrentAction()

@@ -25,6 +25,7 @@ namespace ScavengerWorld
     public class Unit : MonoBehaviour
     {
         [SerializeField] private UnitClass unitClass;
+        [SerializeField] private float meleeRange = 3f;
         [SerializeField] private Weapon weapon;
         [SerializeField] private Sensor sensor;
         [SerializeField] private Inventory inventory;
@@ -43,6 +44,7 @@ namespace ScavengerWorld
         private BehaviorParameters behaviorParameters;
 
         public UnitClass UnitClass => unitClass;
+        public float MeleeRange => meleeRange;
         public Weapon Weapon => weapon;
         public Stats Stats => stats;
         public Unit StorageDepot { get; set; }

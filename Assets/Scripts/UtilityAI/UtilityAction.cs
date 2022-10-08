@@ -11,20 +11,24 @@ namespace ScavengerWorld.AI.UAI
         public float weight = 1f;
         public Consideration[] considerations;
 
-        public float Score { get; set; }
-
         public override bool IsEmpty => actionLogic is null;
 
-        public UtilityAction(ActionLogic actionLogic, float weight, Consideration[] considerations)
+        public UtilityAction(ActionLogic actionLogic,
+                             Interactable target,
+                             Consideration[] considerations=null,
+                             float weight=1f)
         {
             this.actionLogic = actionLogic;
+            this.Target = target;
+
             this.weight = weight;
             this.considerations = considerations;
+            this.IsRunning = false;
         }
 
-        public SerializedUtilityAction Serialize()
+        public UtilityAction Copy()
         {
-            return new SerializedUtilityAction(this);
+            return new UtilityAction(actionLogic, Target);
         }
     }
 }

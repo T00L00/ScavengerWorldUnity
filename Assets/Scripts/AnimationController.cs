@@ -136,7 +136,7 @@ namespace ScavengerWorld
 
         public void HitEvent()
         {
-            RaycastHit[] hits = Physics.SphereCastAll(new Ray(transform.position, transform.forward), 1f, 0.5f);
+            RaycastHit[] hits = Physics.SphereCastAll(new Ray(transform.position, transform.forward), 1f, unit.MeleeRange - 1f);
             foreach (RaycastHit h in hits)
             {
                 Unit enemyUnit = h.collider.GetComponent<Unit>();

@@ -91,7 +91,11 @@ namespace ScavengerWorld
 
         public bool HasReachedTargetInteractable()
         {
-            return Vector3.Distance(transform.position, TargetInteractable.transform.position) <= TargetInteractable.useRange;
+            if (unit.AIController.AIState == AI.AIState.Default)
+            {
+                return Vector3.Distance(transform.position, TargetInteractable.transform.position) <= TargetInteractable.useRange;
+            }
+            return Vector3.Distance(transform.position, TargetInteractable.transform.position) <= TargetInteractable.Unit.MeleeRange;
         }
 
         public bool HasReachedTargetPos()

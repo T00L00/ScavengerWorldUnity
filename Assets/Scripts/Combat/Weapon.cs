@@ -11,7 +11,7 @@ namespace ScavengerWorld
         [Range(1f, 3f)]
         [SerializeField] private float damageModifier = 1f;
         [SerializeField] private Unit unit;
-        public List<UtilityAction> attackActions;
+        public List<SerializedUtilityAction> attackActions;
 
         public float DamageModifier => damageModifier;
 

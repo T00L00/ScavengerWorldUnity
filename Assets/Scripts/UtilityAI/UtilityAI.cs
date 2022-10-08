@@ -1,54 +1,79 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.MLAgents;
 using UnityEngine;
-using UnityEngine.Events;
 using ScavengerWorld.AI;
-using UnityEngine.UIElements;
 
 namespace ScavengerWorld.AI.UAI
 {
     public class UtilityAI
     {
-        public readonly List<UtilityAction> useableActions = new();
+        private readonly Dictionary<Interactable, List<UtilityAction>> interactableActionsRepo = new();
 
         public UtilityAI()
         {
             
         }
 
-        public virtual void Reset()
+        /// <summary>
+        /// Get all the available actions from the scene
+        /// </summary>
+        public virtual void PopulateActionsRepo()
         {
-            useableActions.Clear();
+            Interactable[] interactables = GameObject.FindObjectsOfType<Interactable>();
+            foreach (Interactable i in interactables)
+            {
+                interactableActionsRepo[i] = GenerateUtilityActions(i.availableUtilityActions);
+            }
         }
 
-        public virtual void GetUseableActions(Unit unit)
+        /// <summary>
+        /// Generate UtilityActions from SerializedUtilityActions
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        protected List<UtilityAction> GenerateUtilityActions(List<SerializedUtilityAction> data)
         {
-            List<Interactable> interactables = unit.Pulse();
-            if (interactables.Count > 0)
+            List<UtilityAction> actions = new();
+            foreach (SerializedUtilityAction a in data)
             {
-                foreach (Interactable i in interactables)
-                {
-                    useableActions.AddRange(i.availableUtilityActions);
-                }
+                actions.Add(a.ToUtilityAction());
             }
+            return actions;
+        }
+
+        /// <summary>
+        /// Get the available actions near the unit
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public virtual List<UtilityAction> GetAvailableActions(Unit unit, Interactable target=null)
+        {
+            List<UtilityAction> actions = new();
+            List<Interactable> interactables = unit.Pulse();
+            foreach (Interactable i in interactables)
+            {
+                actions.AddRange(interactableActionsRepo[i]);
+            }
+            return actions;
         }
 
         #region Decide best action
 
-        public UtilityAction DecideBestAction(Unit unit)
+        public Action DecideAction(Unit unit, Interactable target=null)
         {
-            UtilityAction selectedAction = null;
+            Action selectedAction = null;
+            List<UtilityAction> actions = GetAvailableActions(unit, target);
 
             float highestScore = 0f;
             int nextBestActionIndex = 0;
-            for (int i = 0; i < useableActions.Count; i++)
+            for (int i = 0; i < actions.Count; i++)
             {
-                ScoreAction(useableActions[i], unit);
-                if (useableActions[i].Score > highestScore)
+                float actionScore = ScoreAction(actions[i], unit);
+                if (actionScore > highestScore)
                 {
                     nextBestActionIndex = i;
-                    highestScore = useableActions[i].Score;
+                    highestScore = actionScore;
                 }
             }
 
@@ -57,40 +82,41 @@ namespace ScavengerWorld.AI.UAI
                 return null;
             }
 
-            selectedAction = useableActions[nextBestActionIndex];
+            selectedAction = actions[nextBestActionIndex].Copy();
             return selectedAction;
         }
 
-        private void ScoreAction(UtilityAction action, Unit unit)
+        protected float ScoreAction(UtilityAction action, Unit unit)
         {
             if (!action.IsAchievable(unit))
             {
-                action.Score = 0f;
-                return;
+                //action.Score = 0f;
+                return 0f;
             }
 
             if (action.considerations.Length == 0)
             {
-                action.Score = 0;
-                return;
+                //action.Score = 0;
+                return 0f;
             }
             else
             {
-                float score = 1f;
+                float actionScore = 1f;
                 int considerationCount = action.considerations.Length;
                 for (int i = 0; i < considerationCount; i++)
                 {
-                    action.considerations[i].ScoreConsideration(unit, action.Target, considerationCount);
-                    score *= action.considerations[i].Score;
+                    float considerationScore = action.considerations[i].ScoreConsideration(unit, action.Target, considerationCount);
+                    actionScore *= considerationScore;
 
-                    if (score == 0)
+                    if (actionScore == 0)
                     {
-                        action.Score = 0;
-                        return;
+                        //action.Score = 0;
+                        return 0f;
                     }
                 }
-                
-                action.Score = score;
+
+                //action.Score = actionScore;
+                return actionScore;
             }
         }
 

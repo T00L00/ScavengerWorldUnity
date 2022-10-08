@@ -7,33 +7,22 @@ using UnityEngine;
 namespace ScavengerWorld
 {
     [Serializable]
-    public class SerializedUtilityAction
+    public struct SerializedUtilityAction
     {
-        public string actionLogic;
+        public ActionLogic actionLogic;
         public float weight;
-        public SerializedConsideration[] considerations;
+        public Consideration[] considerations;
 
-        public SerializedUtilityAction(UtilityAction a)
+        private Interactable target;
+
+        public void SetTarget(Interactable target)
         {
-            actionLogic = a.Name;
-            weight = a.weight;
-            considerations = new SerializedConsideration[a.considerations.Length];
-            for (int i = 0; i < a.considerations.Length; i++)
-            {
-                considerations[i] = new SerializedConsideration(a.considerations[i]);
-            }
+            this.target = target;
         }
-
-        public bool IsEmpty => actionLogic == default && weight == default && considerations == default;
 
         public UtilityAction ToUtilityAction()
         {
-            Consideration[] considerations = new Consideration[this.considerations.Length];
-            for (int i = 0; i < this.considerations.Length; i++)
-            {
-                considerations[i] = this.considerations[i].ToConsideration();
-            }
-            return new UtilityAction(ActionLogic.Load(actionLogic), weight, considerations);
+            return new UtilityAction(actionLogic, target, considerations, weight);
         }
     }
 }

@@ -16,11 +16,10 @@ namespace ScavengerWorld.AI
     public class AIController : MonoBehaviour
     {
         private Unit unit;
-        private CombatUtilityAI combatAI;
-        private UtilityAI defaultAI;
-        private UtilityAI currentAI;
+        private AIModule aiModule;
         private AIState aiState;
-        private UtilityAction selectedAction;
+        private Action selectedAction;
+        private Interactable combatTarget;
 
         public UnityAction<Action> OnDecideAction;
 
@@ -33,9 +32,7 @@ namespace ScavengerWorld.AI
             unit = GetComponent<Unit>();
 
             aiState = AIState.Default;
-            combatAI = new CombatUtilityAI();
-            defaultAI = new UtilityAI();
-            currentAI = defaultAI;
+            aiModule = ServiceLocator.instance.GetService<AIModule>();
         }
 
         // Update is called once per frame
@@ -43,10 +40,8 @@ namespace ScavengerWorld.AI
         {
             if (selectedAction is null)
             {
-                currentAI.GetUseableActions(unit);
-                if (currentAI.useableActions.Count == 0) return;
-
-                selectedAction = currentAI.DecideBestAction(unit);
+                selectedAction = aiModule.DecideAction(aiState, unit, combatTarget);
+                
                 if (selectedAction != null)
                 {
                     OnDecideAction?.Invoke(SelectedAction);
@@ -59,16 +54,12 @@ namespace ScavengerWorld.AI
             switch (state)
             {
                 case AIState.Default:
-                    selectedAction = null;
-                    combatAI.Reset();
                     aiState = state;
-                    currentAI = defaultAI;
+                    combatTarget = null;
                     break;
                 case AIState.Combat:
-                    defaultAI.Reset();
                     aiState = state;
-                    combatAI.Target = target;
-                    currentAI = combatAI;
+                    combatTarget = target;
                     break;
                 default:
                     break;
