@@ -11,8 +11,6 @@ namespace ScavengerWorld.AI.UAI
         public float weight = 1f;
         public Consideration[] considerations;
 
-        public float Score { get; set; }
-
         public override bool IsEmpty => actionLogic is null;
 
         public UtilityAction(ActionLogic actionLogic, float weight, Consideration[] considerations)
@@ -20,6 +18,17 @@ namespace ScavengerWorld.AI.UAI
             this.actionLogic = actionLogic;
             this.weight = weight;
             this.considerations = considerations;
+        }
+
+        public UtilityAction(ActionLogic actionLogic, Interactable target)
+        {
+            this.actionLogic = actionLogic;
+            this.Target = target;
+        }
+
+        public UtilityAction Copy()
+        {
+            return new UtilityAction(actionLogic, Target);
         }
 
         public SerializedUtilityAction Serialize()

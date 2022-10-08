@@ -136,23 +136,23 @@ namespace ScavengerWorld
 
         public void HitEvent()
         {
-            RaycastHit[] hits = Physics.SphereCastAll(new Ray(transform.position, transform.forward), 1f, 0.5f);
-            foreach (RaycastHit h in hits)
-            {
-                Unit enemyUnit = h.collider.GetComponent<Unit>();
-                if (enemyUnit != null && enemyUnit != unit)
-                {
-                    Vector3 vectorToEnemy = (enemyUnit.transform.position - transform.position).normalized;
-                    if (Vector3.Dot(vectorToEnemy, transform.forward) > 0.5) // hit occured within 90 degree arc in front
-                    {
-                        float totalDamage = unit.Weapon.DamageModifier * unit.Stats.baseDamage;
-                        enemyUnit.Damageable.TakeDamage(totalDamage);
-                        enemyUnit.Attributes.Poise.Reduce(totalDamage * 0.5f);
-                        enemyUnit.Attributes.Energy.Reduce(totalDamage * 0.2f);
-                        //Debug.Log("hit!");
-                    }
-                }
-            }
+            //RaycastHit[] hits = Physics.SphereCastAll(new Ray(transform.position, transform.forward), 1f, 0.5f);
+            //foreach (RaycastHit h in hits)
+            //{
+            //    Unit enemyUnit = h.collider.GetComponent<Unit>();
+            //    if (enemyUnit != null && enemyUnit != unit)
+            //    {
+            //        Vector3 vectorToEnemy = (enemyUnit.transform.position - transform.position).normalized;
+            //        if (Vector3.Dot(vectorToEnemy, transform.forward) > 0.5) // hit occured within 90 degree arc in front
+            //        {
+            //            float totalDamage = unit.Weapon.DamageModifier * unit.Stats.baseDamage;
+            //            enemyUnit.Damageable.TakeDamage(totalDamage);
+            //            enemyUnit.Attributes.Poise.Reduce(totalDamage * 0.5f);
+            //            enemyUnit.Attributes.Energy.Reduce(totalDamage * 0.2f);
+            //            //Debug.Log("hit!");
+            //        }
+            //    }
+            //}
         }
     }
 }

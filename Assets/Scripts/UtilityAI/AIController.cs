@@ -20,7 +20,7 @@ namespace ScavengerWorld.AI
         private UtilityAI defaultAI;
         private UtilityAI currentAI;
         private AIState aiState;
-        private UtilityAction selectedAction;
+        private Action selectedAction;
 
         public UnityAction<Action> OnDecideAction;
 
