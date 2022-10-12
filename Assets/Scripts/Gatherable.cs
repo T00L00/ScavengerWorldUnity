@@ -9,8 +9,8 @@ namespace ScavengerWorld
         [SerializeField] private int startingAmount;
 
         private Interactable interactable;
-
         private int currentAmount;
+
         public int AmountAvailable => currentAmount;
         public Interactable Interactable => interactable;
 

@@ -112,6 +112,7 @@ namespace ScavengerWorld
             actionState.Enable = true;
             actionState.SetActionAnimation(clip);
             stateMachine.TrySetState(actionState);
+            unit.Mover.DisableMovement();
         }
 
         public void StopActionAnimation()
@@ -120,7 +121,8 @@ namespace ScavengerWorld
             actionState.Enable = false;
             locomotionState.Enable = true;
             stateMachine.TrySetDefaultState();
-            actionState.Reset();            
+            actionState.Reset();
+            unit.Mover.EnableMovement();
         }
 
         public bool ActionIsPlaying => actionState.IsPlaying;
