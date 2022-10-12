@@ -14,17 +14,25 @@ namespace ScavengerWorld
 
         public override bool IsAchievable(Unit unit, Interactable target)
         {
-            return unit.UnitClass == UnitClass.Gatherer 
+            return unit.UnitClass == UnitClass.Gatherer
                 && unit.HowFullIsInventory < 1f
-                && target.Gatherable.AmountAvailable > 0;
+                && target.Gatherable.AmountAvailable > 0
+                && target.OccupantSpotAvailable();
         }
 
         public override void StartAction(Unit unit, Interactable target)
         {
             //unit.AddItem(target.Gatherable);
             //StopAction(unit, target);
-            Debug.Log("Start gathering");
-            unit.AnimController.AnimateAction(animation);
+            //Debug.Log("Start gathering");
+
+            if (unit.TryFillOccupantSpot())
+            {
+                unit.Mover.FaceTowards(target);
+                unit.AnimController.AnimateAction(animation);
+                return;
+            }
+            StopAction(unit, target);
         }
 
         public override void StopAction(Unit unit, Interactable target)

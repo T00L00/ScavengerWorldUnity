@@ -26,6 +26,8 @@ namespace ScavengerWorld
                 
         private Unit unit;
         private ActionRunner actionRunner;
+        private OccupantSpot targetOccupantSpot;
+        private Vector3 targetPos;
         private Vector3 facing;
 
         public event UnityAction OnReachedInteractableTarget;
@@ -35,7 +37,8 @@ namespace ScavengerWorld
         public float StopDistance => navigator.stoppingDistance;
 
         public bool MoveEnabled { get; private set; }
-        public Vector3 TargetPos { get; set; }
+        public OccupantSpot TargetOccupantSpot => targetOccupantSpot;
+        public Vector3 TargetPos => targetPos;
         public Interactable TargetInteractable { get; set; }
 
         private void Awake()
@@ -47,7 +50,7 @@ namespace ScavengerWorld
             navigator.updateRotation = false;
 
             MoveEnabled = true;
-            TargetPos = default;
+            targetPos = default;
         }
 
         void Update()
@@ -59,7 +62,7 @@ namespace ScavengerWorld
                 if (HasReachedTargetPos())
                 {
                     StopMoving();
-                    TargetPos = default;
+                    targetPos = default;
                     return;
                 }
                 return;
@@ -103,18 +106,29 @@ namespace ScavengerWorld
         {
             if (MoveEnabled)
             {
-                TargetPos = default;
+                targetPos = default;
                 TargetInteractable = target;
-                navigator.SetDestination(TargetInteractable.transform.position);
+                if (target.TryGetOccupantSpot(out targetOccupantSpot))
+                {
+                    navigator.SetDestination(targetOccupantSpot.Position);
+                }
+                else
+                {
+                    navigator.SetDestination(TargetInteractable.transform.position);
+                }
             }            
         }
 
+        /// <summary>
+        /// Use this to move character to clicked position
+        /// </summary>
+        /// <param name="pos"></param>
         public void MoveToPosition(Vector3 pos)
         {
             if (MoveEnabled)
             {
                 actionRunner.CancelCurrentAction();
-                TargetPos = pos;
+                targetPos = pos;
                 navigator.SetDestination(pos);
             }            
         }

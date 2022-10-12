@@ -61,11 +61,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0563fbec3f88cc942aa4d32300bd31fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useRange: 1
+  occupantSpotsCount: 3
+  useRange: 3
   availableActions: []
   availableUtilityActions:
   - actionLogic: {fileID: 11400000, guid: bc7bf01fb0d32a34caa151d740db9fa6, type: 2}
-    saveData: 0
     weight: 1
     considerations:
     - Name: Inventory Capacity
@@ -121,13 +121,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c592009e1648f7c428c42cfc4083765e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitClass: 0
+  weapon: {fileID: 0}
   sensor:
     radius: 0
   inventory:
     maxCapacity: 1000
     isStorageDepot: 1
   stats:
-    attackDamage: 0
+    baseDamage: 0
+    attackSpeed: 0
+    energyReplenishRate: 0
+    poiseReplenishRate: 0
     gatherRate: 0
 --- !u!1001 &8959763979508928338
 PrefabInstance:
