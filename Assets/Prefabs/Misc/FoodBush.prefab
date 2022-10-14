@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0563fbec3f88cc942aa4d32300bd31fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  occupantSpotsCount: 3
-  useRange: 2
+  occupantSpotsCount: 2
+  useRange: 1
   availableActions: []
   availableUtilityActions:
   - actionLogic: {fileID: 11400000, guid: 2955f3d01cb42ee4d8d48324e31d8939, type: 2}

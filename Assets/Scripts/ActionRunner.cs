@@ -73,14 +73,14 @@ namespace ScavengerWorld
         // Start is called before the first frame update
         void Start()
         {
-            mover.OnReachedInteractableTarget += StartCurrentAction;
+            mover.OnReachedDestination += StartCurrentAction;
             aiController.OnDecideAction += SetCurrentAction;
             //actorAgent.OnReceivedActions += OnReceivedActions;
         }
 
         private void OnDestroy()
         {
-            mover.OnReachedInteractableTarget -= StartCurrentAction;
+            mover.OnReachedDestination -= StartCurrentAction;
             aiController.OnDecideAction -= SetCurrentAction;
             //actorAgent.OnReceivedActions -= OnReceivedActions;
         }
@@ -128,7 +128,7 @@ namespace ScavengerWorld
         {
             CancelCurrentAction();
             CurrentAction = action;
-            mover.MoveToInteractable(CurrentAction.Target);
+            mover.TargetInteractable = CurrentAction.Target;
         }
 
         public void StartCurrentAction()
@@ -150,8 +150,8 @@ namespace ScavengerWorld
 
             CurrentAction.StopAction(unit);
             CurrentAction = null;
-            aiController.ClearSelectedAction();            
-            mover.TargetInteractable = null;
+            aiController.ClearSelectedAction();
+            mover.ClearTarget();
         }
 
         public void OnFinishedAction()
@@ -159,7 +159,7 @@ namespace ScavengerWorld
             CurrentAction.IsRunning = false;
             CurrentAction = null;
             aiController.ClearSelectedAction();
-            mover.TargetInteractable = null;
+            mover.ClearTarget();
         }
 
         //public void SetCurrentAction(ActionType actionType, Vector3 moveHereIfNoAction = default)
