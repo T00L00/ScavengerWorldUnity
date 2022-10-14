@@ -97,11 +97,6 @@ namespace ScavengerWorld
             return sensor.Pulse(transform.position);
         }
 
-        public bool TryFillOccupantSpot()
-        {
-            return mover.TargetOccupantSpot.TrySetOccupant(this);
-        }
-
         public void Attack(Damageable enemy)
         {
             // play little animation

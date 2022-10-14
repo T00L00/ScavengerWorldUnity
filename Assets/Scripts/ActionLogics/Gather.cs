@@ -22,17 +22,8 @@ namespace ScavengerWorld
 
         public override void StartAction(Unit unit, Interactable target)
         {
-            //unit.AddItem(target.Gatherable);
-            //StopAction(unit, target);
-            //Debug.Log("Start gathering");
-
-            if (unit.TryFillOccupantSpot())
-            {
-                unit.Mover.FaceTowards(target);
-                unit.AnimController.AnimateAction(animation);
-                return;
-            }
-            StopAction(unit, target);
+            unit.Mover.FaceTowards(target);
+            unit.AnimController.AnimateAction(animation);
         }
 
         public override void StopAction(Unit unit, Interactable target)
@@ -44,17 +35,18 @@ namespace ScavengerWorld
 
         public override void UpdateAction(Unit unit, Interactable target)
         {
+            if (!target.isActiveAndEnabled || target.Gatherable.AmountAvailable == 0)
+            {
+                StopAction(unit, target);
+                return;
+            }
+
             unit.ActionRunner.AddActionProgress(TheGame.Instance.GameHourPerRealSecond * unit.Stats.gatherRate * Time.deltaTime);
             if (unit.ActionRunner.ActionProgress >= 1f)
             {
                 unit.ActionRunner.ResetActionProgress();
                 unit.AddItem(target.Gatherable, 1);
-            }
-
-            if (target.Gatherable.AmountAvailable == 0)
-            {
-                StopAction(unit, target);
-            }
+            }            
         }
     }
 }

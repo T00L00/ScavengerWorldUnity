@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Xml;
 using Unity.MLAgents.Actuators;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
-#if UNITY_EDITOR
-using static UnityEditor.PlayerSettings;
-#endif
+
 namespace ScavengerWorld
 {
     /// <summary>
@@ -26,19 +25,19 @@ namespace ScavengerWorld
                 
         private Unit unit;
         private ActionRunner actionRunner;
-        private OccupantSpot targetOccupantSpot;
-        private Vector3 targetPos;
         private Vector3 facing;
+        private OccupantSpot targetSpot;
 
-        public event UnityAction OnReachedInteractableTarget;
+        public event UnityAction OnReachedDestination;
 
         public Unit Unit => unit;
         public float NavigatorSpeed => navigator.velocity.magnitude;
         public float StopDistance => navigator.stoppingDistance;
 
         public bool MoveEnabled { get; private set; }
-        public OccupantSpot TargetOccupantSpot => targetOccupantSpot;
-        public Vector3 TargetPos => targetPos;
+
+        public OccupantSpot TargetSpot => targetSpot;
+
         public Interactable TargetInteractable { get; set; }
 
         private void Awake()
@@ -48,75 +47,85 @@ namespace ScavengerWorld
             navigator = GetComponent<NavMeshAgent>();
             navigator.autoRepath = true;
             navigator.updateRotation = false;
-
+            
             MoveEnabled = true;
-            targetPos = default;
+            TargetInteractable = null;
         }
 
         void Update()
         {
             HandleRotation();
 
-            if (TargetInteractable is null && TargetPos != default)
+            if (TargetInteractable != null)
             {
-                if (HasReachedTargetPos())
+                if (targetSpot != null)
                 {
-                    StopMoving();
-                    targetPos = default;
-                    return;
-                }
-                return;
-            }
-
-            if (TargetInteractable != null && TargetPos == default)
-            {
-                if (HasReachedTargetInteractable())
-                {
-                    if (!actionRunner.ActionIsRunning)
+                    if (HasReachedTargetSpot())
                     {
-                        StopMoving();
-                        OnReachedInteractableTarget?.Invoke();
-                        return;
+                        if (!actionRunner.ActionIsRunning)
+                        {
+                            StopMoving();
+                            OnReachedDestination?.Invoke();
+                        }                        
+                    }
+                    else
+                    {
+                        MoveToTargetSpot();
                     }
                 }
                 else
                 {
-                    //if (!actionRunner.ActionIsRunning)
-                    //{
-                    //    MoveToInteractable(TargetInteractable);
-                    //}
-                    MoveToInteractable(TargetInteractable);
+                    targetSpot = TargetInteractable.GetAvailableOccupantSpot();
+                    if (targetSpot != null)
+                    {
+                        targetSpot.SetOccupant(unit);
+                    }
+                    else
+                    {
+                        actionRunner.CancelCurrentAction();
+                    }
                 }
-
-                // TODO: Need logic here to tell agent to recalculate new path if stuck
             }
+
+            //if (TargetInteractable is null && TargetPos != default)
+            //{
+            //    if (HasReachedTargetPos())
+            //    {
+            //        StopMoving();
+            //        targetPos = default;
+            //        return;
+            //    }
+            //    return;
+            //}
+
+            //if (TargetInteractable != null && TargetPos == default)
+            //{
+            //    if (HasReachedTargetInteractable())
+            //    {
+            //        if (!actionRunner.ActionIsRunning)
+            //        {
+            //            StopMoving();
+            //            OnReachedInteractableTarget?.Invoke();
+            //            return;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        //if (!actionRunner.ActionIsRunning)
+            //        //{
+            //        //    MoveToInteractable(TargetInteractable);
+            //        //}
+            //        MoveToInteractable(TargetInteractable);
+            //    }
+
+            //    // TODO: Need logic here to tell agent to recalculate new path if stuck
+            //}
         }
 
-        public bool HasReachedTargetInteractable()
+        public bool HasReachedTargetSpot()
         {
-            return Vector3.Distance(transform.position, TargetInteractable.transform.position) <= TargetInteractable.useRange;
-        }
-
-        public bool HasReachedTargetPos()
-        {
-            return Vector3.Distance(transform.position, TargetPos) <= navigator.stoppingDistance;
-        }
-
-        public void MoveToInteractable(Interactable target)
-        {
-            if (MoveEnabled)
-            {
-                targetPos = default;
-                TargetInteractable = target;
-                if (target.TryGetOccupantSpot(out targetOccupantSpot))
-                {
-                    navigator.SetDestination(targetOccupantSpot.Position);
-                }
-                else
-                {
-                    navigator.SetDestination(TargetInteractable.transform.position);
-                }
-            }            
+            float distance = Vector3.Distance(transform.position, targetSpot.Position);
+            return Mathf.Abs(distance - navigator.stoppingDistance) <= 0.01;
         }
 
         /// <summary>
@@ -128,9 +137,16 @@ namespace ScavengerWorld
             if (MoveEnabled)
             {
                 actionRunner.CancelCurrentAction();
-                targetPos = pos;
                 navigator.SetDestination(pos);
             }            
+        }
+
+        public void MoveToTargetSpot()
+        {
+            if (MoveEnabled)
+            {
+                navigator.SetDestination(targetSpot.Position);
+            }
         }
 
         public void StopMoving()
@@ -175,6 +191,13 @@ namespace ScavengerWorld
             Quaternion targ_rot = Quaternion.LookRotation(facing, Vector3.up);
             Quaternion nrot = Quaternion.RotateTowards(transform.rotation, targ_rot, 360f);
             transform.rotation = nrot;
+        }
+
+        public void ClearTarget()
+        {
+            targetSpot?.ClearOccupant();
+            targetSpot = null;
+            TargetInteractable = null;
         }
 
         #region Old Stuff
