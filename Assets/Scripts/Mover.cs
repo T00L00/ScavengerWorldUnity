@@ -26,7 +26,7 @@ namespace ScavengerWorld
         private Unit unit;
         private ActionRunner actionRunner;
         private Vector3 facing;
-        private OccupantSpot targetSpot;
+        private InteractNode targetSpot;
 
         public event UnityAction OnReachedDestination;
 
@@ -36,7 +36,7 @@ namespace ScavengerWorld
 
         public bool MoveEnabled { get; private set; }
 
-        public OccupantSpot TargetSpot => targetSpot;
+        public InteractNode TargetSpot => targetSpot;
 
         public Interactable TargetInteractable { get; set; }
 
@@ -75,15 +75,22 @@ namespace ScavengerWorld
                 }
                 else
                 {
-                    targetSpot = TargetInteractable.GetAvailableOccupantSpot();
-                    if (targetSpot != null)
+                    if (TargetInteractable.InteractionAvailable)
                     {
-                        targetSpot.SetOccupant(unit);
+                        targetSpot = TargetInteractable.GetAvailableInteractNode(this.unit);
+                        if (targetSpot != null)
+                        {
+                            targetSpot.SetOccupant(unit);
+                        }
+                        else
+                        {
+                            actionRunner.CancelCurrentAction();
+                        }
                     }
                     else
                     {
                         actionRunner.CancelCurrentAction();
-                    }
+                    }                    
                 }
             }
 
@@ -124,7 +131,7 @@ namespace ScavengerWorld
 
         public bool HasReachedTargetSpot()
         {
-            float distance = Vector3.Distance(transform.position, targetSpot.Position);
+            float distance = Vector3.Distance(transform.position, targetSpot.transform.position);
             return Mathf.Abs(distance - navigator.stoppingDistance) <= 0.01;
         }
 
@@ -145,7 +152,7 @@ namespace ScavengerWorld
         {
             if (MoveEnabled)
             {
-                navigator.SetDestination(targetSpot.Position);
+                navigator.SetDestination(targetSpot.transform.position);
             }
         }
 

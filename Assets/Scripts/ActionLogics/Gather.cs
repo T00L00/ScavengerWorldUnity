@@ -17,7 +17,7 @@ namespace ScavengerWorld
             return unit.UnitClass == UnitClass.Gatherer
                 && unit.HowFullIsInventory < 1f
                 && target.Gatherable.AmountAvailable > 0
-                && target.OccupantSpotAvailable();
+                && target.InteractNodeAvailable();
         }
 
         public override void StartAction(Unit unit, Interactable target)
