@@ -43,9 +43,7 @@ namespace ScavengerWorld
             deathState = new(animancer, death);
 
             stateMachine = new StateMachine<State>.WithDefault(locomotionState);            
-        }
-
-        
+        }        
 
         // Start is called before the first frame update
         void Start()

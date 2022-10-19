@@ -6,8 +6,6 @@ namespace ScavengerWorld.AI.UAI
 {
     public class CombatUtilityAI : UtilityAI
     {
-        public Interactable Target { get; set; }
-
         public CombatUtilityAI()
         {
             

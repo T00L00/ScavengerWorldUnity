@@ -10,6 +10,8 @@ namespace ScavengerWorld.AI.UAI
 {
     public class UtilityAI
     {
+        public Interactable Target { get; set; }
+
         public readonly List<UtilityAction> useableActions = new();
 
         public UtilityAI()
