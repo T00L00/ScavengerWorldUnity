@@ -21,7 +21,7 @@ namespace ScavengerWorld.AI
 
         public override bool IsAchievable(Unit unit, Interactable target)
         {
-            return unit.AIController.AIState == AIState.Combat
+            return unit.AIController.CurrentState == AIState.State.Combat
                 && unit.Attributes.Energy.CurrentValue >= energyCost;
         }
 
@@ -44,7 +44,7 @@ namespace ScavengerWorld.AI
 
         public override void StopAction(Unit unit, Interactable target)
         {
-            unit.AIController.SetState(AIState.Default);
+            unit.AIController.SetState(AIState.State.Default);
             unit.AIController.OnFinishedAction();
 
         }
