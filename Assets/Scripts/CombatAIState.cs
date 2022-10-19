@@ -8,7 +8,7 @@ namespace ScavengerWorld.AI
 {
     public class CombatAIState : AIState
     {
-        public CombatAIState(NavMeshAgent navigator, Unit unit, float rotateSpeed) 
+        public CombatAIState(NavMeshAgent navigator, Unit unit, float rotateSpeed)
             : base(navigator, unit, rotateSpeed)
         {
             this.navigator = navigator;
@@ -19,20 +19,25 @@ namespace ScavengerWorld.AI
             actionProgress = 0;
         }
 
-        public override void OnUpdate()
+        public void SetTarget(Interactable target)
         {
-            if (selectedAction is null)
-            {
-                ai.GetUseableActions(unit);
-                if (ai.useableActions.Count == 0) return;
-
-                selectedAction = ai.DecideBestAction(unit);
-                return;
-            }
-
-            HandleRotation();
-
-            // TODO - logic to handle movement when in combat state
+            ai.Target = target;
         }
+
+        //public override void OnUpdate()
+        //{
+        //    if (selectedAction is null)
+        //    {
+        //        ai.GetUseableActions(unit);
+        //        if (ai.useableActions.Count == 0) return;
+
+        //        selectedAction = ai.DecideBestAction(unit);
+        //        return;
+        //    }
+
+        //    HandleRotation();
+
+        //    //TODO - logic to handle movement when in combat state
+        //}
     }
 }

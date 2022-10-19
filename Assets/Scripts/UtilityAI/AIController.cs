@@ -74,7 +74,7 @@ namespace ScavengerWorld.AI
             stateMachine.CurrentState.FaceTowards(i);
         }
 
-        public void SetState(AIState.State state)
+        public void SetState(AIState.State state, Interactable target=null)
         {
             switch (state)
             {
@@ -89,6 +89,7 @@ namespace ScavengerWorld.AI
                     // TODO - Need to somehow pass target into combat state
                     defaultState.Enabled = false;
                     combatState.Enabled = true;
+                    combatState.SetTarget(target);
                     stateMachine.TrySetState(combatState); 
                     break;
 

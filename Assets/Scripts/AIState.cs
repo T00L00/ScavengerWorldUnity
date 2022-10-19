@@ -77,11 +77,11 @@ namespace ScavengerWorld.AI
 
             if (targetNode != null)
             {
-                if (HasReachedTargetNode())
+                if (HasReachedTarget())
                 {
                     if (!selectedAction.IsRunning)
                     {
-                        StopMoving();
+                        DisableMovement();
                         selectedAction.StartAction(unit);
                     }
                     else
@@ -91,6 +91,7 @@ namespace ScavengerWorld.AI
                 }
                 else
                 {
+                    EnableMovement();
                     MoveToTargetNode();
                 }
             }
@@ -153,7 +154,13 @@ namespace ScavengerWorld.AI
         public bool HasReachedTargetNode()
         {
             float distance = Vector3.Distance(unit.transform.position, targetNode.transform.position);
-            return Mathf.Abs(distance - navigator.stoppingDistance) <= 0.01;
+            return Mathf.Abs(distance - navigator.stoppingDistance) <= 0.1f;
+        }
+
+        public bool HasReachedTarget()
+        {
+            float distance = Vector3.Distance(unit.transform.position, targetNode.Parent.transform.position);
+            return Mathf.Abs(distance - targetNode.Parent.useRange) <= 0.1f;
         }
 
         public void MoveToTargetNode()

@@ -12,6 +12,8 @@ namespace ScavengerWorld
 
         public bool Occupied => occupant != null;
 
+        public Interactable Parent => parent;
+
         public void Init(Interactable parent)
         {
             this.parent = parent;
