@@ -40,7 +40,7 @@ namespace ScavengerWorld
 
         public override void StopAction(Unit unit, Interactable target)
         {
-            unit.ActionRunner.OnFinishedAction();
+            unit.AIController.OnFinishedAction();
         }
 
         public override void UpdateAction(Unit unit, Interactable target)

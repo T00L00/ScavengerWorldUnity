@@ -22,15 +22,16 @@ namespace ScavengerWorld
 
         public override void StartAction(Unit unit, Interactable target)
         {
-            unit.Mover.FaceTowards(target);
+            //unit.Mover.FaceTowards(target);
+            unit.AIController.FaceTowards(target);
             unit.AnimController.AnimateAction(animation);
         }
 
         public override void StopAction(Unit unit, Interactable target)
         {
             unit.AnimController.StopActionAnimation();
-            unit.ActionRunner.ResetActionProgress();
-            unit.ActionRunner.OnFinishedAction();
+            unit.AIController.ResetActionProgress();
+            unit.AIController.OnFinishedAction();
         }
 
         public override void UpdateAction(Unit unit, Interactable target)
@@ -41,10 +42,10 @@ namespace ScavengerWorld
                 return;
             }
 
-            unit.ActionRunner.AddActionProgress(TheGame.Instance.GameHourPerRealSecond * unit.Stats.gatherRate * Time.deltaTime);
-            if (unit.ActionRunner.ActionProgress >= 1f)
+            unit.AIController.AddActionProgress(TheGame.Instance.GameHourPerRealSecond * unit.Stats.gatherRate * Time.deltaTime);
+            if (unit.AIController.ActionProgress >= 1f)
             {
-                unit.ActionRunner.ResetActionProgress();
+                unit.AIController.ResetActionProgress();
                 unit.AddItem(target.Gatherable, 1);
             }            
         }

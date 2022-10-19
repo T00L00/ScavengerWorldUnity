@@ -264,7 +264,6 @@ GameObject:
   - component: {fileID: 4696175720596570484}
   - component: {fileID: 4984653360226530710}
   - component: {fileID: 5588171300650307849}
-  - component: {fileID: 3779541243331905077}
   - component: {fileID: 4696175720587587310}
   - component: {fileID: 8159575728431626845}
   - component: {fileID: 7053714464449843559}
@@ -272,7 +271,6 @@ GameObject:
   - component: {fileID: 1029977469498856005}
   - component: {fileID: 9064060516784210176}
   - component: {fileID: 6904360440821930162}
-  - component: {fileID: 7341816213874298672}
   - component: {fileID: 6900173975309043656}
   m_Layer: 6
   m_Name: SW_VillagerHuman
@@ -335,25 +333,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3779541243331905077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4696175720596937876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eaed84eb3bffa047b4f2ffc4c335fa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  focusRange: 50
-  explorationRange: 40
-  rotateSpeed: 20
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  navigator: {fileID: 5588171300650307849}
 --- !u!95 &4696175720587587310
 Animator:
   serializedVersion: 4
@@ -570,19 +549,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health:
     maxValue: 100
---- !u!114 &7341816213874298672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4696175720596937876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40c9d5a786a6a43409fbed95d0b417f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameplayTesting: 0
 --- !u!114 &6900173975309043656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,6 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ae27d6da8a53d4180936cf2aab66f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateSpeed: 20
 --- !u!1 &4696175720596937878
 GameObject:
   m_ObjectHideFlags: 0

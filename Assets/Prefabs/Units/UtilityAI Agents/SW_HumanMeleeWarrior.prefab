@@ -1973,12 +1973,10 @@ GameObject:
   - component: {fileID: 8887185847576839325}
   - component: {fileID: 8985028528538495391}
   - component: {fileID: 4640824790716795542}
-  - component: {fileID: 8280509521683320896}
   - component: {fileID: 1753024946424427836}
   - component: {fileID: 4384303757751709634}
   - component: {fileID: 7618417767547432746}
   - component: {fileID: 5290516058283322340}
-  - component: {fileID: 3102025667736140799}
   - component: {fileID: 6648421883929924165}
   m_Layer: 6
   m_Name: SW_HumanMeleeWarrior
@@ -2125,25 +2123,6 @@ MonoBehaviour:
     _Speed: 1
     _NormalizedStartTime: NaN
   staggerMask: {fileID: 31900000, guid: 31335676889cb864abc7c180560c207d, type: 2}
---- !u!114 &8280509521683320896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8887185847567464161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eaed84eb3bffa047b4f2ffc4c335fa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  focusRange: 50
-  explorationRange: 40
-  rotateSpeed: 20
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  navigator: {fileID: 6607351203547855131}
 --- !u!114 &1753024946424427836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2277,19 +2256,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health:
     maxValue: 100
---- !u!114 &3102025667736140799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8887185847567464161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40c9d5a786a6a43409fbed95d0b417f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameplayTesting: 0
 --- !u!114 &6648421883929924165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2302,6 +2268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ae27d6da8a53d4180936cf2aab66f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateSpeed: 20
 --- !u!1 &8887185847567464167
 GameObject:
   m_ObjectHideFlags: 0

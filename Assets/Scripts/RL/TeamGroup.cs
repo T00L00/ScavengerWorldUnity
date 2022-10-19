@@ -43,8 +43,8 @@ namespace ScavengerWorld.AI
             {
                 u.TeamId = teamId;
                 u.Damageable.ResetHealth();
-                u.ActionRunner.CancelCurrentAction();
-                u.Mover.ResetNavigator();
+                //u.ActionRunner.CancelCurrentAction();
+                //u.Mover.ResetNavigator();
                 u.transform.position = storage.transform.position;                              
                 u.gameObject.SetActive(true);
             }

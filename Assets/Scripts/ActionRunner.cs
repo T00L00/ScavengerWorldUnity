@@ -47,8 +47,6 @@ namespace ScavengerWorld
         //[SerializeField] private List<Action> actionsAvailable;        
 
         private Unit unit;
-        private Mover mover;
-        private AIController aiController;
         private float actionProgress;
 
         public bool ActionIsRunning 
@@ -66,22 +64,16 @@ namespace ScavengerWorld
         private void Awake()
         {
             unit = GetComponent<Unit>();
-            mover = GetComponent<Mover>();
-            aiController = GetComponent<AIController>();
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            mover.OnReachedDestination += StartCurrentAction;
-            aiController.OnDecideAction += SetCurrentAction;
             //actorAgent.OnReceivedActions += OnReceivedActions;
         }
 
         private void OnDestroy()
         {
-            mover.OnReachedDestination -= StartCurrentAction;
-            aiController.OnDecideAction -= SetCurrentAction;
             //actorAgent.OnReceivedActions -= OnReceivedActions;
         }
 
@@ -128,17 +120,13 @@ namespace ScavengerWorld
         {
             CancelCurrentAction();
             CurrentAction = action;
-            mover.TargetInteractable = CurrentAction.Target;
         }
 
         public void StartCurrentAction()
         {
             if (CurrentAction is null) return;
 
-            if (mover.TargetInteractable == CurrentAction.Target)
-            {
-                CurrentAction.StartAction(unit);
-            }
+            CurrentAction.StartAction(unit);
         }
 
         /// <summary>
@@ -150,16 +138,12 @@ namespace ScavengerWorld
 
             CurrentAction.StopAction(unit);
             CurrentAction = null;
-            aiController.ClearSelectedAction();
-            mover.ClearTarget();
         }
 
         public void OnFinishedAction()
         {
             CurrentAction.IsRunning = false;
             CurrentAction = null;
-            aiController.ClearSelectedAction();
-            mover.ClearTarget();
         }
 
         //public void SetCurrentAction(ActionType actionType, Vector3 moveHereIfNoAction = default)

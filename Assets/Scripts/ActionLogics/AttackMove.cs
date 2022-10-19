@@ -37,7 +37,7 @@ namespace ScavengerWorld.AI
 
             //Debug.Log($"{unit.gameObject.name} does attack move!");
 
-            unit.Mover.FaceTowards(target);
+            unit.AIController.FaceTowards(target);
             unit.AnimController.AnimateAttackAction(animation);
             unit.Attributes.Energy.Reduce(energyCost);
         }
@@ -45,7 +45,7 @@ namespace ScavengerWorld.AI
         public override void StopAction(Unit unit, Interactable target)
         {
             unit.AIController.SetState(AIState.Default);
-            unit.ActionRunner.OnFinishedAction();
+            unit.AIController.OnFinishedAction();
 
         }
 
