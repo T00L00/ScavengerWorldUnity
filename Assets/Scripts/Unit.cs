@@ -33,9 +33,7 @@ namespace ScavengerWorld
         private MeshRenderer meshRenderer;
         private Interactable interactable;
         private Damageable damageable;
-        private Mover mover;
         private AIController aiController;
-        private ActionRunner actionRunner;
         private AnimationController animController;
         private CharacterAttributes attributes;
 
@@ -48,9 +46,7 @@ namespace ScavengerWorld
         public Unit StorageDepot { get; set; }
         public Interactable Interactable => interactable;
         public Damageable Damageable => damageable;
-        public Mover Mover => mover;
         public AIController AIController => aiController;
-        public ActionRunner ActionRunner => actionRunner;
         public AnimationController AnimController => animController;
         public CharacterAttributes Attributes => attributes;
         
@@ -69,8 +65,6 @@ namespace ScavengerWorld
         {
             damageable = GetComponent<Damageable>();
             interactable = GetComponent<Interactable>();
-            mover = GetComponent<Mover>();
-            actionRunner = GetComponent<ActionRunner>();
             aiController = GetComponent<AIController>();
             animController = GetComponent<AnimationController>();
             attributes = GetComponent<CharacterAttributes>();

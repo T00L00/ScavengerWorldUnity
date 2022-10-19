@@ -20,7 +20,7 @@ namespace ScavengerWorld
 
         public override void StartAction(Unit unit, Interactable target)
         {
-            unit.Mover.FaceTowards(target);
+            unit.AIController.FaceTowards(target);
             unit.AnimController.AnimateAction(animation);
 
             var food = unit.RemoveAllItems();
@@ -31,7 +31,7 @@ namespace ScavengerWorld
         public override void StopAction(Unit unit, Interactable target)
         {            
             unit.AnimController.StopActionAnimation();
-            unit.ActionRunner.OnFinishedAction();
+            unit.AIController.OnFinishedAction();
         }
 
         public override void UpdateAction(Unit unit, Interactable target)

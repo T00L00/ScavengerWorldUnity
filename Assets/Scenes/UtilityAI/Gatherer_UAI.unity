@@ -1103,6 +1103,12 @@ PrefabInstance:
       propertyPath: NumFood
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 2405058221083377149, guid: 44d8ab741333da14cb2a71a5e3304e08,
+        type: 3}
+      propertyPath: foodPrefab
+      value: 
+      objectReference: {fileID: 5532676234651111953, guid: 8aff070493cf516478a8d572a374e71a,
+        type: 3}
     - target: {fileID: 2405058221083377150, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
       propertyPath: m_Name

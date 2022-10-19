@@ -5,22 +5,16 @@ using UnityEngine;
 
 namespace ScavengerWorld
 {
-    public class OccupantSpot
+    public class InteractNode : MonoBehaviour
     {
         private Interactable parent;
         private Unit occupant;
-        private Vector3 position;
 
-        public Interactable Parent => parent;
-        public Unit Occupant => occupant;
-        public Vector3 Position => position;
         public bool Occupied => occupant != null;
 
-        public OccupantSpot(Interactable parent, Vector3 position)
+        public void Init(Interactable parent)
         {
-            this.position = position;
             this.parent = parent;
-            this.occupant = null;
         }
 
         public bool TrySetOccupant(Unit unit)
@@ -45,12 +39,14 @@ namespace ScavengerWorld
             if (occupant is null)
             {
                 occupant = unit;
+                parent.AddInteraction();
             }
         }
 
         public void ClearOccupant()
         {
             occupant = null;
+            parent.RemoveInteraction();
         }
     }
 }

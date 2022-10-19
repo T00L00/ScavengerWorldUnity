@@ -4,6 +4,7 @@ using UnityEngine;
 using Animancer;
 using Animancer.FSM;
 using System;
+using ScavengerWorld.AI;
 
 namespace ScavengerWorld
 {
@@ -20,7 +21,7 @@ namespace ScavengerWorld
         private AnimancerLayer staggerLayer;
 
         private Unit unit;
-        private Mover mover;
+        private AIController aiController;
         private LocomotionState locomotionState;
         private ActionState actionState;
         private DeathState deathState;
@@ -29,7 +30,7 @@ namespace ScavengerWorld
         private void Awake()
         {
             unit = GetComponent<Unit>();
-            mover = GetComponent<Mover>();
+            aiController = GetComponent<AIController>();
 
             baseLayer = animancer.Layers[0];
             staggerLayer = animancer.Layers[1];
@@ -62,13 +63,13 @@ namespace ScavengerWorld
         {
             if (stateMachine.CurrentState == locomotionState)
             {
-                locomotionState.SetSpeed(mover.NavigatorSpeed);
+                locomotionState.SetSpeed(aiController.NavigatorSpeed);
             }
         }
 
         public void AnimateStagger()
         {
-            unit.Mover.DisableMovement();            
+            unit.AIController.DisableMovement();
             if (stateMachine.CurrentState == locomotionState)
             {
                 locomotionState.AnimateStagger();
@@ -83,8 +84,8 @@ namespace ScavengerWorld
         private void OnStaggerEnd()
         {
             staggerLayer.StartFade(0, AnimancerPlayable.DefaultFadeDuration);
-            unit.ActionRunner.CancelCurrentAction();
-            unit.Mover.EnableMovement();
+            unit.AIController.CancelSelectedAction();
+            unit.AIController.EnableMovement();
         }
 
         public void AnimateDeath()
@@ -102,7 +103,7 @@ namespace ScavengerWorld
             actionState.Enable = true;
             actionState.SetActionAnimation(clip, unit.Stats.attackSpeed);
             stateMachine.TrySetState(actionState);
-            unit.Mover.DisableMovement();
+            unit.AIController.DisableMovement();
         }
 
         public void AnimateAction(AnimationClip clip)
@@ -112,7 +113,7 @@ namespace ScavengerWorld
             actionState.Enable = true;
             actionState.SetActionAnimation(clip);
             stateMachine.TrySetState(actionState);
-            unit.Mover.DisableMovement();
+            unit.AIController.DisableMovement();
         }
 
         public void StopActionAnimation()
@@ -122,7 +123,7 @@ namespace ScavengerWorld
             locomotionState.Enable = true;
             stateMachine.TrySetDefaultState();
             actionState.Reset();
-            unit.Mover.EnableMovement();
+            unit.AIController.EnableMovement();
         }
 
         public bool ActionIsPlaying => actionState.IsPlaying;
@@ -133,7 +134,7 @@ namespace ScavengerWorld
             actionState.Enable = false;
             locomotionState.Enable = true;
             stateMachine.TrySetDefaultState();
-            unit.Mover.EnableMovement();
+            unit.AIController.EnableMovement();
         }
 
         public void HitEvent()

@@ -24,6 +24,7 @@ namespace ScavengerWorld.AI.UAI
 
         public virtual void GetUseableActions(Unit unit)
         {
+            useableActions.Clear();
             List<Interactable> interactables = unit.Pulse();
             if (interactables.Count > 0)
             {
