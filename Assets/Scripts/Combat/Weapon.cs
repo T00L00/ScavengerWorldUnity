@@ -35,5 +35,11 @@ namespace ScavengerWorld
 
             //Debug.Log($"Sword hit dealing {totalDamage}!");
         }
+
+        public Action RandomAttackAction()
+        {
+            int attackIndex = Random.Range(0, attackActions.Count);
+            return attackActions[attackIndex].Copy();
+        }
     }
 }

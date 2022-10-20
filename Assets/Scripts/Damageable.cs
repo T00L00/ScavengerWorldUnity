@@ -7,23 +7,23 @@ namespace ScavengerWorld
     [RequireComponent(typeof(Interactable))]
     public class Damageable : MonoBehaviour
     {
-        [SerializeField] private Attribute health;
-
         private Unit unit;
         private Interactable interactable;
+        private CharacterAttributes attributes;
 
         public Unit Unit => unit;
         public Interactable Interactable => interactable;
-        public float CurrentHealth => health.CurrentValue;
-        public float HealthPercentage => health.Percentage;
+        public float CurrentHealth => attributes.Health.CurrentValue;
+        public float HealthPercentage => attributes.Health.Percentage;
 
-        public bool IsAlive => health.CurrentValue > 0f;
+        public bool IsAlive => attributes.Health.CurrentValue > 0f;
 
         private void Awake()
         {
             unit = GetComponent<Unit>();
             interactable = GetComponent<Interactable>();
-            health.Reset();
+            attributes = GetComponent<CharacterAttributes>();
+            attributes.Health.Reset();
         }
 
         // Update is called once per frame
@@ -39,7 +39,7 @@ namespace ScavengerWorld
         {
             // Perform damage reduction calculation based on armor
 
-            health.Reduce(amount);
+            attributes.Health.Reduce(amount);
         }
 
         public void Die()
@@ -53,7 +53,7 @@ namespace ScavengerWorld
         public void ResetHealth()
         {
             gameObject.SetActive(true);
-            health.Reset();
+            attributes.Health.Reset();
         }
     }
 }

@@ -802,7 +802,7 @@ PrefabInstance:
     - target: {fileID: 2405058221083377149, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
       propertyPath: NumFood
-      value: 60
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2405058221083377149, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
@@ -810,6 +810,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5532676234651111953, guid: 8aff070493cf516478a8d572a374e71a,
         type: 3}
+    - target: {fileID: 2405058221083377149, guid: 44d8ab741333da14cb2a71a5e3304e08,
+        type: 3}
+      propertyPath: Distribution
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2405058221083377150, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
       propertyPath: m_Name
@@ -828,7 +833,7 @@ PrefabInstance:
     - target: {fileID: 2405058221083377151, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
       propertyPath: teams.Array.data[0].warriorsCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2405058221083377151, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
@@ -838,12 +843,12 @@ PrefabInstance:
     - target: {fileID: 2405058221083377151, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
       propertyPath: teams.Array.data[0].gatherersCount
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2405058221083377151, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
       propertyPath: teams.Array.data[1].gatherersCount
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44d8ab741333da14cb2a71a5e3304e08, type: 3}

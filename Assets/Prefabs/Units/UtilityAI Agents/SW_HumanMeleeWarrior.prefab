@@ -2184,6 +2184,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 20
+  runSpeed: 8
+  walkSpeed: 3
   unitClass: 1
   weapon: {fileID: 6038290886327701854}
   sensor:
@@ -2238,7 +2240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health:
-    maxValue: 100
+    maxValue: 500
   energy:
     maxValue: 100
   poise:
@@ -2269,7 +2271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ae27d6da8a53d4180936cf2aab66f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 20
 --- !u!1 &8887185847567464167
 GameObject:
   m_ObjectHideFlags: 0
