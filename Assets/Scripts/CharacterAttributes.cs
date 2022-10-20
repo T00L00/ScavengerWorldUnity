@@ -34,7 +34,7 @@ namespace ScavengerWorld
 
             if (poise.CurrentValue <= 0f)
             {
-                unit.AnimController.AnimateStagger();
+                unit.AIController.AnimateStagger();
             }
 
             if (poise.Percentage < 1f)

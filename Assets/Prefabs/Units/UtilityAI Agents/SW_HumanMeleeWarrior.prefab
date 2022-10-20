@@ -1971,8 +1971,8 @@ GameObject:
   - component: {fileID: 3068396258244446551}
   - component: {fileID: 6607351203547855131}
   - component: {fileID: 8887185847576839325}
+  - component: {fileID: 3729530793605373774}
   - component: {fileID: 8985028528538495391}
-  - component: {fileID: 4640824790716795542}
   - component: {fileID: 1753024946424427836}
   - component: {fileID: 4384303757751709634}
   - component: {fileID: 7618417767547432746}
@@ -2058,6 +2058,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3729530793605373774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8887185847567464161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b1b5310fe1e4242a33fa6b5594d673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animancer: {fileID: 8985028528538495391}
+  stagger:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: 1a33efc4f887964429d1926e15110846, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: NaN
+  staggerMask: {fileID: 31900000, guid: 31335676889cb864abc7c180560c207d, type: 2}
 --- !u!114 &8985028528538495391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2072,57 +2095,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Animator: {fileID: 8887185847576839325}
   _ActionOnDisable: 0
---- !u!114 &4640824790716795542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8887185847567464161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaed4c60009668748ad4da6bd959839c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animancer: {fileID: 8985028528538495391}
-  locomotion:
-    _FadeDuration: 0.25
-    _Events:
-      _NormalizedTimes: []
-      _Callbacks: []
-      _Names: []
-    _Speed: 1
-    _Animations:
-    - {fileID: 7400000, guid: dbe0648bd4c6b334d8ab22b29f8ba43b, type: 3}
-    - {fileID: 7400016, guid: df74f516f8958a24bab217e3603c71cd, type: 3}
-    - {fileID: 7400016, guid: 5fe51830c6e12034892d1041e85357b6, type: 3}
-    _Speeds: []
-    _SynchronizeChildren: 
-    _Thresholds:
-    - 0
-    - 3
-    - 8
-    _DefaultParameter: 0
-    _ExtrapolateSpeed: 1
-  death:
-    _FadeDuration: 0.25
-    _Events:
-      _NormalizedTimes: []
-      _Callbacks: []
-      _Names: []
-    _Clip: {fileID: 7400004, guid: 0b0e41968ff077042b500a9a0bdc848b, type: 3}
-    _Speed: 1
-    _NormalizedStartTime: NaN
-  stagger:
-    _FadeDuration: 0.25
-    _Events:
-      _NormalizedTimes: []
-      _Callbacks: []
-      _Names: []
-    _Clip: {fileID: 7400000, guid: 1a33efc4f887964429d1926e15110846, type: 3}
-    _Speed: 1
-    _NormalizedStartTime: NaN
-  staggerMask: {fileID: 31900000, guid: 31335676889cb864abc7c180560c207d, type: 2}
 --- !u!114 &1753024946424427836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2211,6 +2183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c592009e1648f7c428c42cfc4083765e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateSpeed: 20
   unitClass: 1
   weapon: {fileID: 6038290886327701854}
   sensor:
@@ -2224,6 +2197,34 @@ MonoBehaviour:
     energyReplenishRate: 20
     poiseReplenishRate: 5
     gatherRate: 1
+  defaultLocomotion:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Speed: 1
+    _Animations:
+    - {fileID: 7400000, guid: dbe0648bd4c6b334d8ab22b29f8ba43b, type: 3}
+    - {fileID: 7400048, guid: 7d7a8478c91087c42bb5424c91ae2fc1, type: 3}
+    - {fileID: 7400000, guid: a1dff0272c2562549935121c354329ab, type: 3}
+    _Speeds: []
+    _SynchronizeChildren: 
+    _Thresholds:
+    - 0
+    - 3
+    - 8
+    _DefaultParameter: 0
+    _ExtrapolateSpeed: 1
+  deathAnimation:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: 0b0e41968ff077042b500a9a0bdc848b, type: 3}
+    _Speed: 1
+    _NormalizedStartTime: NaN
 --- !u!114 &7618417767547432746
 MonoBehaviour:
   m_ObjectHideFlags: 0

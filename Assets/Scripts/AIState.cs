@@ -1,9 +1,11 @@
-using Animancer.FSM;
-using ScavengerWorld.AI.UAI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Animancer;
+using Animancer.FSM;
+using ScavengerWorld.AI.UAI;
+using System.Linq;
 
 namespace ScavengerWorld.AI
 {
@@ -17,6 +19,8 @@ namespace ScavengerWorld.AI
 
         protected NavMeshAgent navigator;
         protected Unit unit;
+        protected AnimationController animController;
+        protected LinearMixerTransition locomotion;
 
         protected State state;
         protected UtilityAI ai;
@@ -25,7 +29,6 @@ namespace ScavengerWorld.AI
 
         protected InteractNode targetNode;
         protected Vector3 facing;
-        protected float rotateSpeed; // maybe move this to Unit.cs
 
         public bool MoveEnabled { get; private set; }
 
@@ -37,11 +40,12 @@ namespace ScavengerWorld.AI
 
         public virtual bool CanExitState => !Enabled;
 
-        public AIState(NavMeshAgent navigator, Unit unit, float rotateSpeed)
+        public AIState(NavMeshAgent navigator, Unit unit, AnimationController animController)
         {
             this.navigator = navigator;
             this.unit = unit;
-            this.rotateSpeed = rotateSpeed;
+            this.animController = animController;
+            this.locomotion = unit.DefaultLocomotion;
             this.ai = new UtilityAI();
             this.state = State.Default;
             actionProgress = 0;
@@ -50,9 +54,14 @@ namespace ScavengerWorld.AI
 
         public State GetState() => state;
 
-        public virtual void OnEnterState()
+        public virtual void AnimateLocomotion()
         {
-            
+            animController.AnimateLocomotion(locomotion);
+        }
+
+        public virtual void OnEnterState()
+        {            
+            AnimateLocomotion();
         }
 
         public virtual void OnExitState()
@@ -62,6 +71,9 @@ namespace ScavengerWorld.AI
 
         public virtual void OnUpdate()
         {
+            locomotion.State.Parameter = navigator.velocity.magnitude;
+            HandleRotation();
+
             if (selectedAction is null)
             {
                 ai.GetUseableActions(unit);
@@ -70,8 +82,6 @@ namespace ScavengerWorld.AI
                 selectedAction = ai.DecideBestAction(unit);
                 return;
             }
-
-            HandleRotation();
 
             // Move to action target
 
@@ -104,6 +114,7 @@ namespace ScavengerWorld.AI
                 }
                 else
                 {
+                    StopMoving();
                     CancelSelectedAction();
                 }
             }
@@ -130,14 +141,12 @@ namespace ScavengerWorld.AI
         public void CancelSelectedAction()
         {
             selectedAction.StopAction(unit);
-            ClearSelectedAction();
         }
 
-        public void OnFinishedAction()
+        public virtual void OnFinishedAction()
         {
-            selectedAction.IsRunning = false;
-            selectedAction = null;
             ClearSelectedAction();
+            animController.AnimateLocomotion(locomotion);
         }
 
         protected void ClearSelectedAction()
@@ -210,7 +219,7 @@ namespace ScavengerWorld.AI
 
                 //Apply Rotation
                 Quaternion targ_rot = Quaternion.LookRotation(facing, Vector3.up);
-                Quaternion nrot = Quaternion.Slerp(unit.transform.rotation, targ_rot, rotateSpeed * Time.deltaTime);
+                Quaternion nrot = Quaternion.Slerp(unit.transform.rotation, targ_rot, unit.RotateSpeed * Time.deltaTime);
                 unit.transform.rotation = nrot;
             }
         }

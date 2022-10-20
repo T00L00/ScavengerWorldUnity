@@ -6,6 +6,7 @@ using Unity.MLAgents.Actuators;
 using System;
 using Unity.MLAgents.Policies;
 using UnityEngine.Events;
+using Animancer;
 
 namespace ScavengerWorld
 {
@@ -24,17 +25,19 @@ namespace ScavengerWorld
     [RequireComponent(typeof(Interactable))]
     public class Unit : MonoBehaviour
     {
+        [SerializeField] private float rotateSpeed = 20f;
         [SerializeField] private UnitClass unitClass;
         [SerializeField] private Weapon weapon;
         [SerializeField] private Sensor sensor;
         [SerializeField] private Inventory inventory;
         [SerializeField] private Stats stats;
+        [SerializeField] private LinearMixerTransition defaultLocomotion;
+        [SerializeField] private ClipTransition deathAnimation;
 
         private MeshRenderer meshRenderer;
         private Interactable interactable;
         private Damageable damageable;
         private AIController aiController;
-        private AnimationController animController;
         private CharacterAttributes attributes;
 
         private ActorAgent actorAgent;
@@ -47,7 +50,6 @@ namespace ScavengerWorld
         public Interactable Interactable => interactable;
         public Damageable Damageable => damageable;
         public AIController AIController => aiController;
-        public AnimationController AnimController => animController;
         public CharacterAttributes Attributes => attributes;
         
         public ActorAgent ActorAgent => actorAgent;
@@ -58,6 +60,9 @@ namespace ScavengerWorld
         public int InventoryItemCount => inventory.ItemCount;
         public bool IsStorageDepot => inventory.IsStorageDepot;
         public float SensorRange => sensor.Radius;
+        public float RotateSpeed => rotateSpeed;
+        public LinearMixerTransition DefaultLocomotion => defaultLocomotion;
+        public ClipTransition DeathAnimation => deathAnimation;
 
         public event UnityAction<float> OnRewardEarned;
 
@@ -66,7 +71,6 @@ namespace ScavengerWorld
             damageable = GetComponent<Damageable>();
             interactable = GetComponent<Interactable>();
             aiController = GetComponent<AIController>();
-            animController = GetComponent<AnimationController>();
             attributes = GetComponent<CharacterAttributes>();
             actorAgent = GetComponent<ActorAgent>();
             behaviorParameters = GetComponentInChildren<BehaviorParameters>();

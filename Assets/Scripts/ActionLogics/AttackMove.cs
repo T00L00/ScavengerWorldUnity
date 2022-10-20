@@ -38,25 +38,25 @@ namespace ScavengerWorld.AI
             //Debug.Log($"{unit.gameObject.name} does attack move!");
 
             unit.AIController.FaceTowards(target);
-            unit.AnimController.AnimateAttackAction(animation);
+            unit.AIController.AnimateAction(animation);
             unit.Attributes.Energy.Reduce(energyCost);
         }
 
         public override void StopAction(Unit unit, Interactable target)
         {
-            unit.AIController.SetState(AIState.State.Default);
-            unit.AIController.OnFinishedAction();
+            // TODO - Logic to decide whether or not to stay in combat state?
 
+            if (!target.Damageable.IsAlive)
+            {
+                unit.AIController.SetState(AIState.State.Default);
+            }
+            
+            unit.AIController.OnFinishedAction();
         }
 
         public override void UpdateAction(Unit unit, Interactable target)
         {
-            if (unit.AnimController.ActionIsPlaying)
-            {
-                return;
-            }
 
-            StopAction(unit, target);
         }
     }
 }

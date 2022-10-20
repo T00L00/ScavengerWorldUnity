@@ -21,27 +21,20 @@ namespace ScavengerWorld
         public override void StartAction(Unit unit, Interactable target)
         {
             unit.AIController.FaceTowards(target);
-            unit.AnimController.AnimateAction(animation);
-
-            var food = unit.RemoveAllItems();
-            target.Unit.AddItem(food);
-            unit.SetReward(food * 0.01f);          
+            unit.AIController.AnimateAction(animation);
         }
 
         public override void StopAction(Unit unit, Interactable target)
-        {            
-            unit.AnimController.StopActionAnimation();
+        {
+            int food = unit.RemoveAllItems();
+            target.Unit.AddItem(food);
+            //unit.SetReward(food * 0.01f);
             unit.AIController.OnFinishedAction();
         }
 
         public override void UpdateAction(Unit unit, Interactable target)
         {
-            if (unit.AnimController.ActionIsPlaying)
-            {
-                return;
-            }
-
-            StopAction(unit, target);
+            
         }
     }
 }
