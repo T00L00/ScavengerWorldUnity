@@ -1,9 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Animancer;
-using Animancer.FSM;
-using System;
 using ScavengerWorld.AI;
 
 namespace ScavengerWorld
@@ -11,128 +10,87 @@ namespace ScavengerWorld
     public class AnimationController : MonoBehaviour
     {
         [SerializeField] private AnimancerComponent animancer;
-        [SerializeField] private LinearMixerTransition locomotion;
-        [SerializeField] private ClipTransition death;
-
         [SerializeField] private ClipTransition stagger;
         [SerializeField] private AvatarMask staggerMask;
 
+        private AIController aiController;
+
+        private ClipTransition actionAnimation;
         private AnimancerLayer baseLayer;
         private AnimancerLayer staggerLayer;
 
-        private Unit unit;
-        private AIController aiController;
-        private LocomotionState locomotionState;
-        private ActionState actionState;
-        private DeathState deathState;
-        private StateMachine<State>.WithDefault stateMachine;
-
         private void Awake()
         {
-            unit = GetComponent<Unit>();
             aiController = GetComponent<AIController>();
 
+            actionAnimation = new();
             baseLayer = animancer.Layers[0];
             staggerLayer = animancer.Layers[1];
             staggerLayer.SetMask(staggerMask);
             staggerLayer.SetDebugName("Stagger Layer");
             stagger.Events.OnEnd = OnStaggerEnd;
-
-            locomotionState = new(baseLayer, staggerLayer, locomotion, stagger);
-            actionState = new(baseLayer, staggerLayer, stagger);
-            deathState = new(animancer, death);
-
-            stateMachine = new StateMachine<State>.WithDefault(locomotionState);            
-        }        
+        }
 
         // Start is called before the first frame update
         void Start()
         {
-            actionState.OnAnimationEnd += OnAnimationEnd;
-        }
 
-        private void OnDestroy()
-        {
-            actionState.OnAnimationEnd -= OnAnimationEnd;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (stateMachine.CurrentState == locomotionState)
+
+        }
+
+        public void AnimateLocomotion(LinearMixerTransition locomotion)
+        {
+            baseLayer.Play(locomotion);
+        }
+
+        public void AnimateAction(AnimationClip clip, float speed=1)
+        {
+            //baseLayer.Stop();
+            actionAnimation.Clip = clip;
+            actionAnimation.Speed = speed;
+
+            if (actionAnimation.IsLooping)
             {
-                locomotionState.SetSpeed(aiController.NavigatorSpeed);
+                baseLayer.Play(actionAnimation);
+                return;
             }
+
+            var state = baseLayer.Play(actionAnimation);
+            state.Events.OnEnd = OnAnimationEnd;
+        }
+
+        public void StopActionAnimation()
+        {
+            baseLayer.Stop();
         }
 
         public void AnimateStagger()
         {
-            unit.AIController.DisableMovement();
-            if (stateMachine.CurrentState == locomotionState)
-            {
-                locomotionState.AnimateStagger();
-            }
+            staggerLayer.Play(stagger);
+        }
 
-            if (stateMachine.CurrentState == actionState)
-            {                
-                actionState.AnimateStagger();
-            }
+        public void AnimateDeath(ClipTransition animation)
+        {
+            animancer.Play(animation);
+        }
+
+        private void OnAnimationEnd()
+        {
+            baseLayer.Stop();
+            actionAnimation.Clip = null;
+            actionAnimation.Speed = 1;
+            aiController.CancelSelectedAction();
         }
 
         private void OnStaggerEnd()
         {
             staggerLayer.StartFade(0, AnimancerPlayable.DefaultFadeDuration);
-            unit.AIController.CancelSelectedAction();
-            unit.AIController.EnableMovement();
-        }
-
-        public void AnimateDeath()
-        {
-            locomotionState.Enable = false;
-            actionState.Enable = false;
-            deathState.Enable = true;
-            stateMachine.TrySetState(deathState);
-        }
-
-        public void AnimateAttackAction(AnimationClip clip)
-        {
-            locomotionState.Enable = false;
-            deathState.Enable = false;
-            actionState.Enable = true;
-            actionState.SetActionAnimation(clip, unit.Stats.attackSpeed);
-            stateMachine.TrySetState(actionState);
-            unit.AIController.DisableMovement();
-        }
-
-        public void AnimateAction(AnimationClip clip)
-        {
-            locomotionState.Enable = false;
-            deathState.Enable = false;
-            actionState.Enable = true;
-            actionState.SetActionAnimation(clip);
-            stateMachine.TrySetState(actionState);
-            unit.AIController.DisableMovement();
-        }
-
-        public void StopActionAnimation()
-        {
-            deathState.Enable = false;
-            actionState.Enable = false;
-            locomotionState.Enable = true;
-            stateMachine.TrySetDefaultState();
-            actionState.Reset();
-            unit.AIController.EnableMovement();
-        }
-
-        public bool ActionIsPlaying => actionState.IsPlaying;
-
-        private void OnAnimationEnd()
-        {
-            deathState.Enable = false;
-            actionState.Enable = false;
-            locomotionState.Enable = true;
-            stateMachine.TrySetDefaultState();
-            unit.AIController.EnableMovement();
+            aiController.CancelSelectedAction();
         }
 
         public void HitEvent()

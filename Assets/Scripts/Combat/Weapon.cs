@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ScavengerWorld.AI.UAI;
 using UnityEngine.Events;
+using Animancer;
 
 namespace ScavengerWorld
 {
@@ -12,14 +13,13 @@ namespace ScavengerWorld
         [SerializeField] private float damageModifier = 1f;
         [SerializeField] private Unit unit;
         public List<UtilityAction> attackActions;
-
-        private Rigidbody rb;
+        public LinearMixerTransition combatLocomotion;
 
         public float DamageModifier => damageModifier;
 
         private void Awake()
         {
-            rb = GetComponent<Rigidbody>();
+            
         }
 
         private void OnTriggerEnter(Collider other)

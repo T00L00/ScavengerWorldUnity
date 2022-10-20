@@ -24,13 +24,13 @@ namespace ScavengerWorld
         {
             //unit.Mover.FaceTowards(target);
             unit.AIController.FaceTowards(target);
-            unit.AnimController.AnimateAction(animation);
+            unit.AIController.AnimateAction(animation);
         }
 
         public override void StopAction(Unit unit, Interactable target)
         {
-            unit.AnimController.StopActionAnimation();
             unit.AIController.ResetActionProgress();
+            unit.AIController.StopActionAnimation();
             unit.AIController.OnFinishedAction();
         }
 

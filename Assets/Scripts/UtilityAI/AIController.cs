@@ -14,6 +14,7 @@ namespace ScavengerWorld.AI
         [SerializeField] private float rotateSpeed = 20f;
 
         private Unit unit;
+        private AnimationController animController;
         private NavMeshAgent navigator;
 
         private AIState defaultState;
@@ -30,12 +31,13 @@ namespace ScavengerWorld.AI
         private void Awake()
         {
             unit = GetComponent<Unit>();
+            animController = GetComponent<AnimationController>();
             navigator = GetComponent<NavMeshAgent>();
             navigator.autoRepath = true;
             navigator.updateRotation = false;
 
-            defaultState = new AIState(navigator, unit, rotateSpeed);
-            combatState = new CombatAIState(navigator, unit, rotateSpeed);
+            defaultState = new AIState(navigator, unit, animController);
+            combatState = new CombatAIState(navigator, unit, animController);
 
             defaultState.Enabled = true;
             combatState.Enabled = false;
@@ -52,6 +54,31 @@ namespace ScavengerWorld.AI
         void Update()
         {
             stateMachine.CurrentState.OnUpdate();
+        }
+
+        public void AnimateAction(AnimationClip clip)
+        {
+            DisableMovement();
+            animController.AnimateAction(clip);
+        }
+
+        public void StopActionAnimation()
+        {
+            animController.StopActionAnimation();
+            stateMachine.CurrentState.AnimateLocomotion();
+            EnableMovement();
+        }
+
+        public void AnimateStagger()
+        {
+            DisableMovement();
+            animController.AnimateStagger();
+        }
+
+        public void AnimateDeath()
+        {
+            DisableMovement();
+            animController.AnimateDeath(unit.DeathAnimation);
         }
 
         public void StopMoving()
@@ -86,7 +113,6 @@ namespace ScavengerWorld.AI
 
                 case AIState.State.Combat:
 
-                    // TODO - Need to somehow pass target into combat state
                     defaultState.Enabled = false;
                     combatState.Enabled = true;
                     combatState.SetTarget(target);
@@ -121,6 +147,7 @@ namespace ScavengerWorld.AI
         public void OnFinishedAction()
         {
             stateMachine.CurrentState.OnFinishedAction();
+            EnableMovement();
         }
     }
 }
