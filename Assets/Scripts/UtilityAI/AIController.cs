@@ -11,8 +11,6 @@ namespace ScavengerWorld.AI
 {
     public class AIController : MonoBehaviour
     {
-        [SerializeField] private float rotateSpeed = 20f;
-
         private Unit unit;
         private AnimationController animController;
         private NavMeshAgent navigator;

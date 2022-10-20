@@ -13,7 +13,7 @@ namespace ScavengerWorld
     {
         public override bool RequiresInRange(Unit unit, Interactable target)
         {
-            return true;
+            return false;
         }
 
         public override bool IsAchievable(Unit unit, Interactable target)
