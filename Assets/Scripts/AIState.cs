@@ -60,7 +60,8 @@ namespace ScavengerWorld.AI
         }
 
         public virtual void OnEnterState()
-        {            
+        {
+            //Debug.Log($"{locomotion.Animations[0].name} | {locomotion.Animations[1].name} | {locomotion.Animations[2].name}");
             AnimateLocomotion();
         }
 
@@ -87,23 +88,32 @@ namespace ScavengerWorld.AI
 
             if (targetNode != null)
             {
-                if (HasReachedTarget())
+                if (selectedAction.RequiresInRange(unit))
                 {
-                    if (!selectedAction.IsRunning)
+                    if (HasReachedTarget())
                     {
-                        DisableMovement();
-                        selectedAction.StartAction(unit);
+                        if (!selectedAction.IsRunning)
+                        {
+                            DisableMovement();
+                            selectedAction.StartAction(unit);
+                        }
+                        else
+                        {
+                            selectedAction.UpdateAction(unit);
+                        }
                     }
                     else
                     {
-                        selectedAction.UpdateAction(unit);
+                        EnableMovement();
+                        MoveToTargetNode();
                     }
                 }
                 else
                 {
-                    EnableMovement();
-                    MoveToTargetNode();
+                    DisableMovement();
+                    selectedAction.StartAction(unit);
                 }
+                
             }
             else
             {
@@ -166,7 +176,7 @@ namespace ScavengerWorld.AI
             return Mathf.Abs(distance - navigator.stoppingDistance) <= 0.1f;
         }
 
-        public bool HasReachedTarget()
+        public virtual bool HasReachedTarget()
         {
             float distance = Vector3.Distance(unit.transform.position, targetNode.Parent.transform.position);
             return Mathf.Abs(distance - targetNode.Parent.useRange) <= 0.1f;

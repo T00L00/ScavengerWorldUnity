@@ -26,6 +26,8 @@ namespace ScavengerWorld
     public class Unit : MonoBehaviour
     {
         [SerializeField] private float rotateSpeed = 20f;
+        [SerializeField] private float runSpeed = 8f;
+        [SerializeField] private float walkSpeed = 3f;
         [SerializeField] private UnitClass unitClass;
         [SerializeField] private Weapon weapon;
         [SerializeField] private Sensor sensor;
@@ -61,6 +63,8 @@ namespace ScavengerWorld
         public bool IsStorageDepot => inventory.IsStorageDepot;
         public float SensorRange => sensor.Radius;
         public float RotateSpeed => rotateSpeed;
+        public float RunSpeed => runSpeed;
+        public float WalkSpeed => walkSpeed;
         public LinearMixerTransition DefaultLocomotion => defaultLocomotion;
         public ClipTransition DeathAnimation => deathAnimation;
 
