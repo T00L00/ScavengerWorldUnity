@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ScavengerWorld.AI.UAI;
-
+using System;
 
 namespace ScavengerWorld
 {
@@ -11,7 +11,8 @@ namespace ScavengerWorld
     {
         public override float ScoreConsideration(Unit unit, Interactable actionTarget, AnimationCurve responseCurve)
         {
-            return responseCurve.Evaluate(unit.Attributes.Energy.Percentage);
+            //throw new NotImplementedException();
+            return 1f;
         }
     }
 }

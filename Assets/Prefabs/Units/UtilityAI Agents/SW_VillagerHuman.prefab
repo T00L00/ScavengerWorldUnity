@@ -480,18 +480,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 20
   unitClass: 0
+  attributes:
+    strength: 1
+    dexterity: 1
+    toughness: 5
+    will: 1
+    poiseRegen: 1
+    labouring: 20
   weapon: {fileID: 0}
   sensor:
     radius: 100
   inventory:
     maxCapacity: 6
     isStorageDepot: 0
-  stats:
-    baseDamage: 5
-    attackSpeed: 0.5
-    energyReplenishRate: 10
-    poiseReplenishRate: 1
-    gatherRate: 20
   defaultLocomotion:
     _FadeDuration: 0.25
     _Events:
@@ -531,11 +532,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health:
-    maxValue: 100
-  energy:
-    maxValue: 80
+    baseMax: 100
   poise:
-    maxValue: 10
+    baseMax: 100
 --- !u!114 &6904360440821930162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,8 +547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b161219f73372b144b1164325d9c89b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health:
-    maxValue: 100
 --- !u!114 &6900173975309043656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,7 +559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ae27d6da8a53d4180936cf2aab66f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 20
 --- !u!1 &4696175720596937878
 GameObject:
   m_ObjectHideFlags: 0

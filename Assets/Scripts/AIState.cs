@@ -104,7 +104,7 @@ namespace ScavengerWorld.AI
                     }
                     else
                     {
-                        EnableMovement();
+                        //EnableMovement();
                         MoveToTargetNode();
                     }
                 }
@@ -155,6 +155,7 @@ namespace ScavengerWorld.AI
 
         public virtual void OnFinishedAction()
         {
+            EnableMovement();
             ClearSelectedAction();
             animController.AnimateLocomotion(locomotion);
         }

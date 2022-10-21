@@ -33,7 +33,7 @@ namespace ScavengerWorld
             //    target.Unit?.SetReward(-0.05f);
             //}
             //StopAction(unit, target);
-
+            //Debug.Log("Selected action: Attack");
             unit.AIController.SetState(AIState.State.Combat, target);
             StopAction(unit, target);
         }
