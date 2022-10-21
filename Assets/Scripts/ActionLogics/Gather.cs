@@ -42,7 +42,7 @@ namespace ScavengerWorld
                 return;
             }
 
-            unit.AIController.AddActionProgress(TheGame.Instance.GameHourPerRealSecond * unit.Stats.gatherRate * Time.deltaTime);
+            unit.AIController.AddActionProgress(TheGame.Instance.GameHourPerRealSecond * unit.Attributes.labouring * Time.deltaTime);
             if (unit.AIController.ActionProgress >= 1f)
             {
                 unit.AIController.ResetActionProgress();

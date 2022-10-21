@@ -10,7 +10,7 @@ namespace ScavengerWorld.AI.UAI
     {
         public override float ScoreConsideration(Unit unit, Interactable actionTarget, AnimationCurve responseCurve)
         {
-            return responseCurve.Evaluate(actionTarget.Damageable.HealthPercentage);
+            return responseCurve.Evaluate(actionTarget.Unit.Vitals.Health.Percentage);
         }
     }
 }

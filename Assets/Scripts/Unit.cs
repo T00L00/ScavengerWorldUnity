@@ -26,13 +26,11 @@ namespace ScavengerWorld
     public class Unit : MonoBehaviour
     {
         [SerializeField] private float rotateSpeed = 20f;
-        [SerializeField] private float runSpeed = 8f;
-        [SerializeField] private float walkSpeed = 3f;
         [SerializeField] private UnitClass unitClass;
+        [SerializeField] private Attributes attributes;
         [SerializeField] private Weapon weapon;
         [SerializeField] private Sensor sensor;
         [SerializeField] private Inventory inventory;
-        [SerializeField] private Stats stats;
         [SerializeField] private LinearMixerTransition defaultLocomotion;
         [SerializeField] private ClipTransition deathAnimation;
 
@@ -40,19 +38,18 @@ namespace ScavengerWorld
         private Interactable interactable;
         private Damageable damageable;
         private AIController aiController;
-        private CharacterAttributes attributes;
-
+        private CharacterVitals vitals;
         private ActorAgent actorAgent;
         private BehaviorParameters behaviorParameters;
 
         public UnitClass UnitClass => unitClass;
         public Weapon Weapon => weapon;
-        public Stats Stats => stats;
+        public Attributes Attributes => attributes;
         public Unit StorageDepot { get; set; }
         public Interactable Interactable => interactable;
         public Damageable Damageable => damageable;
         public AIController AIController => aiController;
-        public CharacterAttributes Attributes => attributes;
+        public CharacterVitals Vitals => vitals;
         
         public ActorAgent ActorAgent => actorAgent;
         public ArenaManager ArenaManager { get; private set; }
@@ -63,8 +60,6 @@ namespace ScavengerWorld
         public bool IsStorageDepot => inventory.IsStorageDepot;
         public float SensorRange => sensor.Radius;
         public float RotateSpeed => rotateSpeed;
-        public float RunSpeed => runSpeed;
-        public float WalkSpeed => walkSpeed;
         public LinearMixerTransition DefaultLocomotion => defaultLocomotion;
         public ClipTransition DeathAnimation => deathAnimation;
 
@@ -75,7 +70,7 @@ namespace ScavengerWorld
             damageable = GetComponent<Damageable>();
             interactable = GetComponent<Interactable>();
             aiController = GetComponent<AIController>();
-            attributes = GetComponent<CharacterAttributes>();
+            vitals = GetComponent<CharacterVitals>();
             actorAgent = GetComponent<ActorAgent>();
             behaviorParameters = GetComponentInChildren<BehaviorParameters>();
             ArenaManager = GetComponentInParent<TeamGroup>()?.GetComponentInParent<ArenaManager>();
@@ -97,12 +92,6 @@ namespace ScavengerWorld
         public List<Interactable> Pulse()
         {
             return sensor.Pulse(transform.position);
-        }
-
-        public void Attack(Damageable enemy)
-        {
-            // play little animation
-            enemy.TakeDamage(stats.baseDamage);
         }
 
         public void AddItem(Gatherable gatherable, int amount)

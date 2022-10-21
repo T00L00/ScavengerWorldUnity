@@ -9,21 +9,17 @@ namespace ScavengerWorld
     {
         private Unit unit;
         private Interactable interactable;
-        private CharacterAttributes attributes;
 
         public Unit Unit => unit;
         public Interactable Interactable => interactable;
-        public float CurrentHealth => attributes.Health.CurrentValue;
-        public float HealthPercentage => attributes.Health.Percentage;
 
-        public bool IsAlive => attributes.Health.CurrentValue > 0f;
+        public bool IsAlive => unit.Vitals.Health.CurrentValue > 0f;
 
         private void Awake()
         {
             unit = GetComponent<Unit>();
             interactable = GetComponent<Interactable>();
-            attributes = GetComponent<CharacterAttributes>();
-            attributes.Health.Reset();
+            unit.Vitals.Health.Reset();
         }
 
         // Update is called once per frame
@@ -37,9 +33,14 @@ namespace ScavengerWorld
 
         public void TakeDamage(float amount)
         {
-            // Perform damage reduction calculation based on armor
-
-            attributes.Health.Reduce(amount);
+            // TODO - Incorporate armor into calculation
+            float damageInflicted = amount * (1 - unit.Attributes.toughness * 0.01f); 
+            unit.Vitals.Poise.Reduce(damageInflicted);
+            unit.Vitals.Health.Reduce(damageInflicted);
+            if (unit.Vitals.Poise.CurrentValue <= 50f)
+            {
+                unit.AIController.AnimateStagger();
+            }
         }
 
         public void Die()
@@ -53,7 +54,7 @@ namespace ScavengerWorld
         public void ResetHealth()
         {
             gameObject.SetActive(true);
-            attributes.Health.Reset();
+            unit.Vitals.Health.Reset();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace ScavengerWorld.AI
     [CreateAssetMenu(menuName = "Scavenger World/Action Logics/Attack Move")]
     public class AttackMove : ActionLogic
     {
-        public float energyCost;
+        //public float energyCost;
 
         public override bool RequiresInRange(Unit unit, Interactable target)
         {
@@ -21,8 +21,7 @@ namespace ScavengerWorld.AI
 
         public override bool IsAchievable(Unit unit, Interactable target)
         {
-            return unit.AIController.CurrentState == AIState.State.Combat
-                && unit.Attributes.Energy.CurrentValue >= energyCost;
+            return unit.AIController.CurrentState == AIState.State.Combat;
         }
 
         public override void StartAction(Unit unit, Interactable target)
@@ -38,8 +37,7 @@ namespace ScavengerWorld.AI
             //Debug.Log($"{unit.gameObject.name} does attack move!");
 
             unit.AIController.FaceTowards(target);
-            unit.AIController.AnimateAction(animation);
-            unit.Attributes.Energy.Reduce(energyCost);
+            unit.AIController.AnimateAttackAction(animation);
         }
 
         public override void StopAction(Unit unit, Interactable target)

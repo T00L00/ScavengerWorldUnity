@@ -32,7 +32,7 @@ namespace ScavengerWorld.AI
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            var health = unit.Damageable.HealthPercentage;
+            var health = unit.Vitals.Health.Percentage;
             var foodInventory = unit.HowFullIsInventory;
             var foodNearby = mover.FoodIsNearby(out _);
             var enemyUnitsNearby = mover.EnemyUnitIsNearby(out _);
