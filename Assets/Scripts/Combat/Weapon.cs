@@ -32,7 +32,7 @@ namespace ScavengerWorld
             {
                 if (enemyUnit.AIController.CombatState.IsBlocking)
                 {
-                    unit.AIController.AnimateStagger();
+                    //unit.AIController.AnimateStagger();
                     return;
                 }
 

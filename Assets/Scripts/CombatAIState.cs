@@ -63,7 +63,6 @@ namespace ScavengerWorld.AI
         public override bool HasReachedTarget()
         {
             float distance = Vector3.Distance(unit.transform.position, ai.Target.transform.position);
-            //Debug.Log(distance);
             return distance <= ai.Target.useRange;
         }
 

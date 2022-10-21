@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace ScavengerWorld
 {
@@ -15,7 +16,7 @@ namespace ScavengerWorld
                 last += cur;
                 cumulativeWeight.Add(last);
             }
-            int choice = Random.Range(0, 100);
+            float choice = Random.Range(0, last);
             int i = 0;
             foreach (var cur in choices)
             {

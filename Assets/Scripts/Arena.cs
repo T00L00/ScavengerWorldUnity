@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace ScavengerWorld
 {
@@ -26,6 +27,9 @@ namespace ScavengerWorld
                 teams[i].Init(warriorPrefab, gathererPrefab);
             }
             foodSpawner.CreateFood();
+
+            //NavMesh.avoidancePredictionTime = 0.5f;
+            //NavMesh.pathfindingIterationsPerFrame = 1000;
         }
     }
 }

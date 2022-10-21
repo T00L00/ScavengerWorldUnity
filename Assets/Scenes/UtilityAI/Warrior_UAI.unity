@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.3
-    agentHeight: 1
-    agentSlope: 45
+    agentRadius: 0.8
+    agentHeight: 1.8
+    agentSlope: 25
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.1
+    cellSize: 0.26666668
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 1
@@ -802,7 +802,7 @@ PrefabInstance:
     - target: {fileID: 2405058221083377149, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
       propertyPath: NumFood
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2405058221083377149, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
@@ -833,7 +833,7 @@ PrefabInstance:
     - target: {fileID: 2405058221083377151, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
       propertyPath: teams.Array.data[0].warriorsCount
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2405058221083377151, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
