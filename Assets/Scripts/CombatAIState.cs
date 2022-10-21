@@ -6,8 +6,16 @@ using UnityEngine.AI;
 
 namespace ScavengerWorld.AI
 {
+    public enum CombatActionType
+    {
+        Attack,
+        Defend
+    }
+
     public class CombatAIState : AIState
     {
+        public bool IsBlocking { get; set; }
+
         public CombatAIState(NavMeshAgent navigator, Unit unit, AnimationController animController)
             : base(navigator, unit, animController)
         {
@@ -33,7 +41,7 @@ namespace ScavengerWorld.AI
             if (selectedAction is null)
             {
                 // Select attack move
-                selectedAction = SelectAttackMove();
+                selectedAction = SelectCombatMove();
                 selectedAction.Target = ai.Target;
                 return;
             }
@@ -67,9 +75,23 @@ namespace ScavengerWorld.AI
             }
         }
 
-        public Action SelectAttackMove()
+        public Action SelectCombatMove()
         {
-            return unit.Weapon.RandomAttackAction();
+            System.Random rnd = new();
+            string[] choices = { CombatActionType.Attack.ToString(), CombatActionType.Defend.ToString() };
+            float[] weights = { unit.Attributes.attack, unit.Attributes.defense };
+            string choice = Utils.Choice(rnd, choices, weights);
+
+            if (choice.Equals(CombatActionType.Attack.ToString()))
+            {
+                return unit.Weapon.RandomAttackAction();
+            }
+            else if (choice.Equals(CombatActionType.Defend.ToString()))
+            {
+                return unit.Weapon.RandomDefenseAction();
+            }
+
+            return null;
         }
     }
 }

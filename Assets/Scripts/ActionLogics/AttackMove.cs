@@ -13,6 +13,7 @@ namespace ScavengerWorld.AI
     public class AttackMove : ActionLogic
     {
         //public float energyCost;
+        public CombatActionType moveType;
 
         public override bool RequiresInRange(Unit unit, Interactable target)
         {
@@ -37,6 +38,10 @@ namespace ScavengerWorld.AI
             //Debug.Log($"{unit.gameObject.name} does attack move!");
 
             unit.AIController.FaceTowards(target);
+            if (moveType == CombatActionType.Defend)
+            {
+                unit.AIController.CombatState.IsBlocking = true;
+            }
             unit.AIController.AnimateAttackAction(animation);
         }
 
@@ -48,7 +53,11 @@ namespace ScavengerWorld.AI
             {
                 unit.AIController.SetState(AIState.State.Default);
             }
-            
+
+            if (moveType == CombatActionType.Defend)
+            {
+                unit.AIController.CombatState.IsBlocking = false;
+            }
             unit.AIController.OnFinishedAction();
         }
 

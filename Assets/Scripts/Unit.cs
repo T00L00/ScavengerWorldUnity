@@ -39,6 +39,7 @@ namespace ScavengerWorld
         private Damageable damageable;
         private AIController aiController;
         private CharacterVitals vitals;
+        private CapsuleCollider unitCollider;
         private ActorAgent actorAgent;
         private BehaviorParameters behaviorParameters;
 
@@ -71,6 +72,7 @@ namespace ScavengerWorld
             interactable = GetComponent<Interactable>();
             aiController = GetComponent<AIController>();
             vitals = GetComponent<CharacterVitals>();
+            unitCollider = GetComponent<CapsuleCollider>();
             actorAgent = GetComponent<ActorAgent>();
             behaviorParameters = GetComponentInChildren<BehaviorParameters>();
             ArenaManager = GetComponentInParent<TeamGroup>()?.GetComponentInParent<ArenaManager>();
@@ -136,6 +138,12 @@ namespace ScavengerWorld
         public void SetReward(float reward)
         {
             OnRewardEarned?.Invoke(reward);
+        }
+
+        public void Disable()
+        {
+            unitCollider.enabled = false;
+            weapon.Disable();
         }
     }
 }

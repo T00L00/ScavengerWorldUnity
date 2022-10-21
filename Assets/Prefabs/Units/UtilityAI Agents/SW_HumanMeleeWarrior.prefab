@@ -2186,11 +2186,13 @@ MonoBehaviour:
   rotateSpeed: 20
   unitClass: 1
   attributes:
+    attack: 30
+    defense: 15
     strength: 20
     dexterity: 10
     toughness: 20
-    will: 20
-    poiseRegen: 2
+    will: 100
+    poiseRegen: 5
     labouring: 5
   weapon: {fileID: 6038290886327701854}
   sensor:
