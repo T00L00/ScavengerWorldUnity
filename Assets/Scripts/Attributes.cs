@@ -15,6 +15,14 @@ namespace ScavengerWorld
     public struct Attributes
     {
         [Range(0f, 100f)]
+        [Tooltip("Chance to attack")]
+        public float attack;
+
+        [Range(0f, 100f)]
+        [Tooltip("Chance to defend")]
+        public float defense;
+
+        [Range(0f, 100f)]
         public float strength;
         
         [Range(0f, 100f)]

@@ -26,6 +26,9 @@ namespace ScavengerWorld.AI
 
         public float NavigatorSpeed => navigator.velocity.magnitude;
 
+        public AIState DefaultState => defaultState;
+        public CombatAIState CombatState => combatState;
+
         private void Awake()
         {
             unit = GetComponent<Unit>();
@@ -33,7 +36,7 @@ namespace ScavengerWorld.AI
             navigator = GetComponent<NavMeshAgent>();
             navigator.autoRepath = true;
             navigator.updateRotation = false;
-            navigator.avoidancePriority = 0;
+            //navigator.avoidancePriority = 0;
 
             defaultState = new AIState(navigator, unit, animController);
             combatState = new CombatAIState(navigator, unit, animController);

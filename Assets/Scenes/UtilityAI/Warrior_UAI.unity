@@ -802,7 +802,7 @@ PrefabInstance:
     - target: {fileID: 2405058221083377149, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
       propertyPath: NumFood
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2405058221083377149, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
@@ -833,7 +833,7 @@ PrefabInstance:
     - target: {fileID: 2405058221083377151, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
       propertyPath: teams.Array.data[0].warriorsCount
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2405058221083377151, guid: 44d8ab741333da14cb2a71a5e3304e08,
         type: 3}
@@ -2326,8 +2326,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170821361}
-  m_LocalRotation: {x: 0.25810963, y: 0.6686113, z: -0.2680756, w: 0.6437965}
-  m_LocalPosition: {x: -22.402676, y: 20.502682, z: 2.400096}
+  m_LocalRotation: {x: -0.22611414, y: 0.67316675, z: -0.22854488, w: -0.6659476}
+  m_LocalPosition: {x: 18.73771, y: 12.930461, z: -1.9378451}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

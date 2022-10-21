@@ -34,6 +34,7 @@ namespace ScavengerWorld
         public void TakeDamage(float amount)
         {
             // TODO - Incorporate armor into calculation
+
             float damageInflicted = amount * (1 - unit.Attributes.toughness * 0.01f); 
             unit.Vitals.Poise.Reduce(damageInflicted);
             unit.Vitals.Health.Reduce(damageInflicted);
@@ -49,6 +50,7 @@ namespace ScavengerWorld
             unit.AIController.AnimateDeath();
 
             //TODO - Clean up code to disable unit
+            unit.Disable();
         }
 
         public void ResetHealth()
