@@ -104,7 +104,7 @@ namespace ScavengerWorld.AI
                     }
                     else
                     {
-                        //EnableMovement();
+                        EnableMovement();
                         MoveToTargetNode();
                     }
                 }
@@ -124,7 +124,7 @@ namespace ScavengerWorld.AI
                 }
                 else
                 {
-                    StopMoving();
+                    DisableMovement();
                     CancelSelectedAction();
                 }
             }
@@ -204,7 +204,8 @@ namespace ScavengerWorld.AI
 
         public void DisableMovement()
         {
-            StopMoving();
+            navigator.velocity = Vector3.zero;
+            navigator.ResetPath();
             MoveEnabled = false;
         }
 

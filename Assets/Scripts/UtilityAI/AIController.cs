@@ -36,7 +36,6 @@ namespace ScavengerWorld.AI
             navigator = GetComponent<NavMeshAgent>();
             navigator.autoRepath = true;
             navigator.updateRotation = false;
-            //navigator.avoidancePriority = 0;
 
             defaultState = new AIState(navigator, unit, animController);
             combatState = new CombatAIState(navigator, unit, animController);
@@ -60,13 +59,11 @@ namespace ScavengerWorld.AI
 
         public void AnimateAction(AnimationClip clip)
         {
-            DisableMovement();
             animController.AnimateAction(clip);
         }
 
         public void AnimateAttackAction(AnimationClip clip)
         {
-            DisableMovement();
             animController.AnimateAction(clip, unit.Attributes.attackSpeed);
         }
 
@@ -79,19 +76,12 @@ namespace ScavengerWorld.AI
 
         public void AnimateStagger()
         {
-            DisableMovement();
             animController.AnimateStagger();
         }
 
         public void AnimateDeath()
         {
-            DisableMovement();
             animController.AnimateDeath(unit.DeathAnimation);
-        }
-
-        public void StopMoving()
-        {
-            stateMachine.CurrentState.StopMoving();
         }
 
         public void EnableMovement()

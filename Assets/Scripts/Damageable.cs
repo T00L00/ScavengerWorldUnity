@@ -46,7 +46,6 @@ namespace ScavengerWorld
 
         public void Die()
         {
-            unit.AIController.StopMoving();
             unit.AIController.AnimateDeath();
 
             //TODO - Clean up code to disable unit
