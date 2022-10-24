@@ -21,18 +21,19 @@ namespace ScavengerWorld
         {
             for (int i = 0; i < warriorsCount; i++)
             {
-                units.Add(GameObject.Instantiate(warriorPrefab, storage.transform.position, Quaternion.identity).GetComponent<Unit>());
+                units.Add(GameObject.Instantiate(warriorPrefab, Utils.GetRandomPosition(storage.transform.position, 10f), Quaternion.identity).GetComponent<Unit>());
             }
 
             for (int i = 0; i < gatherersCount; i++) 
             {
-                units.Add(GameObject.Instantiate(gathererPrefab, storage.transform.position, Quaternion.identity).GetComponent<Unit>());
+                units.Add(GameObject.Instantiate(gathererPrefab, Utils.GetRandomPosition(storage.transform.position, 10f), Quaternion.identity).GetComponent<Unit>());
             }
 
             storage.TeamId = teamId;
             foreach (Unit unit in units)
             {
                 unit.TeamId = teamId;
+                unit.StorageDepot = storage;
             }
         }
 

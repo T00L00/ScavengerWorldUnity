@@ -33,15 +33,32 @@ namespace ScavengerWorld.AI
             ai.Target = target;
         }
 
+        public override void OnEnterState()
+        {
+            navigator.speed = 8f;
+            AnimateLocomotion();
+        }
+
         public override void OnUpdate()
         {
+            // Check for all enemies targeting me
+            // Decide which enemy to engage based on health, distance, stats
+            // If no enemies targeting me, search for enemy unit to engage
+
+            // Will need to constantly check for an update in enemy targets or
+            // listen to some event fired when enemy engages or is nearby
+
             locomotion.State.Parameter = navigator.velocity.magnitude;
             HandleRotation();
 
             if (selectedAction is null)
             {
+
+
+                // Decide which enemy target to focus
+
                 // Select attack move
-                selectedAction = SelectCombatMove();
+                selectedAction = ai.DecideBestAction(unit);
                 selectedAction.Target = ai.Target;
                 return;
             }
@@ -51,7 +68,7 @@ namespace ScavengerWorld.AI
                 if (!selectedAction.IsRunning)
                 {
                     DisableMovement();
-                    selectedAction.StartAction(unit);
+                    selectedAction.StartAction();
                 }
             }
             else
@@ -72,25 +89,6 @@ namespace ScavengerWorld.AI
             {
                 navigator.SetDestination(ai.Target.transform.position);
             }
-        }
-
-        public Action SelectCombatMove()
-        {
-            System.Random rnd = new();
-            string[] choices = { CombatActionType.Attack.ToString(), CombatActionType.Defend.ToString() };
-            float[] weights = { unit.Attributes.attack, unit.Attributes.defense };
-            string choice = Utils.Choice(rnd, choices, weights);
-
-            if (choice.Equals(CombatActionType.Attack.ToString()))
-            {
-                return unit.Weapon.RandomAttackAction();
-            }
-            else if (choice.Equals(CombatActionType.Defend.ToString()))
-            {
-                return unit.Weapon.RandomDefenseAction();
-            }
-
-            return null;
         }
     }
 }

@@ -6,6 +6,7 @@ using Animancer;
 using Animancer.FSM;
 using ScavengerWorld.AI.UAI;
 using System.Linq;
+using UnityEngine.UIElements;
 
 namespace ScavengerWorld.AI
 {
@@ -27,9 +28,11 @@ namespace ScavengerWorld.AI
         protected Action selectedAction;
         protected float actionProgress;
 
+        protected Vector3 targetPos;
         protected InteractNode targetNode;
         protected Vector3 facing;
 
+        public Vector3 TargetPos => targetPos;
         public bool MoveEnabled { get; private set; }
 
         public float ActionProgress => actionProgress;
@@ -62,6 +65,7 @@ namespace ScavengerWorld.AI
         public virtual void OnEnterState()
         {
             //Debug.Log($"{locomotion.Animations[0].name} | {locomotion.Animations[1].name} | {locomotion.Animations[2].name}");
+            navigator.speed = 3f;
             AnimateLocomotion();
         }
 
@@ -77,29 +81,25 @@ namespace ScavengerWorld.AI
 
             if (selectedAction is null)
             {
-                ai.GetUseableActions(unit);
-                if (ai.useableActions.Count == 0) return;
-
+                ai.GetInteractableActions(unit);
                 selectedAction = ai.DecideBestAction(unit);
                 return;
             }
 
-            // Move to action target
-
-            if (targetNode != null)
+            if (selectedAction.RequiresInRange())
             {
-                if (selectedAction.RequiresInRange(unit))
+                if (targetNode != null)
                 {
                     if (HasReachedTarget())
                     {
                         if (!selectedAction.IsRunning)
                         {
                             DisableMovement();
-                            selectedAction.StartAction(unit);
+                            selectedAction.StartAction();
                         }
                         else
                         {
-                            selectedAction.UpdateAction(unit);
+                            selectedAction.UpdateAction();
                         }
                     }
                     else
@@ -110,24 +110,75 @@ namespace ScavengerWorld.AI
                 }
                 else
                 {
-                    DisableMovement();
-                    selectedAction.StartAction(unit);
+                    if (selectedAction.Target.InteractionAvailable)
+                    {
+                        targetNode = selectedAction.Target.GetAvailableInteractNode(this.unit);
+                        targetNode.SetOccupant(this.unit);
+                    }
+                    else
+                    {
+                        DisableMovement();
+                        CancelSelectedAction();
+                    }
                 }
-                
             }
             else
             {
-                if (selectedAction.Target.InteractionAvailable)
+                if (!selectedAction.IsRunning)
                 {
-                    targetNode = selectedAction.Target.GetAvailableInteractNode(this.unit);
-                    targetNode.SetOccupant(this.unit);
+                    DisableMovement();
+                    selectedAction.StartAction();
                 }
                 else
                 {
-                    DisableMovement();
-                    CancelSelectedAction();
-                }
+                    selectedAction.UpdateAction();
+                }                
             }
+
+            // Move to action target
+
+            //if (targetNode != null)
+            //{
+            //    if (selectedAction.RequiresInRange(unit))
+            //    {
+            //        if (HasReachedTarget())
+            //        {
+            //            if (!selectedAction.IsRunning)
+            //            {
+            //                DisableMovement();
+            //                selectedAction.StartAction(unit);
+            //            }
+            //            else
+            //            {
+            //                selectedAction.UpdateAction(unit);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            EnableMovement();
+            //            MoveToTargetNode();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        DisableMovement();
+            //        selectedAction.StartAction(unit);
+            //    }
+                
+            //}
+            //else
+            //{
+            //    if (selectedAction.Target.InteractionAvailable)
+            //    {
+            //        targetNode = selectedAction.Target.GetAvailableInteractNode(this.unit);
+            //        targetNode.SetOccupant(this.unit);
+            //    }
+            //    else
+            //    {
+            //        DisableMovement();
+            //        CancelSelectedAction();
+            //    }
+            //}
         }
 
         #region Running actions
@@ -150,7 +201,7 @@ namespace ScavengerWorld.AI
 
         public void CancelSelectedAction()
         {
-            selectedAction.StopAction(unit);
+            selectedAction.StopAction();
         }
 
         public virtual void OnFinishedAction()
@@ -183,12 +234,32 @@ namespace ScavengerWorld.AI
             return Mathf.Abs(distance - targetNode.Parent.useRange) <= 0.1f;
         }
 
+        public virtual bool HasReachedTargetPos()
+        {
+            float distance = Vector3.Distance(unit.transform.position, targetPos);
+            return Mathf.Abs(distance - navigator.stoppingDistance) <= 0.1f;
+        }
+
         public void MoveToTargetNode()
         {
             if (MoveEnabled)
             {
                 navigator.SetDestination(targetNode.transform.position);
             }
+        }
+
+        public void MoveToPosition(Vector3 pos)
+        {
+            if (MoveEnabled)
+            {
+                targetPos = pos;
+                navigator.SetDestination(pos);
+            }
+        }
+
+        public void ResetTargetPos()
+        {
+            targetPos = default;
         }
 
         public void StopMoving()

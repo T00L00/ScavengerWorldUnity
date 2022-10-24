@@ -7,7 +7,9 @@ namespace ScavengerWorld
     [CreateAssetMenu(menuName = "Scavenger World/Action Logics/Gather")]
     public class Gather : ActionLogic
     {
-        public override bool RequiresInRange(Unit unit, Interactable target)
+        public AnimationClip animation;
+
+        public override bool RequiresInRange(ActionData data)
         {
             return true;
         }
@@ -20,33 +22,33 @@ namespace ScavengerWorld
                 && target.InteractNodeAvailable();
         }
 
-        public override void StartAction(Unit unit, Interactable target)
+        public override void StartAction(ActionData data)
         {
             //unit.Mover.FaceTowards(target);
-            unit.AIController.FaceTowards(target);
-            unit.AIController.AnimateAction(animation);
+            data.unit.AIController.FaceTowards(data.target);
+            data.unit.AIController.AnimateAction(animation);
         }
 
-        public override void StopAction(Unit unit, Interactable target)
+        public override void StopAction(ActionData data)
         {
-            unit.AIController.ResetActionProgress();
-            unit.AIController.StopActionAnimation();
-            unit.AIController.OnFinishedAction();
+            data.unit.AIController.ResetActionProgress();
+            data.unit.AIController.StopActionAnimation();
+            data.unit.AIController.OnFinishedAction();
         }
 
-        public override void UpdateAction(Unit unit, Interactable target)
+        public override void UpdateAction(ActionData data)
         {
-            if (!target.isActiveAndEnabled || target.Gatherable.AmountAvailable == 0)
+            if (!data.target.isActiveAndEnabled || data.target.Gatherable.AmountAvailable == 0)
             {
-                StopAction(unit, target);
+                StopAction(data);
                 return;
             }
 
-            unit.AIController.AddActionProgress(TheGame.Instance.GameHourPerRealSecond * unit.Attributes.labouring * Time.deltaTime);
-            if (unit.AIController.ActionProgress >= 1f)
+            data.unit.AIController.AddActionProgress(TheGame.Instance.GameHourPerRealSecond * data.unit.Attributes.labouring * Time.deltaTime);
+            if (data.unit.AIController.ActionProgress >= 1f)
             {
-                unit.AIController.ResetActionProgress();
-                unit.AddItem(target.Gatherable, 1);
+                data.unit.AIController.ResetActionProgress();
+                data.unit.AddItem(data.target.Gatherable, 1);
             }            
         }
     }

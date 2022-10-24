@@ -102,7 +102,7 @@ namespace ScavengerWorld
 
             if (ActionIsRunning)
             {
-                CurrentAction.UpdateAction(unit);
+                //CurrentAction.UpdateAction(unit);
             }
         }
 
@@ -126,7 +126,7 @@ namespace ScavengerWorld
         {
             if (CurrentAction is null) return;
 
-            CurrentAction.StartAction(unit);
+            //CurrentAction.StartAction(unit);
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace ScavengerWorld
         {
             if (CurrentAction is null) return;
 
-            CurrentAction.StopAction(unit);
+            //CurrentAction.StopAction(unit);
             CurrentAction = null;
         }
 

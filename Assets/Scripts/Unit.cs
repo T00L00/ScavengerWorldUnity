@@ -7,6 +7,7 @@ using System;
 using Unity.MLAgents.Policies;
 using UnityEngine.Events;
 using Animancer;
+using System.Collections.ObjectModel;
 
 namespace ScavengerWorld
 {
@@ -26,11 +27,20 @@ namespace ScavengerWorld
     public class Unit : MonoBehaviour
     {
         [SerializeField] private float rotateSpeed = 20f;
-        [SerializeField] private UnitClass unitClass;
-        [SerializeField] private Attributes attributes;
-        [SerializeField] private Weapon weapon;
+        [SerializeField] private Weapon weapon;        
         [SerializeField] private Sensor sensor;
         [SerializeField] private Inventory inventory;
+
+        [Header("Class & Attributes")]
+        [SerializeField] private UnitClass unitClass;
+        [SerializeField] private Attributes attributes;
+
+        [Header("Actions")]
+        [SerializeField] private List<Action> attackActions;
+        [SerializeField] private List<Action> defendActions;
+        [SerializeField] private List<Action> defaultActions;
+
+        [Header("Animations")]
         [SerializeField] private LinearMixerTransition defaultLocomotion;
         [SerializeField] private ClipTransition deathAnimation;
 
@@ -46,6 +56,11 @@ namespace ScavengerWorld
         public UnitClass UnitClass => unitClass;
         public Weapon Weapon => weapon;
         public Attributes Attributes => attributes;
+
+        public ReadOnlyCollection<Action> AttackActions => attackActions.AsReadOnly();
+        public ReadOnlyCollection<Action> DefendActions => defendActions.AsReadOnly();
+        public ReadOnlyCollection<Action> DefaultActions => defaultActions.AsReadOnly();
+        
         public Unit StorageDepot { get; set; }
         public Interactable Interactable => interactable;
         public Damageable Damageable => damageable;

@@ -7,7 +7,9 @@ namespace ScavengerWorld
     [CreateAssetMenu(menuName = "Scavenger World/Action Logics/Drop Off")]
     public class DropOff : ActionLogic
     {
-        public override bool RequiresInRange(Unit unit, Interactable target)
+        public AnimationClip animation;
+
+        public override bool RequiresInRange(ActionData data)
         {
             return true;
         }
@@ -18,21 +20,21 @@ namespace ScavengerWorld
                 && unit.TeamId == target.Unit.TeamId;
         }
 
-        public override void StartAction(Unit unit, Interactable target)
+        public override void StartAction(ActionData data)
         {
-            unit.AIController.FaceTowards(target);
-            unit.AIController.AnimateAction(animation);
+            data.unit.AIController.FaceTowards(data.target);
+            data.unit.AIController.AnimateAction(animation);
         }
 
-        public override void StopAction(Unit unit, Interactable target)
+        public override void StopAction(ActionData data)
         {
-            int food = unit.RemoveAllItems();
-            target.Unit.AddItem(food);
+            int food = data.unit.RemoveAllItems();
+            data.target.Unit.AddItem(food);
             //unit.SetReward(food * 0.01f);
-            unit.AIController.OnFinishedAction();
+            data.unit.AIController.OnFinishedAction();
         }
 
-        public override void UpdateAction(Unit unit, Interactable target)
+        public override void UpdateAction(ActionData data)
         {
             
         }

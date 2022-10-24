@@ -26,14 +26,14 @@ namespace ScavengerWorld
 
         public bool IsEmpty => actionLogic == default && weight == default && considerations == default;
 
-        public UtilityAction ToUtilityAction()
-        {
-            Consideration[] considerations = new Consideration[this.considerations.Length];
-            for (int i = 0; i < this.considerations.Length; i++)
-            {
-                considerations[i] = this.considerations[i].ToConsideration();
-            }
-            return new UtilityAction(ActionLogic.Load(actionLogic), weight, considerations);
-        }
+        //public UtilityAction ToUtilityAction()
+        //{
+        //    Consideration[] considerations = new Consideration[this.considerations.Length];
+        //    for (int i = 0; i < this.considerations.Length; i++)
+        //    {
+        //        considerations[i] = this.considerations[i].ToConsideration();
+        //    }
+        //    return new UtilityAction(ActionLogic.Load(actionLogic), weight, considerations);
+        //}
     }
 }

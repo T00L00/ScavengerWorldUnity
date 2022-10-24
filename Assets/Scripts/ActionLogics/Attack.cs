@@ -11,7 +11,7 @@ namespace ScavengerWorld
     [CreateAssetMenu(menuName = "Scavenger World/Action Logics/Attack")]
     public class Attack : ActionLogic
     {
-        public override bool RequiresInRange(Unit unit, Interactable target)
+        public override bool RequiresInRange(ActionData data)
         {
             return false;
         }
@@ -24,7 +24,7 @@ namespace ScavengerWorld
                 && unit.TeamId != target.Unit.TeamId;
         }
 
-        public override void StartAction(Unit unit, Interactable target)
+        public override void StartAction(ActionData data)
         {
             //unit.Attack(target.Damageable);
             //if (target.Damageable.CurrentHealth == 0f)
@@ -34,16 +34,16 @@ namespace ScavengerWorld
             //}
             //StopAction(unit, target);
             //Debug.Log("Selected action: Attack");
-            unit.AIController.SetState(AIState.State.Combat, target);
-            StopAction(unit, target);
+            data.unit.AIController.SetState(AIState.State.Combat, data.target);
+            StopAction(data);
         }
 
-        public override void StopAction(Unit unit, Interactable target)
+        public override void StopAction(ActionData data)
         {
-            unit.AIController.OnFinishedAction();
+            data.unit.AIController.OnFinishedAction();
         }
 
-        public override void UpdateAction(Unit unit, Interactable target)
+        public override void UpdateAction(ActionData data)
         {
             
         }
