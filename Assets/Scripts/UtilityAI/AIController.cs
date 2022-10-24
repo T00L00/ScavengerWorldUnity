@@ -25,7 +25,7 @@ namespace ScavengerWorld.AI
         public float ActionProgress => stateMachine.CurrentState.ActionProgress;
 
         public float NavigatorSpeed => navigator.velocity.magnitude;
-
+        public Vector3 TargetPos => stateMachine.CurrentState.TargetPos;
         public AIState DefaultState => defaultState;
         public CombatAIState CombatState => combatState;
 
@@ -92,6 +92,21 @@ namespace ScavengerWorld.AI
         public void DisableMovement()
         {
             stateMachine.CurrentState.DisableMovement();
+        }
+
+        public bool HasReachedTargetPos()
+        {
+            return stateMachine.CurrentState.HasReachedTargetPos();
+        }
+
+        public void ResetTargetPos()
+        {
+            stateMachine.CurrentState.ResetTargetPos();
+        }
+
+        public void MoveToPosition(Vector3 pos)
+        {
+            stateMachine.CurrentState.MoveToPosition(pos);
         }
 
         public void FaceTowards(Interactable i)

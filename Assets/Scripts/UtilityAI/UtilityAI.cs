@@ -12,7 +12,7 @@ namespace ScavengerWorld.AI.UAI
     {
         public Interactable Target { get; set; }
 
-        public readonly List<UtilityAction> useableActions = new();
+        public readonly List<UtilityAction> interactableActions = new();
 
         public UtilityAI()
         {
@@ -21,31 +21,42 @@ namespace ScavengerWorld.AI.UAI
 
         public virtual void Reset()
         {
-            useableActions.Clear();
+            interactableActions.Clear();
         }
 
-        public virtual void GetUseableActions(Unit unit)
+        public virtual void GetInteractableActions(Unit unit)
         {
-            useableActions.Clear();
+            interactableActions.Clear();
             List<Interactable> interactables = unit.Pulse();
             if (interactables.Count > 0)
             {
                 foreach (Interactable i in interactables)
                 {
-                    useableActions.AddRange(i.availableUtilityActions);
+                    interactableActions.AddRange(i.InteractableActions);
                 }
             }
         }
 
         #region Decide best action
 
-        public Action DecideBestAction(Unit unit)
+        public virtual Action DecideBestAction(Unit unit)
+        {
+            Action action = null;
+            action = SelectInteractableAction(unit);
+            if (action is null)
+            {
+                action = SelectDefaultAction(unit);
+            }
+            return action;
+        }
+
+        private Action SelectInteractableAction(Unit unit)
         {
             float highestScore = 0f;
             int nextBestActionIndex = 0;
-            for (int i = 0; i < useableActions.Count; i++)
+            for (int i = 0; i < interactableActions.Count; i++)
             {
-                float actionScore = ScoreAction(useableActions[i], unit);
+                float actionScore = ScoreAction(interactableActions[i], unit);
                 if (actionScore > highestScore)
                 {
                     nextBestActionIndex = i;
@@ -58,7 +69,12 @@ namespace ScavengerWorld.AI.UAI
                 return null;
             }
 
-            return useableActions[nextBestActionIndex].Copy();
+            return interactableActions[nextBestActionIndex].Copy(unit, null);
+        }
+
+        private Action SelectDefaultAction(Unit unit)
+        {
+            return unit.DefaultActions[0]?.Copy(unit, null);
         }
 
         private float ScoreAction(UtilityAction action, Unit unit)

@@ -10,14 +10,14 @@ namespace ScavengerWorld
 
         [TextArea(1,5)]
         public string description;
-        public AnimationClip animation;
+        //public AnimationClip animation;
 
         public static ActionLogic Load(string name)
         {
             return Resources.Load<ActionLogic>($"ActionLogics/{name}");
         }
 
-        public abstract bool RequiresInRange(Unit unit, Interactable target);
+        public abstract bool RequiresInRange(ActionData data);
 
         public abstract bool IsAchievable(Unit unit, Interactable target);
 
@@ -27,14 +27,14 @@ namespace ScavengerWorld
         /// </summary>
         /// <param name="agent"></param>
         /// <param name="target"></param>
-        public abstract void StartAction(Unit unit, Interactable target);
+        public abstract void StartAction(ActionData data);
 
         /// <summary>
         /// Time-dependent action logic goes here. Ex: gathering over time
         /// </summary>
         /// <param name="agent"></param>
         /// <param name="target"></param>
-        public abstract void UpdateAction(Unit unit, Interactable target);
+        public abstract void UpdateAction(ActionData data);
 
         /// <summary>
         /// Logic to run after time-dependent logic has run. Good for any cleanup
@@ -42,6 +42,6 @@ namespace ScavengerWorld
         /// </summary>
         /// <param name="agent"></param>
         /// <param name="target"></param>
-        public abstract void StopAction(Unit unit, Interactable target);
+        public abstract void StopAction(ActionData data);
     }
 }

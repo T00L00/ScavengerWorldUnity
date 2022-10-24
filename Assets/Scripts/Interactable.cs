@@ -1,9 +1,9 @@
-using ScavengerWorld.AI.UAI;
+using System.Collections.ObjectModel;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
+using ScavengerWorld.AI.UAI;
 
 namespace ScavengerWorld
 {
@@ -16,10 +16,10 @@ namespace ScavengerWorld
         [SerializeField] private int maxInteractions = 1;
 
         public float useRange = 1f;
-        [Tooltip("Use this list if using RL AI")]
-        public List<Action> availableActions;
+        //[Tooltip("Use this list if using RL AI")]
+        //public List<Action> availableActions;
         [Tooltip("Use this list if using UtilityAI")]
-        public List<UtilityAction> availableUtilityActions;
+        [SerializeField] private List<UtilityAction> interactableActions;
 
         private Unit unit;
         private Damageable damageable;
@@ -27,6 +27,7 @@ namespace ScavengerWorld
         private InteractNode[] interactNodes;
         private int interactionCount;
 
+        public ReadOnlyCollection<UtilityAction> InteractableActions => interactableActions.AsReadOnly();
         public Unit Unit => unit;
         public Damageable Damageable => damageable;
         public Gatherable Gatherable => gatherable;
@@ -50,11 +51,11 @@ namespace ScavengerWorld
 
         private void InitActions()
         {
-            if (availableUtilityActions.Count > 0)
+            if (interactableActions.Count > 0)
             {
-                foreach (UtilityAction a in availableUtilityActions)
+                foreach (UtilityAction a in interactableActions)
                 {
-                    a.Target = this;
+                    a.Init(new ActionData(null, this, null));
                 }
             }
         }

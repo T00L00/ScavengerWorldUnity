@@ -9,13 +9,13 @@ namespace ScavengerWorld.AI
     /// <summary>
     /// Performs attack move specified by animation clip
     /// </summary>
-    [CreateAssetMenu(menuName = "Scavenger World/Action Logics/Attack Move")]
-    public class AttackMove : ActionLogic
+    [CreateAssetMenu(menuName = "Scavenger World/Action Logics/Combat Move")]
+    public class CombatMove : ActionLogic
     {
         //public float energyCost;
-        public CombatActionType moveType;
+        public CombatActionType combatActionType;
 
-        public override bool RequiresInRange(Unit unit, Interactable target)
+        public override bool RequiresInRange(ActionData data)
         {
             return true;
         }
@@ -25,7 +25,7 @@ namespace ScavengerWorld.AI
             return unit.AIController.CurrentState == AIState.State.Combat;
         }
 
-        public override void StartAction(Unit unit, Interactable target)
+        public override void StartAction(ActionData data)
         {
             //unit.Attack(target.Damageable);
             //if (target.Damageable.CurrentHealth == 0f)
@@ -37,31 +37,31 @@ namespace ScavengerWorld.AI
 
             //Debug.Log($"{unit.gameObject.name} does attack move!");
 
-            unit.AIController.FaceTowards(target);
-            if (moveType == CombatActionType.Defend)
+            data.unit.AIController.FaceTowards(data.target);
+            if (combatActionType == CombatActionType.Defend)
             {
-                unit.AIController.CombatState.IsBlocking = true;
+                data.unit.AIController.CombatState.IsBlocking = true;
             }
-            unit.AIController.AnimateAttackAction(animation);
+            data.unit.AIController.AnimateAttackAction(data.animation);
         }
 
-        public override void StopAction(Unit unit, Interactable target)
+        public override void StopAction(ActionData data)
         {
             // TODO - Logic to decide whether or not to stay in combat state?
 
-            if (!target.Damageable.IsAlive)
+            if (!data.target.Damageable.IsAlive)
             {
-                unit.AIController.SetState(AIState.State.Default);
+                data.unit.AIController.SetState(AIState.State.Default);
             }
 
-            if (moveType == CombatActionType.Defend)
+            if (combatActionType == CombatActionType.Defend)
             {
-                unit.AIController.CombatState.IsBlocking = false;
+                data.unit.AIController.CombatState.IsBlocking = false;
             }
-            unit.AIController.OnFinishedAction();
+            data.unit.AIController.OnFinishedAction();
         }
 
-        public override void UpdateAction(Unit unit, Interactable target)
+        public override void UpdateAction(ActionData data)
         {
 
         }

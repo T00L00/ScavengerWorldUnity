@@ -2112,19 +2112,18 @@ MonoBehaviour:
   possibleInteractNodeCount: 10
   maxInteractions: 2
   useRange: 2
-  availableActions: []
-  availableUtilityActions:
+  interactableActions:
   - actionLogic: {fileID: 11400000, guid: 4032192c4ed57f24fa9b394a2f34924a, type: 2}
     weight: 1
     considerations:
-    - Name: Distance
-      Weight: 1
+    - Name: Enemy Health
+      Weight: 0
       responseCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 1
+          value: 0.8
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -2134,6 +2133,33 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 1
           value: 0.2
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 0
+      scorer: {fileID: 11400000, guid: a0cb589dba98d664f81248b7c4e64fbd, type: 2}
+    - Name: Distance
+      Weight: 0
+      responseCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0.9
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0.1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -2144,33 +2170,6 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 0
       scorer: {fileID: 11400000, guid: 231b8a348c4574a419571818c42b7eb5, type: 2}
-    - Name: Enemy Health
-      Weight: 1
-      responseCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 0.2
-          inSlope: -2.0585692
-          outSlope: -2.0585692
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.043068647
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 0
-      scorer: {fileID: 11400000, guid: a0cb589dba98d664f81248b7c4e64fbd, type: 2}
 --- !u!114 &4384303757751709634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2184,6 +2183,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 20
+  weapon: {fileID: 6038290886327701854}
+  sensor:
+    radius: 20
+  inventory:
+    maxCapacity: 5
+    isStorageDepot: 0
   unitClass: 1
   attributes:
     attack: 30
@@ -2194,12 +2199,12 @@ MonoBehaviour:
     will: 100
     poiseRegen: 5
     labouring: 5
-  weapon: {fileID: 6038290886327701854}
-  sensor:
-    radius: 50
-  inventory:
-    maxCapacity: 5
-    isStorageDepot: 0
+  attackActions:
+  - actionLogic: {fileID: 11400000, guid: 239d2068ca1b6b2498f7e0b82f5c3572, type: 2}
+  defendActions:
+  - actionLogic: {fileID: 11400000, guid: f083692a88c34e148913e69f67dc3744, type: 2}
+  defaultActions:
+  - actionLogic: {fileID: 11400000, guid: 74c0c09abf5152649b753d3e1a36e97d, type: 2}
   defaultLocomotion:
     _FadeDuration: 0.25
     _Events:

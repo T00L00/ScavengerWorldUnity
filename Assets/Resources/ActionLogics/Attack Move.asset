@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fbb05478ffee2b43b3afcdac426c641, type: 3}
-  m_Name: Move
+  m_Script: {fileID: 11500000, guid: 922520f939598254ebca5f475861e204, type: 3}
+  m_Name: Attack Move
   m_EditorClassIdentifier: 
-  actionType: 5
-  description: 
+  description: Generic combat move logic. Unit will get attack animation from equipped
+    weapon.
+  animation: {fileID: 0}
+  combatActionType: 0

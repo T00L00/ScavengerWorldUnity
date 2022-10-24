@@ -12,8 +12,9 @@ namespace ScavengerWorld
         [Range(1f, 3f)]
         [SerializeField] private float damageModifier = 1f;
         [SerializeField] private Unit unit;
-        public List<UtilityAction> attackActions;
-        public List<UtilityAction> defenseActions;
+        [SerializeField] private AnimationClip[] attackAnimations;
+        [SerializeField] private AnimationClip[] defendAnimations;
+
         public LinearMixerTransition combatLocomotion;
 
         private BoxCollider weaponCollider;
@@ -43,15 +44,14 @@ namespace ScavengerWorld
             //Debug.Log($"Sword hit dealing {totalDamage}!");
         }
 
-        public Action RandomAttackAction()
+        public AnimationClip RandomAttackAnimation()
         {
-            int attackIndex = Random.Range(0, attackActions.Count);
-            return attackActions[attackIndex].Copy();
+            return attackAnimations[Random.Range(0, attackAnimations.Length)];
         }
 
-        public Action RandomDefenseAction()
+        public AnimationClip RandomDefendAnimation()
         {
-            return defenseActions[Random.Range(0, defenseActions.Count)];
+            return defendAnimations[Random.Range(0, defendAnimations.Length)];
         }
 
         public void Disable()
