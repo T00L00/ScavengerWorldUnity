@@ -22,7 +22,7 @@ namespace ScavengerWorld.AI
 
         public override bool IsAchievable(Unit unit, Interactable target)
         {
-            return unit.AIController.CurrentState == AIState.State.Combat;
+            return unit.AIController.AIMode == AIMode.Combat;
         }
 
         public override void StartAction(ActionData data)
@@ -51,7 +51,7 @@ namespace ScavengerWorld.AI
 
             if (!data.target.Damageable.IsAlive)
             {
-                data.unit.AIController.SetState(AIState.State.Default);
+                data.unit.AIController.SetState(AIMode.Default);
             }
 
             if (combatActionType == CombatActionType.Defend)

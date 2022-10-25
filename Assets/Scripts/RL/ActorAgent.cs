@@ -10,7 +10,7 @@ namespace ScavengerWorld.AI
     {
         [Range(1, 10)]
         public float MovementScale = 3;
-        [SerializeField] private Mover mover;
+        [SerializeField] private MoveController mover;
         [SerializeField] private Unit unit;
 
         public Unit Unit => unit;
@@ -20,7 +20,7 @@ namespace ScavengerWorld.AI
 
         public override void Initialize()
         {
-            mover = GetComponent<Mover>();
+            mover = GetComponent<MoveController>();
             unit = GetComponent<Unit>();
             unit.OnRewardEarned += AddReward;
         }

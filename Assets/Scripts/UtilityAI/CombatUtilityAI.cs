@@ -5,24 +5,38 @@ using static UnityEngine.UI.CanvasScaler;
 
 namespace ScavengerWorld.AI.UAI
 {
-    public class CombatUtilityAI : UtilityAI
+    public class CombatUtilityAI
     {
+        private List<Interactable> enemyCombatants;
+
+        public Interactable Target { get; private set; }
+
         public CombatUtilityAI()
         {
-            
+            enemyCombatants = new();
         }
 
-        public override void Reset()
+        public void Reset()
         {
-            interactableActions.Clear();
+            enemyCombatants.Clear();
             Target = null;
         }
 
-        public override Action DecideBestAction(Unit unit)
+        public void AddTarget(Interactable target)
         {
+            if (enemyCombatants.Contains(target)) return;
+
+            enemyCombatants.Add(target);
+        }
+
+        public Action DecideBestAction(Unit unit)
+        {
+            // Decide which enemy to fight
             // Decide whether to attack or defend
             // Decide which specific attack or defense action
             // Decide which animation to play
+
+            SelectTarget(unit);
 
             Action combatAction = null;
             string mode = SelectCombatAction(unit);
@@ -50,6 +64,12 @@ namespace ScavengerWorld.AI.UAI
             string choice = Utils.Sample(rnd, choices, weights);
 
             return choice;
+        }
+
+        public void SelectTarget(Unit unit)
+        {
+            Target = enemyCombatants[Random.Range(0, enemyCombatants.Count)];
+            Target.Unit.AIController.CombatState.AddTarget(unit.Interactable);
         }
     }
 }
