@@ -15,18 +15,15 @@ namespace ScavengerWorld.AI
         private AnimationController animController;
         private NavMeshAgent navigator;
 
-        private AIState defaultState;
+        private DefaultAIState defaultState;
         private CombatAIState combatState;
 
         private StateMachine<AIState>.WithDefault stateMachine;
 
-        public AIState.State CurrentState => stateMachine.CurrentState.GetState();
+        public AIMode AIMode => stateMachine.CurrentState.AIMode;
 
         public float ActionProgress => stateMachine.CurrentState.ActionProgress;
-
-        public float NavigatorSpeed => navigator.velocity.magnitude;
-        public Vector3 TargetPos => stateMachine.CurrentState.TargetPos;
-        public AIState DefaultState => defaultState;
+        public DefaultAIState DefaultState => defaultState;
         public CombatAIState CombatState => combatState;
 
         private void Awake()
@@ -37,8 +34,8 @@ namespace ScavengerWorld.AI
             navigator.autoRepath = true;
             navigator.updateRotation = false;
 
-            defaultState = new AIState(navigator, unit, animController);
-            combatState = new CombatAIState(navigator, unit, animController);
+            defaultState = new DefaultAIState(unit, navigator, animController);
+            combatState = new CombatAIState(unit, navigator, animController);
 
             defaultState.Enabled = true;
             combatState.Enabled = false;
@@ -86,49 +83,49 @@ namespace ScavengerWorld.AI
 
         public void EnableMovement()
         {
-            stateMachine.CurrentState.EnableMovement();
+            stateMachine.CurrentState.Mover.EnableMovement();
         }
 
         public void DisableMovement()
         {
-            stateMachine.CurrentState.DisableMovement();
+            stateMachine.CurrentState.Mover.DisableMovement();
         }
 
         public bool HasReachedTargetPos()
         {
-            return stateMachine.CurrentState.HasReachedTargetPos();
+            return stateMachine.CurrentState.Mover.HasReachedTargetPos();
         }
 
         public void ResetTargetPos()
         {
-            stateMachine.CurrentState.ResetTargetPos();
+            stateMachine.CurrentState.Mover.ResetTargetPos();
         }
 
         public void MoveToPosition(Vector3 pos)
         {
-            stateMachine.CurrentState.MoveToPosition(pos);
+            stateMachine.CurrentState.Mover.MoveToPosition(pos);
         }
 
         public void FaceTowards(Interactable i)
         {
-            stateMachine.CurrentState.FaceTowards(i);
+            stateMachine.CurrentState.Mover.FaceTowards(i);
         }
 
-        public void SetState(AIState.State state, Interactable target=null)
+        public void SetState(AIMode mode, Interactable target=null)
         {
-            switch (state)
+
+            switch (mode)
             {
-                case AIState.State.Default:
+                case AIMode.Default:
                     defaultState.Enabled = true;
                     combatState.Enabled = false;
                     stateMachine.TrySetState(defaultState);
                     break;
 
-                case AIState.State.Combat:
-
+                case AIMode.Combat:
                     defaultState.Enabled = false;
                     combatState.Enabled = true;
-                    combatState.SetTarget(target);
+                    combatState.AddTarget(target);
                     stateMachine.TrySetState(combatState); 
                     break;
 

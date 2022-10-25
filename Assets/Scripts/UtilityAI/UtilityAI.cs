@@ -12,7 +12,7 @@ namespace ScavengerWorld.AI.UAI
     {
         public Interactable Target { get; set; }
 
-        public readonly List<UtilityAction> interactableActions = new();
+        private readonly List<UtilityAction> interactableActions = new();
 
         public UtilityAI()
         {
@@ -24,7 +24,7 @@ namespace ScavengerWorld.AI.UAI
             interactableActions.Clear();
         }
 
-        public virtual void GetInteractableActions(Unit unit)
+        public void GetInteractableActions(Unit unit)
         {
             interactableActions.Clear();
             List<Interactable> interactables = unit.Pulse();

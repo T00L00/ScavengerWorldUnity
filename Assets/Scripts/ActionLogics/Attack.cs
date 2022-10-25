@@ -34,7 +34,7 @@ namespace ScavengerWorld
             //}
             //StopAction(unit, target);
             //Debug.Log("Selected action: Attack");
-            data.unit.AIController.SetState(AIState.State.Combat, data.target);
+            data.unit.AIController.SetState(AIMode.Combat, data.target);
             StopAction(data);
         }
 
