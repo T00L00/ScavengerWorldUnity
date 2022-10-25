@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using Animancer.FSM;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using JetBrains.Annotations;
 
 namespace ScavengerWorld.AI
 {
@@ -46,12 +47,24 @@ namespace ScavengerWorld.AI
         void Start()
         {
             stateMachine.TrySetDefaultState();
+            InvokeRepeating("Assess", 0.5f, 1f);
         }
 
         // Update is called once per frame
         void Update()
         {
             stateMachine.CurrentState.OnUpdate();
+        }
+
+        public void Disable()
+        {
+            navigator.enabled = false;
+            enabled = false;
+        }
+
+        private void Assess()
+        {
+            stateMachine.CurrentState.Assess();
         }
 
         public void AnimateAction(AnimationClip clip)
@@ -113,7 +126,6 @@ namespace ScavengerWorld.AI
 
         public void SetState(AIMode mode, Interactable target=null)
         {
-
             switch (mode)
             {
                 case AIMode.Default:

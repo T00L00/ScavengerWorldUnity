@@ -31,24 +31,25 @@ namespace ScavengerWorld
         public bool HasReachedTargetNode(InteractNode node)
         {
             float distance = Vector3.Distance(unit.transform.position, node.transform.position);
-            return Mathf.Abs(distance - navigator.stoppingDistance) <= 0.1f;
+            return Mathf.Abs(distance - navigator.stoppingDistance) <= 0.5f;
         }
 
         public bool HasReachedTarget(Interactable target)
         {
             float distance = Vector3.Distance(unit.transform.position, target.transform.position);
-            return Mathf.Abs(distance - target.useRange) <= 0.1f;
+            return Mathf.Abs(distance - target.useRange) <= 0.5f;
         }
 
         public bool HasReachedTargetPos()
         {
             float distance = Vector3.Distance(unit.transform.position, targetPos);
-            return Mathf.Abs(distance - navigator.stoppingDistance) <= 0.1f;
+            return Mathf.Abs(distance - navigator.stoppingDistance) <= 0.5f;
         }
 
         public void ResetTargetPos()
         {
-            targetPos = default;
+            StopMoving();
+            targetPos = default;            
         }
 
         public void MoveToTargetNode(InteractNode node)

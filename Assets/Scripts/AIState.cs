@@ -23,6 +23,7 @@ namespace ScavengerWorld.AI
 
         protected AIMode mode;
         protected Action selectedAction;
+        protected Action nextAction;
         protected float actionProgress;
 
         public AIMode AIMode => mode;
@@ -38,6 +39,8 @@ namespace ScavengerWorld.AI
         public abstract void OnExitState();
 
         public abstract void OnUpdate();
+
+        public abstract void Assess();
 
         public virtual void AnimateLocomotion()
         {

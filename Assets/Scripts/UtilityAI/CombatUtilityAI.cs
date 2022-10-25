@@ -69,7 +69,7 @@ namespace ScavengerWorld.AI.UAI
         public void SelectTarget(Unit unit)
         {
             Target = enemyCombatants[Random.Range(0, enemyCombatants.Count)];
-            Target.Unit.AIController.SetState(AIMode.Combat, unit.Interactable);
+            Target.Unit.AIController.CombatState.AddTarget(unit.Interactable);
         }
     }
 }

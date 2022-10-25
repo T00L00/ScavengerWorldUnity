@@ -7,6 +7,7 @@ using Animancer.FSM;
 using ScavengerWorld.AI.UAI;
 using System.Linq;
 using UnityEngine.UIElements;
+using UnityEngine.TextCore.Text;
 
 namespace ScavengerWorld.AI
 {
@@ -48,6 +49,32 @@ namespace ScavengerWorld.AI
             ai.Reset();
         }
 
+        /// <summary>
+        /// Evaluate if there needs to be a change in current activity
+        /// </summary>
+        public override void Assess()
+        {
+            ai.GetInteractableActions(unit);
+            nextAction = ai.DecideBestAction(unit);
+
+            if (selectedAction is null || !selectedAction.Equals(nextAction))
+            {
+                CancelSelectedAction();
+                selectedAction = nextAction.Copy();
+                return;
+            }
+
+            if (selectedAction.Equals(nextAction))
+            {
+                return;
+            }
+
+            if (nextAction is null)
+            {
+                selectedAction = null;
+            }
+        }
+
         public override void OnUpdate()
         {
             locomotion.State.Parameter = mover.Speed;
@@ -55,8 +82,8 @@ namespace ScavengerWorld.AI
 
             if (selectedAction is null)
             {
-                ai.GetInteractableActions(unit);
-                selectedAction = ai.DecideBestAction(unit);
+                //ai.GetInteractableActions(unit);
+                //selectedAction = ai.DecideBestAction(unit);
                 return;
             }
 

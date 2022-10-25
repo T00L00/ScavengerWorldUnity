@@ -41,7 +41,6 @@ namespace ScavengerWorld.AI
             mover.SetMaxSpeed(8f);
             AnimateLocomotion();
             ai.SelectTarget(unit);
-            //ai.Target.Unit.AIController.SetState(State.Combat, this.unit.Interactable);
         }
 
         public override void OnExitState()
@@ -52,18 +51,15 @@ namespace ScavengerWorld.AI
         public void AddTarget(Interactable target)
         {
             ai.AddTarget(target);
-            //ai.Target = target;
+        }
+
+        public override void Assess()
+        {
+            
         }
 
         public override void OnUpdate()
         {
-            // Check for all enemies targeting me
-            // Decide which enemy to engage based on health, distance, stats
-            // If no enemies targeting me, search for enemy unit to engage
-
-            // Will need to constantly check for an update in enemy targets or
-            // listen to some event fired when enemy engages or is nearby
-
             locomotion.State.Parameter = mover.Speed;
             mover.HandleRotation();
 

@@ -157,8 +157,8 @@ namespace ScavengerWorld
 
         public void Disable()
         {
-            aiController.enabled = false;
             unitCollider.enabled = false;
+            aiController.Disable();
             weapon?.Disable();
         }
     }
