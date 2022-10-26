@@ -1,16 +1,11 @@
-using ScavengerWorld.AI;
-using ScavengerWorld;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ScavengerWorld.AI
 {
-    /// <summary>
-    /// Performs attack move specified by animation clip
-    /// </summary>
-    [CreateAssetMenu(menuName = "Scavenger World/Action Logics/Attack")]
-    public class Attack : ActionLogic
+    [CreateAssetMenu(menuName = "Scavenger World/Action Logics/Defend")]
+    public class Defend : ActionLogic
     {
         public override bool RequiresInRange(ActionData data)
         {
@@ -25,6 +20,7 @@ namespace ScavengerWorld.AI
         public override void StartAction(ActionData data)
         {
             data.unit.AIController.FaceTowards(data.target);
+            data.unit.ApplyDefenseBoost();
             data.unit.AIController.AnimateCombatAction(data.animation);
         }
 
@@ -32,10 +28,11 @@ namespace ScavengerWorld.AI
         {
             // TODO - Logic to decide whether or not to stay in combat state?
 
+            data.unit.UnapplyDefenseBoost();
             if (!data.target.Damageable.IsAlive)
             {
                 data.unit.AIController.SetState(AIMode.Default);
-            }
+            }            
             data.unit.AIController.OnFinishedAction();
         }
 

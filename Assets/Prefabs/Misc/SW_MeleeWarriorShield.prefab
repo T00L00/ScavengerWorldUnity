@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1246723093906535503
+--- !u!1 &6491111380859995051
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1246723093906630767}
-  - component: {fileID: 1246723093907433551}
-  - component: {fileID: 1246723093908531855}
-  - component: {fileID: 9002138730726997914}
-  - component: {fileID: 3505368792594525459}
-  - component: {fileID: 8716907109086133595}
+  - component: {fileID: 6491111380859510667}
+  - component: {fileID: 6491111380858707883}
+  - component: {fileID: 6491111380857740651}
+  - component: {fileID: 7351365900563889777}
   m_Layer: 0
-  m_Name: SW_MeleeWarriorSword
+  m_Name: SW_MeleeWarriorShield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1246723093906630767
+--- !u!4 &6491111380859510667
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246723093906535503}
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_GameObject: {fileID: 6491111380859995051}
+  m_LocalRotation: {x: -0.97131294, y: -0.21484224, z: 0.09759223, w: -0.0294918}
+  m_LocalPosition: {x: -0.044, y: -0.057, z: -0.037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1246723093907433551
+  m_LocalEulerAnglesHint: {x: 5.695, y: -169.759, z: 155.566}
+--- !u!33 &6491111380858707883
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246723093906535503}
-  m_Mesh: {fileID: 4300000, guid: 401ee06a18fb85e43b9e6360d37719b0, type: 3}
---- !u!23 &1246723093908531855
+  m_GameObject: {fileID: 6491111380859995051}
+  m_Mesh: {fileID: 4300000, guid: 00ba3060b11de6a4abcc1999cd5caeb6, type: 3}
+--- !u!23 &6491111380857740651
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246723093906535503}
+  m_GameObject: {fileID: 6491111380859995051}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,45 +84,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &9002138730726997914
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246723093906535503}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &3505368792594525459
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246723093906535503}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.14529318, y: 0.8674661, z: 0.073570594}
-  m_Center: {x: -0.0030803531, y: 0.6580265, z: 0.0010882393}
---- !u!114 &8716907109086133595
+--- !u!114 &7351365900563889777
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246723093906535503}
+  m_GameObject: {fileID: 6491111380859995051}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f11e1798bf858449b2ddd293cf37de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: dbae787713cdaf54caf6f0fb9e255538, type: 2}
+  data: {fileID: 11400000, guid: 6af39cb54f41ad24485ed6457e390641, type: 2}

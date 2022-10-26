@@ -27,13 +27,16 @@ namespace ScavengerWorld
     public class Unit : MonoBehaviour
     {
         [SerializeField] private float rotateSpeed = 20f;
-        [SerializeField] private Weapon weapon;        
         [SerializeField] private Sensor sensor;
         [SerializeField] private Inventory inventory;
 
         [Header("Class & Attributes")]
         [SerializeField] private UnitClass unitClass;
         [SerializeField] private Attributes attributes;
+
+        [Header("Weapons")]
+        [SerializeField] private Weapon attackWeapon;
+        [SerializeField] private Weapon defenseWeapon;
 
         [Header("Actions")]
         [SerializeField] private List<Action> attackActions;
@@ -45,6 +48,8 @@ namespace ScavengerWorld
         [SerializeField] private ClipTransition deathAnimation;
 
         private MeshRenderer meshRenderer;
+
+        private Stats stats;
         private Interactable interactable;
         private Damageable damageable;
         private AIController aiController;
@@ -54,8 +59,10 @@ namespace ScavengerWorld
         private BehaviorParameters behaviorParameters;
 
         public UnitClass UnitClass => unitClass;
-        public Weapon Weapon => weapon;
+        public Weapon AttackWeapon => attackWeapon;
+        public Weapon DefenseWeapon => defenseWeapon;
         public Attributes Attributes => attributes;
+        public Stats Stats => stats;
 
         public ReadOnlyCollection<Action> AttackActions => attackActions.AsReadOnly();
         public ReadOnlyCollection<Action> DefendActions => defendActions.AsReadOnly();
@@ -92,6 +99,8 @@ namespace ScavengerWorld
             behaviorParameters = GetComponentInChildren<BehaviorParameters>();
             ArenaManager = GetComponentInParent<TeamGroup>()?.GetComponentInParent<ArenaManager>();
 
+            stats = new Stats(attributes);
+
             meshRenderer = GetComponentInChildren<MeshRenderer>();
             if (meshRenderer is null)
             {
@@ -109,6 +118,16 @@ namespace ScavengerWorld
         public List<Interactable> Pulse()
         {
             return sensor.Pulse(transform.position);
+        }
+
+        public void ApplyDefenseBoost()
+        {
+            stats.AddDamageReduction(defenseWeapon.DamageReduction); // Hardcoding to use defense weapon for now
+        }
+
+        public void UnapplyDefenseBoost()
+        {
+            stats.ReduceDamageReduction(defenseWeapon.DamageReduction); // Hardcoding to use defense weapon for now
         }
 
         public void AddItem(Gatherable gatherable, int amount)
@@ -159,7 +178,8 @@ namespace ScavengerWorld
         {
             unitCollider.enabled = false;
             aiController.Disable();
-            weapon?.Disable();
+            attackWeapon?.Disable();
+            defenseWeapon?.Disable();
         }
     }
 }

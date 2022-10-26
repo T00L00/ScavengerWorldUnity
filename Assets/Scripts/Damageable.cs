@@ -35,7 +35,7 @@ namespace ScavengerWorld
         {
             // TODO - Incorporate armor into calculation
 
-            float damageInflicted = amount * (1 - unit.Attributes.toughness * 0.01f); 
+            float damageInflicted = amount - unit.Stats.DamageReduction;
             unit.Vitals.Poise.Reduce(damageInflicted);
             unit.Vitals.Health.Reduce(damageInflicted);
             if (unit.Vitals.Poise.CurrentValue <= 50f)

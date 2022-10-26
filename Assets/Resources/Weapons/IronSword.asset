@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607b7eafd3a36794998bc79795070bc4, type: 3}
+  m_Name: IronSword
+  m_EditorClassIdentifier: 
+  weaponName: Iron Sword
+  description: Standard-issue sword for warriors
+  damage: 20
+  damageReduction: 5
+  locomotion:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Speed: 1
+    _Animations:
+    - {fileID: 7400000, guid: dbe0648bd4c6b334d8ab22b29f8ba43b, type: 3}
+    - {fileID: -203655887218126122, guid: 5a4a2a945ef358240a40c1fd6e90d4c4, type: 3}
+    - {fileID: -203655887218126122, guid: 555407dd188d71e48916e840f6043bf4, type: 3}
+    _Speeds: []
+    _SynchronizeChildren: 
+    _Thresholds:
+    - 0
+    - 3
+    - 8
+    _DefaultParameter: 0
+    _ExtrapolateSpeed: 1
+  attackAnimations:
+  - {fileID: 7400000, guid: b3882355c9a63834eb0dcd257a5741bb, type: 3}
+  - {fileID: 7400000, guid: dc6c3702c85ebbc48b665719032e5528, type: 3}
+  - {fileID: 7400000, guid: 323abf90ade8f674a96f3b3efbe695dc, type: 3}
+  - {fileID: 7400000, guid: 3cf8b011f7ce24548bf5b59f3c580fd4, type: 3}
+  defendAnimations:
+  - {fileID: 7400000, guid: aa250c8ab0db2d742a5926cff46045a5, type: 3}

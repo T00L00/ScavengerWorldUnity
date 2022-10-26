@@ -44,13 +44,13 @@ namespace ScavengerWorld.AI.UAI
             {
                 combatAction = unit
                     .AttackActions[Random.Range(0, unit.AttackActions.Count)]
-                    .Copy(unit, Target, unit.Weapon.RandomAttackAnimation());
+                    .Copy(unit, Target, unit.AttackWeapon.RandomAttackAnimation()); // Hardcoding to use attack weapon for now
             }
             else
             {
                 combatAction = unit
                     .DefendActions[Random.Range(0, unit.DefendActions.Count)]
-                    .Copy(unit, Target, unit.Weapon.RandomDefendAnimation());
+                    .Copy(unit, Target, unit.DefenseWeapon.RandomDefendAnimation()); // Hardcoding to use defense weapon for now
             }
 
             return combatAction;

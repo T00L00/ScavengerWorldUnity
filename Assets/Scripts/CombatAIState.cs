@@ -30,7 +30,7 @@ namespace ScavengerWorld.AI
             this.mover = new(unit, navigator);
             this.animController = animController;
 
-            this.locomotion = unit.Weapon?.combatLocomotion;
+            this.locomotion = unit.AttackWeapon?.CombatLocomotion;
             this.ai = new CombatUtilityAI();
             this.mode = AIMode.Combat;
             actionProgress = 0;

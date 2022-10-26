@@ -5,13 +5,6 @@ using UnityEngine;
 namespace ScavengerWorld
 {
     [System.Serializable]
-    public struct Stats
-    {
-        [Range(0f, 50f)]
-        public float armor;
-    }
-
-    [System.Serializable]
     public struct Attributes
     {
         [Range(0f, 100f)]
@@ -27,8 +20,6 @@ namespace ScavengerWorld
         
         [Range(0f, 100f)]
         public float dexterity;
-
-        public float attackSpeed => (1 + dexterity * 0.01f);
         
         [Range(0f, 50f)]
         public float toughness;
@@ -42,6 +33,8 @@ namespace ScavengerWorld
 
         [Tooltip("Amount harvested per game-hour")]
         [Range(0f, 100f)]
-        public int labouring;        
+        public int labouring;
+
+        public float AttackSpeed => (1 + dexterity * 0.01f);
     }
 }
