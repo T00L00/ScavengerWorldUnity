@@ -72,9 +72,9 @@ namespace ScavengerWorld.AI
             animController.AnimateAction(clip);
         }
 
-        public void AnimateAttackAction(AnimationClip clip)
+        public void AnimateCombatAction(AnimationClip clip)
         {
-            animController.AnimateAction(clip, unit.Attributes.attackSpeed);
+            animController.AnimateAction(clip, unit.Attributes.AttackSpeed);
         }
 
         public void StopActionAnimation()

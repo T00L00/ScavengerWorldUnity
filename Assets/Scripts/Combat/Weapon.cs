@@ -9,54 +9,49 @@ namespace ScavengerWorld
 {
     public class Weapon : MonoBehaviour
     {
-        [Range(1f, 3f)]
-        [SerializeField] private float damageModifier = 1f;
-        [SerializeField] private Unit unit;
-        [SerializeField] private AnimationClip[] attackAnimations;
-        [SerializeField] private AnimationClip[] defendAnimations;
-
-        public LinearMixerTransition combatLocomotion;
-
+        [SerializeField] private WeaponData data;
         private BoxCollider weaponCollider;
 
-        public float DamageModifier => damageModifier;
+        public float Damage => data.damage;
+        public float DamageReduction => data.damageReduction;
+        public LinearMixerTransition CombatLocomotion => data.locomotion;
 
         private void Awake()
         {
             weaponCollider = GetComponent<BoxCollider>();
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            Unit enemyUnit = other.GetComponent<Unit>();
-            if (enemyUnit != null && enemyUnit != unit && enemyUnit.TeamId != unit.TeamId) //&& rb.velocity.magnitude > 1)
-            {
-                if (enemyUnit.AIController.CombatState.IsBlocking)
-                {
-                    //unit.AIController.AnimateStagger();
-                    return;
-                }
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    Unit enemyUnit = other.GetComponent<Unit>();
+        //    if (enemyUnit != null && enemyUnit != unit && enemyUnit.TeamId != unit.TeamId) //&& rb.velocity.magnitude > 1)
+        //    {
+        //        if (enemyUnit.AIController.CombatState.IsBlocking)
+        //        {
+        //            unit.AIController.AnimateStagger();
+        //            return;
+        //        }
 
-                float totalDamage = damageModifier * unit.Attributes.strength;
-                enemyUnit.Damageable.TakeDamage(totalDamage);
-            }
+        //        float totalDamage = damageModifier * unit.Attributes.strength;
+        //        enemyUnit.Damageable.TakeDamage(totalDamage);
+        //    }
 
-            //Debug.Log($"Sword hit dealing {totalDamage}!");
-        }
+        //    //Debug.Log($"Sword hit dealing {totalDamage}!");
+        //}
 
         public AnimationClip RandomAttackAnimation()
         {
-            return attackAnimations[Random.Range(0, attackAnimations.Length)];
+            return data.attackAnimations[Random.Range(0, data.attackAnimations.Length)];
         }
 
         public AnimationClip RandomDefendAnimation()
         {
-            return defendAnimations[Random.Range(0, defendAnimations.Length)];
+            return data.defendAnimations[Random.Range(0, data.defendAnimations.Length)];
         }
 
         public void Disable()
         {
-            weaponCollider.enabled = false;
-        }
+            //weaponCollider.enabled = false;
+        }        
     }
 }
